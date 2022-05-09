@@ -1,15 +1,37 @@
 import {Text, View} from "../components/Themed";
 import EditScreenInfo from "../components/EditScreenInfo";
-import {StyleSheet, TextInput} from "react-native";
+import {StyleSheet, TextInput, Image, ImageRequireSource, SafeAreaView, StatusBar, TouchableOpacity} from "react-native";
 import {useState} from "react";
 
+
 export function LoginScreen() {
-    const [text, setText] = useState('');
+        const [userName, setUserName] = useState("");
+        const [password, setPassword] = useState("");
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Sign in here</Text>
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-           <Text>Didrik du er tjukk</Text>
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Brukernavn"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={(username) => setUserName(username)}
+                />
+            </View>
+
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Passord."
+                    placeholderTextColor="#003f5c"
+                    secureTextEntry={true}
+                    onChangeText={(password) => setPassword(password)}
+                />
+            </View>
+
+            <TouchableOpacity style={styles.loginBtn}>
+                <Text style={styles.TextInput}>LOGIN</Text>
+            </TouchableOpacity>
         </View>
     );
 }
@@ -28,5 +50,33 @@ const styles = StyleSheet.create({
         marginVertical: 30,
         height: 1,
         width: '80%',
+    },
+    image: {
+        marginBottom: 40,
+    },
+
+    inputView: {
+        backgroundColor: "#FFC0CB",
+        borderRadius: 30,
+        width: "70%",
+        height: 45,
+        marginBottom: 20,
+        alignItems: "center",
+    },
+
+    TextInput: {
+        height: 50,
+        flex: 1,
+        padding: 10,
+        marginLeft: 20,
+    },
+    loginBtn: {
+        width: "80%",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 40,
+        backgroundColor: "#FF1493",
     },
 });
