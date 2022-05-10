@@ -93,7 +93,7 @@ function BottomTabNavigator() {
         }}
       />
         <BottomTab.Screen
-            name="Third"
+            name={"Third" as const}
             component={LoginScreen}
             options={{
                 title: 'Logg inn',

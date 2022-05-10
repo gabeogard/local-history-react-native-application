@@ -12,3 +12,7 @@ web-build/
 
 # macOS
 .DS_Store
+/.idea/smidig-v2.iml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/.gitignore

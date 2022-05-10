@@ -1,0 +1,44 @@
+{
+  "questions": [
+    {
+      "question": "Hvor er Rælingen?",
+      "answers": [
+        "I nærheten av lillestrøm",
+        "Langt i gokk",
+        "Ikke helt i Norge",
+        "Ikke helt ikke i norge heller"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "Hvor er Rælingen",
+      "answers": [
+        "I nærheten av lillestrøm",
+        "langt i gokk",
+        "Ikke i atlanterhavet",
+        "Ikke utenfor USA hvertfall"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "question": "Er denne appen fin?",
+      "answers": [
+        "Ja",
+        "Ikke faen",
+        "Hva snakker du om",
+        "Selvfølgelig"
+      ],
+      "correctIndex": 3
+    },
+    {
+      "question": "Fucker du med pizza?",
+      "answers": [
+        "Ja",
+        "Nei jeg er retard",
+        "Maybe check if this works before making 50 questions",
+        "Okei her er vi da, to retards som ikke liker pizza"
+      ],
+      "correctIndex": 0
+    }
+  ]
+}
