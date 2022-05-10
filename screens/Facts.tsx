@@ -1,22 +1,22 @@
-import {Image, StyleSheet, Text, View} from "react-native";
+import {Button, Image, StyleSheet, Text, View} from "react-native";
+import {facts} from "../res/quiz/facts.json";
+import {useState} from "react";
 
 export function FactsScreen(){
 
-    return(<View style={styles.container}>
-        <View style={styles.factBox}>
-            <Text>{fact.title}</Text>
-            <Text>{fact.text}</Text>
-            <Image source={require('../res/images/ekorn.png')} style={{height: 50, width: 50, marginTop: 15}}/>
+    const [currentIndex, setIndex] = useState(0)
+
+    return(
+        <View style={styles.container}>
+            <View style={styles.factBox}>
+            <Text style={styles.title}>{facts[currentIndex].Title}</Text>
+            <Text style={styles.factText}>{facts[currentIndex].Text}</Text>
         </View>
         </View>
     )
 
-
-
-
 }
 
-const fact = {title:"Silkesagen", text:"1750 kom silkesagen, de tynnere bladene ga 25% mindre svinn enn de eldre type sagene og sagingen gikk raskere", image:"./res/images/ekorn.png"};
 
 
 const styles = StyleSheet.create({
@@ -45,5 +45,15 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#000'
     },
+    factText: {
+        width:'80%',
+        height: '50%',
+        paddingTop: '10%',
+        backgroundColor: '#e4e8eb',
+        borderRadius: '20%',
+        borderStyle: 'solid',
+        borderWidth: 2,
+
+    }
 
 });
