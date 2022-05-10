@@ -33,6 +33,8 @@ export function LoginScreen() {
                 <Text style={styles.TextInput}>LOGIN</Text>
             </TouchableOpacity>
 
+            <Image source={require('../res/images/pikachu.png')} style={{height: 150, width: 150, marginTop: 15}}/>
+
         </View>
     );
 }
