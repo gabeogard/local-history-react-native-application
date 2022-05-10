@@ -32,6 +32,9 @@ export function LoginScreen() {
             <TouchableOpacity style={styles.loginBtn}>
                 <Text style={styles.TextInput}>LOGIN</Text>
             </TouchableOpacity>
+
+            <Image source={require('../res/images/pikachu.png')}
+            style={{width: 150, height: 150}}/>
         </View>
     );
 }
