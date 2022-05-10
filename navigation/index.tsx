@@ -19,6 +19,7 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import {RootStackParamList, RootTabParamList, RootTabScreenProps} from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import {LoginScreen} from "../screens/LoginScreen";
+import {FactsScreen} from "../screens/Facts";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -98,6 +99,14 @@ function BottomTabNavigator() {
             options={{
                 title: 'Logg inn',
                 tabBarIcon: () => <Entypo name="login" size={24} color="black" />,
+            }}
+        />
+         <BottomTab.Screen
+            name="Tabfour"
+            component={FactsScreen}
+            options={{
+                title: 'Fakta',
+                tabBarIcon: () => <AntDesign name="login" size={24} color="black" />,
             }}
         />
     </BottomTab.Navigator>

@@ -10,6 +10,7 @@ export function LoginScreen() {
 
     return (
         <View style={styles.container}>
+            <Image source={require('../res/images/ekorn.png')} style={{height: 150, width: 150, marginTop: 15}}/>
             <View style={styles.inputView}>
                 <TextInput
                     style={styles.TextInput}
@@ -33,7 +34,6 @@ export function LoginScreen() {
                 <Text style={styles.TextInput}>LOGIN</Text>
             </TouchableOpacity>
 
-            <Image source={require('../res/images/pikachu.png')} style={{height: 150, width: 150, marginTop: 15}}/>
 
         </View>
     );
