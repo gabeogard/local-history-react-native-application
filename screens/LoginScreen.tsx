@@ -33,8 +33,6 @@ export function LoginScreen() {
                 <Text style={styles.TextInput}>LOGIN</Text>
             </TouchableOpacity>
 
-            <Image source={require('../res/images/pikachu.png')}
-            style={{width: 150, height: 150}}/>
         </View>
     );
 }
@@ -44,6 +42,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#A1A1A1FF'
     },
     title: {
         fontSize: 20,
@@ -80,6 +79,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginTop: 40,
-        backgroundColor: "#FF1493",
+        backgroundColor: "#2c2b2b",
     },
 });

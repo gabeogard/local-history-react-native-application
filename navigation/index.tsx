@@ -9,7 +9,6 @@ import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/na
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
 import {ColorSchemeName, Pressable} from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign,Entypo } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -25,7 +24,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -55,18 +54,20 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
-  return (
+  // @ts-ignore
+    // @ts-ignore
+    return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors["light"].tint,
       }}>
       <BottomTab.Screen
         name="TabOne"
         component={Home}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           title: 'Hjem',
-          tabBarIcon: () => <AntDesign name="home" size={24} color="white" />,
+          tabBarIcon: () => <AntDesign name="home" size={24} color="black" />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -88,15 +89,15 @@ function BottomTabNavigator() {
         component={TabTwoScreen}
         options={{
           title: 'Informasjon',
-          tabBarIcon: () => <AntDesign name="infocirlce" size={24} color="white" />,
+          tabBarIcon: () => <AntDesign name="infocirlce" size={24} color="black" />,
         }}
       />
         <BottomTab.Screen
-            name="TabThree"
+            name="Third"
             component={LoginScreen}
             options={{
                 title: 'Logg inn',
-                tabBarIcon: () => <Entypo name="login" size={24} color="white" />,
+                tabBarIcon: () => <Entypo name="login" size={24} color="black" />,
             }}
         />
     </BottomTab.Navigator>
