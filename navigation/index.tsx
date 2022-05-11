@@ -8,7 +8,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Pressable} from 'react-native';
+import {ColorSchemeName, Image, Pressable} from 'react-native';
 import { AntDesign,Entypo } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -68,7 +68,7 @@ function BottomTabNavigator() {
         component={Home}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           title: 'Hjem',
-          tabBarIcon: () => <AntDesign name="home" size={24} color="black" />,
+          tabBarIcon: () => <Image source={require('../res/images/homeicon.png')} style={{height:50, width:50, marginBottom: 10}}/>,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -106,7 +106,7 @@ function BottomTabNavigator() {
             component={FactsScreen}
             options={{
                 title: 'Fakta',
-                tabBarIcon: () => <AntDesign name="questioncircleo" size={24} color="black" />,
+                tabBarIcon: () => <Image source={require('../res/images/factsicon.png')} style={{height:30, width:30, marginBottom: 10}}/>,
             }}
         />
     </BottomTab.Navigator>
