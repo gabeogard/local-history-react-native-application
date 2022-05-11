@@ -1,6 +1,15 @@
 import {Text, View} from "../components/Themed";
 import EditScreenInfo from "../components/EditScreenInfo";
-import {StyleSheet, TextInput, Image, ImageRequireSource, SafeAreaView, StatusBar, TouchableOpacity} from "react-native";
+import {
+    StyleSheet,
+    TextInput,
+    Image,
+    ImageRequireSource,
+    SafeAreaView,
+    StatusBar,
+    TouchableOpacity,
+    Platform
+} from "react-native";
 import {useState} from "react";
 
 
@@ -10,7 +19,7 @@ export function LoginScreen() {
 
     return (
         <View style={styles.container}>
-            <Image source={require('../res/images/ekorn.png')} style={{height: 150, width: 150, marginTop: 15}}/>
+            <Image style={styles.image}  source={require("../res/images/landing-picture.png")} />
             <View style={styles.inputView}>
                 <TextInput
                     style={styles.TextInput}
@@ -41,10 +50,10 @@ export function LoginScreen() {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#FBF4E6',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#A1A1A1FF'
     },
     title: {
         fontSize: 20,
@@ -56,31 +65,26 @@ const styles = StyleSheet.create({
         width: '80%',
     },
     image: {
-        marginBottom: 40,
+        marginTop: Platform.OS === "web" ? 0 : 8,
+        height: Platform.OS === "web" ? 115 :  89,
+        width: Platform.OS === "web" ? 350 : 278,
     },
-
     inputView: {
-        backgroundColor: "#FFC0CB",
+        backgroundColor: "#FFFFFF",
         borderRadius: 30,
-        width: "70%",
         height: 45,
         marginBottom: 20,
         alignItems: "center",
     },
-
     TextInput: {
         height: 50,
         flex: 1,
         padding: 10,
-        marginLeft: 20,
     },
     loginBtn: {
-        width: "80%",
-        borderRadius: 25,
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 40,
-        backgroundColor: "#2c2b2b",
+        backgroundColor: "#F5BFB6",
+        marginTop: Platform.OS === "web" ? 5 : 4,
+        borderWidth:1,
+        borderRadius:6,
     },
 });
