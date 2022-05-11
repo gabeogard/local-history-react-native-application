@@ -2,20 +2,34 @@ import {Button, Image, StyleSheet, Text, View} from "react-native";
 import {facts} from "../res/quiz/facts.json";
 import {useState} from "react";
 
+
 export function FactsScreen(){
 
-    const [currentIndex, setIndex] = useState(0)
+
+    const [currentFact, setFact] = useState(0);
+
 
     return(
         <View style={styles.container}>
             <View style={styles.factBox}>
-            <Text style={styles.title}>{facts[currentIndex].Title}</Text>
-            <Text style={styles.factText}>{facts[currentIndex].Text}</Text>
+            <Text style={styles.title}>{facts[currentFact].Title}</Text>
+            <Text style={styles.factText}>{facts[currentFact].Text}</Text>
+            <Button  title={"Neste"}  color={"#000000"}  onPress={NextFact}/>
         </View>
         </View>
     )
 
 }
+function NextFact() {
+
+
+
+    return (
+        <Text>hei</Text>
+    )
+}
+
+
 
 
 
@@ -49,11 +63,7 @@ const styles = StyleSheet.create({
         width:'80%',
         height: '50%',
         paddingTop: '10%',
-        backgroundColor: '#e4e8eb',
-        borderRadius: '20%',
-        borderStyle: 'solid',
-        borderWidth: 2,
+    },
 
-    }
 
 });
