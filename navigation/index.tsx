@@ -102,11 +102,11 @@ function BottomTabNavigator() {
             }}
         />
          <BottomTab.Screen
-            name="Tabfour"
+            name="fakta"
             component={FactsScreen}
             options={{
                 title: 'Fakta',
-                tabBarIcon: () => <AntDesign name="login" size={24} color="black" />,
+                tabBarIcon: () => <AntDesign name="questioncircleo" size={24} color="black" />,
             }}
         />
     </BottomTab.Navigator>

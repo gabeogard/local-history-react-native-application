@@ -1,9 +1,70 @@
-import {Button, Image, StyleSheet, Text, View} from "react-native";
+import {Button, Image, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {facts} from "../res/quiz/facts.json";
 import {useState} from "react";
 
 
+function Quiz(){
+
+
+    const [curQuestion, setQuestion] = useState(0)
+
+
+    const renderOptions = () => {
+        return (
+            <View>
+                {facts[curQuestion]?.Text}
+        </View>
+        )
+    }
+
+    const renderQuestions = () => {
+        return (
+            <View style={styles.factBox}>
+            <View style={styles.title}>
+                <text>{curQuestion+1}</text>
+                <Text>{facts.length}</Text>
+            </View>
+                <Text>{facts[curQuestion]?.Title}</Text>
+        </View>
+        )
+    }
+
+    const handleNext = () => {
+        if (curQuestion === facts.length+1){
+
+        }else {
+            setQuestion(curQuestion+1)
+        }
+    }
+
+    const renderNextButton = () => {
+       return(
+           <TouchableOpacity onPress={handleNext}>
+            <Text style={{color: "red"}}>Next</Text>
+        </TouchableOpacity>
+       )
+    }
+
+    return(
+        <SafeAreaView style={{flex: 1}}>
+            <StatusBar barStyle="light-content" backgroundColor={"red"} />
+            <View style={styles.container}>
+                {renderQuestions()}
+                {renderOptions()}
+                {renderNextButton()}
+            </View>
+        </SafeAreaView>
+    )
+}
+
 export function FactsScreen(){
+    return <Quiz />
+}
+
+
+
+
+export function FactsScree2(){
 
 
     const [currentFact, setFact] = useState(0);
@@ -28,7 +89,6 @@ function NextFact() {
         <Text>hei</Text>
     )
 }
-
 
 
 
