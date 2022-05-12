@@ -54,7 +54,7 @@ function Quiz(){
         if (showHomeButton){
             return(
                 <TouchableOpacity onPress={handleHomeButton}>
-                    <Text style={{color: "red"}}>Back to home</Text>
+                    <Text style={{color: "red"}}>Back to home!</Text>
                 </TouchableOpacity>
             )
         }
