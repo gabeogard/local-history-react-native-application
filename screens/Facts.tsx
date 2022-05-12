@@ -1,5 +1,16 @@
 import React from "react";
-import {Button, Image, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {
+    Button,
+    Image,
+    ImageBackground,
+    Platform,
+    SafeAreaView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from "react-native";
 import {facts} from "../res/quiz/facts.json";
 import {useState} from "react";
 
@@ -15,17 +26,18 @@ function Facts(){
 
     const renderFacts = () => {
         return (
-            <View style={styles.factBox}>
-                <View>
-                    <Text style={styles.title}>{curFact+1}</Text>
-                </View>
-                <View>
-                    <Text style={styles.title}>{facts[curFact]?.Title}</Text>
-                </View>
-                <View>
-                    <Text style={styles.factText}>{facts[curFact]?.Text}</Text>
+            <View style={styles.container}>
+                <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
+                    <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
+                </ImageBackground>
+
+                <View style={styles.factBox}>
+                        <Text style={styles.title}>{curFact+1}</Text>
+                        <Text style={styles.title}>{facts[curFact]?.Title}</Text>
+                        <Text style={styles.factText}>{facts[curFact]?.Text}</Text>
                 </View>
             </View>
+
         )
     }
 
@@ -72,7 +84,7 @@ function Facts(){
             setShowHomeButton(true)
 
         }else {
-            setFact(curFact+1)
+
         }
     }
 
@@ -123,21 +135,31 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius:20,
         borderColor: '#000',
-        width:'80%',
+        width:'60%',
         height:'50%',
     },
     factText: {
-        width:'40%',
-        height:'40%',
         paddingTop: '10%',
-        fontSize: 24,
+        fontSize: 15,
+        borderColor:'black',
+        fontWeight:'normal',
+        paddingBottom:'10%',
+        paddingLeft:'1%',
+        paddingRight: '50%',
+
     },
     buttonsNext: {
         backgroundColor: "#F5BFB6",
-        marginTop: Platform.OS === "web" ? 5 : 4,
+        marginTop: 5,
         borderWidth:1,
         borderRadius:6,
-        fontWeight: 'bold',
+        padding: 3,
+        marginBottom: 20,
+
+        shadowColor: "#000000",
+        shadowOffset: {width: 0, height: 4},
+        shadowOpacity: 0.3,
+        shadowRadius: 4,
     },
     buttonsHome: {
         backgroundColor: "#F5BFB6",
@@ -152,7 +174,35 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderRadius:6,
         fontWeight: 'bold',
-    }
+    },
+    introBox: {
+        //position: "absolute",
+        width: 278,
+        height: 90,
+        top: -40,
+        display: "flex",
+        alignContent: "center",
+        justifyContent: "center",
+
+        shadowColor: "#000000",
+        shadowOffset: {width: 0, height: 4},
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+    },
+    textOnBackground: {
+        //fontFamily: 'Roboto-Regular',
+        fontStyle: "normal",
+        fontWeight: "400",
+        fontSize: 24,
+        lineHeight: 28,
+        paddingLeft: 32,
+        paddingBottom: 33,
+
+        shadowColor: "#000000",
+        shadowOffset: {width: 0, height: 4},
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+    },
 
 
 
