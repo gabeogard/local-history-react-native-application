@@ -77,8 +77,6 @@ export function FactsScreen(){
 }
 
 
-
-
 export function FactsScree2(){
 
 
