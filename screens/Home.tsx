@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-
   },
     buttonFlex: {
         backgroundColor: "#FBF4E6",
@@ -65,6 +64,11 @@ const styles = StyleSheet.create({
       borderWidth:1,
       borderRadius:6,
       padding: 3,
+
+      shadowColor: "#000000",
+      shadowOffset: {width: 0, height: 4},
+      shadowOpacity: 0.3,
+      shadowRadius: 4,
   },
     introBox: {
         //position: "absolute",
