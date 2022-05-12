@@ -8,17 +8,10 @@ function Quiz(){
 
 
     const [curQuestion, setQuestion] = useState(0)
+    const [showNextButton, setShowNextButton] = useState(false)
+    const [showHomeButton, setShowHomeButton] = useState(false)
 
-
-    const renderOptions = () => {
-        return (
-            <View>
-                <Text>{facts[curQuestion]?.Text}</Text>
-            </View>
-        )
-    }
-
-    const renderQuestions = () => {
+    const renderFacts = () => {
         return (
             <View style={styles.factBox}>
                 <View style={styles.title}>
@@ -26,12 +19,14 @@ function Quiz(){
                     <Text>{facts.length}</Text>
                 </View>
                 <Text>{facts[curQuestion]?.Title}</Text>
+                <Text>{facts[curQuestion]?.Text}</Text>
             </View>
         )
     }
 
     const handleNext = () => {
         if (curQuestion === facts.length+1){
+            setShowHomeButton(true)
 
         }else {
             setQuestion(curQuestion+1)
@@ -39,20 +34,39 @@ function Quiz(){
     }
 
     const renderNextButton = () => {
-        return(
-            <TouchableOpacity onPress={handleNext}>
-                <Text style={{color: "red"}}>Next</Text>
-            </TouchableOpacity>
-        )
+            return(
+                <TouchableOpacity onPress={handleNext}>
+                    <Text style={{color: "red"}}>Next</Text>
+                </TouchableOpacity>
+            )
+    }
+
+    const handleHomeButton = () => {
+        if (curQuestion === facts.length+1){
+            setShowHomeButton(true)
+
+        }else {
+            setQuestion(curQuestion+1)
+        }
+    }
+
+    const renderHomeButton = () => {
+        if (showHomeButton){
+            return(
+                <TouchableOpacity onPress={handleHomeButton}>
+                    <Text style={{color: "red"}}>Back to home</Text>
+                </TouchableOpacity>
+            )
+        }
     }
 
     return(
         <SafeAreaView style={{flex: 1}}>
             <StatusBar barStyle="light-content" backgroundColor={"red"} />
             <View style={styles.container}>
-                {renderQuestions()}
-                {renderOptions()}
+                {renderFacts()}
                 {renderNextButton()}
+                {renderHomeButton()}
             </View>
         </SafeAreaView>
     )
