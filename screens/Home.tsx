@@ -35,8 +35,9 @@ export default function Home({ navigation }: RootTabScreenProps<'TabOne'>) {
               <Pressable style={styles.button} onPress={ () => alert("Register")}>
                   <Text>Registrer</Text>
               </Pressable>
-
           </View>
+
+          <Image style={styles.onTour} source={require("../res/images/onTour.png")}/>
 
       </View>
   );
@@ -101,6 +102,15 @@ const styles = StyleSheet.create({
         left: 25,
         top: 129,
     },
+
+    onTour:{
+      position:"absolute",
+        zIndex:1,
+        width: 56,
+        height: 76,
+        left: 260,
+        top: 379
+},
     cloudRight: {
         position: "absolute",
         zIndex:1,
