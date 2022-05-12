@@ -1,52 +1,78 @@
 import React from "react";
-import {Button, Image, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Button, Image, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {facts} from "../res/quiz/facts.json";
 import {useState} from "react";
 
 
-function Quiz(){
+function Facts(){
 
 
-    const [curQuestion, setQuestion] = useState(0)
+    const [curFact, setFact] = useState(0)
     const [showNextButton, setShowNextButton] = useState(false)
     const [showHomeButton, setShowHomeButton] = useState(false)
+    const [showBackButton, setBackButton] = useState(false);
+
 
     const renderFacts = () => {
         return (
             <View style={styles.factBox}>
-                <View style={styles.title}>
-                    <Text>{curQuestion+1}</Text>
-                    <Text>{facts.length}</Text>
+                <View>
+                    <Text style={styles.title}>{curFact+1}</Text>
                 </View>
-                <Text>{facts[curQuestion]?.Title}</Text>
-                <Text>{facts[curQuestion]?.Text}</Text>
+                <View>
+                    <Text style={styles.title}>{facts[curFact]?.Title}</Text>
+                </View>
+                <View>
+                    <Text style={styles.factText}>{facts[curFact]?.Text}</Text>
+                </View>
             </View>
         )
     }
 
     const handleNext = () => {
-        if (curQuestion === facts.length+1){
+        if (facts[curFact]?.Title === "Kvernhus"){
             setShowHomeButton(true)
 
+
         }else {
-            setQuestion(curQuestion+1)
+            setFact(curFact+1)
         }
     }
 
+
     const renderNextButton = () => {
-            return(
-                <TouchableOpacity onPress={handleNext}>
-                    <Text style={{color: "red"}}>Next</Text>
-                </TouchableOpacity>
-            )
+        return(
+            <TouchableOpacity onPress={handleNext}>
+                <Text style={styles.buttonsNext}>Next</Text>
+            </TouchableOpacity>
+        )
     }
 
+    const handlePrev  = () => {
+        if (facts[curFact]?.Title === "Silkesagen"){
+            setBackButton(true);
+
+
+        }else {
+            setFact(curFact-1)
+        }
+    }
+
+    const renderBackButton = () => {
+        return(
+            <TouchableOpacity onPress={handlePrev}>
+                <Text style={styles.buttonsBack}>Back</Text>
+            </TouchableOpacity>
+        )
+    }
+
+
     const handleHomeButton = () => {
-        if (curQuestion === facts.length+1){
+        if (curFact === facts.length+1){
             setShowHomeButton(true)
 
         }else {
-            setQuestion(curQuestion+1)
+            setFact(curFact+1)
         }
     }
 
@@ -54,7 +80,7 @@ function Quiz(){
         if (showHomeButton){
             return(
                 <TouchableOpacity onPress={handleHomeButton}>
-                    <Text style={{color: "red"}}>Back to home!</Text>
+                    <Text style={styles.buttonsHome}>Back to home!</Text>
                 </TouchableOpacity>
             )
         }
@@ -66,6 +92,7 @@ function Quiz(){
             <View style={styles.container}>
                 {renderFacts()}
                 {renderNextButton()}
+                {renderBackButton()}
                 {renderHomeButton()}
             </View>
         </SafeAreaView>
@@ -73,70 +100,61 @@ function Quiz(){
 }
 
 export function FactsScreen(){
-    return <Quiz />
+    return <Facts />
 }
-
-
-export function FactsScree2(){
-
-
-    const [currentFact, setFact] = useState(0);
-
-
-    return(
-        <View style={styles.container}>
-            <View style={styles.factBox}>
-                <Text style={styles.title}>{facts[currentFact].Title}</Text>
-                <Text style={styles.factText}>{facts[currentFact].Text}</Text>
-                <Button  title={"Neste"}  color={"#000000"}  onPress={NextFact}/>
-            </View>
-        </View>
-    )
-
-}
-function NextFact() {
-
-
-
-    return (
-        <Text>hei</Text>
-    )
-}
-
 
 
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#FBF4E6',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#A1A1A1FF'
     },
     title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
+       fontWeight: 'bold',
+        fontSize: 30,
     },
     factBox: {
         alignItems: "center",
-        width: '70%',
-        height: '30%',
         backgroundColor: "#FFCB2F",
-        borderRadius: '20%',
         borderStyle: 'solid',
         borderWidth: 2,
-        borderColor: '#000'
+        borderRadius:20,
+        borderColor: '#000',
+        width:'80%',
+        height:'50%',
     },
     factText: {
-        width:'80%',
-        height: '50%',
+        width:'40%',
+        height:'40%',
         paddingTop: '10%',
+        fontSize: 24,
     },
+    buttonsNext: {
+        backgroundColor: "#F5BFB6",
+        marginTop: Platform.OS === "web" ? 5 : 4,
+        borderWidth:1,
+        borderRadius:6,
+        fontWeight: 'bold',
+    },
+    buttonsHome: {
+        backgroundColor: "#F5BFB6",
+        marginTop: Platform.OS === "web" ? 5 : 4,
+        borderWidth:1,
+        borderRadius:6,
+        fontWeight: 'bold',
+    },
+    buttonsBack: {
+        backgroundColor: "#F5BFB6",
+        marginTop: Platform.OS === "web" ? 5 : 4,
+        borderWidth:1,
+        borderRadius:6,
+        fontWeight: 'bold',
+    }
+
+
 
 
 });
