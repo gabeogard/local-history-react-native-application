@@ -21,10 +21,11 @@ export default function Home({ navigation }: RootTabScreenProps<'TabOne'>) {
       <Pressable style={styles.button} onPress={ () => alert("Register")}>
         <Text>Registrer</Text>
       </Pressable>
-
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

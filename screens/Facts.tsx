@@ -12,20 +12,20 @@ function Quiz(){
     const renderOptions = () => {
         return (
             <View>
-                <Text>{facts[curQuestion]?.Text}</Text>
-        </View>
+                {facts[curQuestion]?.Text}
+            </View>
         )
     }
 
     const renderQuestions = () => {
         return (
             <View style={styles.factBox}>
-            <View style={styles.title}>
-                <Text>{curQuestion+1}</Text>
-                <Text>{facts.length}</Text>
-            </View>
+                <View style={styles.title}>
+                    <text>{curQuestion+1}</text>
+                    <Text>{facts.length}</Text>
+                </View>
                 <Text>{facts[curQuestion]?.Title}</Text>
-        </View>
+            </View>
         )
     }
 
@@ -38,11 +38,11 @@ function Quiz(){
     }
 
     const renderNextButton = () => {
-       return(
-           <TouchableOpacity onPress={handleNext}>
-            <Text style={{color: "red"}}>Next</Text>
-        </TouchableOpacity>
-       )
+        return(
+            <TouchableOpacity onPress={handleNext}>
+                <Text style={{color: "red"}}>Next</Text>
+            </TouchableOpacity>
+        )
     }
 
     return(
@@ -73,10 +73,10 @@ export function FactsScree2(){
     return(
         <View style={styles.container}>
             <View style={styles.factBox}>
-            <Text style={styles.title}>{facts[currentFact].Title}</Text>
-            <Text style={styles.factText}>{facts[currentFact].Text}</Text>
-            <Button  title={"Neste"}  color={"#000000"}  onPress={NextFact}/>
-        </View>
+                <Text style={styles.title}>{facts[currentFact].Title}</Text>
+                <Text style={styles.factText}>{facts[currentFact].Text}</Text>
+                <Button  title={"Neste"}  color={"#000000"}  onPress={NextFact}/>
+            </View>
         </View>
     )
 
