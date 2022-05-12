@@ -12,7 +12,7 @@ function Quiz(){
     const renderOptions = () => {
         return (
             <View>
-                {facts[curQuestion]?.Text}
+                <Text>{facts[curQuestion]?.Text}</Text>
         </View>
         )
     }
@@ -21,7 +21,7 @@ function Quiz(){
         return (
             <View style={styles.factBox}>
             <View style={styles.title}>
-                <text>{curQuestion+1}</text>
+                <Text>{curQuestion+1}</Text>
                 <Text>{facts.length}</Text>
             </View>
                 <Text>{facts[curQuestion]?.Title}</Text>
