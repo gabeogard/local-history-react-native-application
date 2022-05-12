@@ -40,7 +40,7 @@ export function LoginScreen() {
             </View>
 
             <TouchableOpacity style={styles.loginBtn}>
-                <Text style={styles.TextInput}>LOGIN</Text>
+                <Text>LOGIN</Text>
             </TouchableOpacity>
 
 
@@ -59,13 +59,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
     },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
-    },
     image: {
-        marginTop: Platform.OS === "web" ? 0 : 8,
+        marginTop: Platform.OS === "web" ? 0 : 20,
         height: Platform.OS === "web" ? 115 :  89,
         width: Platform.OS === "web" ? 350 : 278,
     },
