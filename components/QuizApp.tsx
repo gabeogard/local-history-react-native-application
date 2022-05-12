@@ -21,7 +21,7 @@ export function QuizApp() {
                         if (currentIndex < questions.length - 1) {
                             setIndex(currentIndex + 1)
                         }
-                        if (0 === questions[currentIndex].correctIndex) {
+                        if (0 === questions[currentIndex].correctIndex && currentIndex < questions.length - 1) {
                             setPoints(points + 100)
                         }
                     }}/>
