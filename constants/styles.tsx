@@ -8,6 +8,8 @@ export const styles = StyleSheet.create({
         backgroundColor: "#FBF4E6",
     },
     textBox: {
+        width: 250,
+        height: 250,
         resizeMode: "cover",
         backgroundColor: "#FFCB2F",
         borderRadius: 10,

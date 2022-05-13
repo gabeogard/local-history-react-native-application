@@ -8,7 +8,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Image, SafeAreaView, View} from 'react-native';
+import {ColorSchemeName, Image, ImageBackground, SafeAreaView, StyleSheet, View} from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
@@ -40,13 +40,13 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
       <SafeAreaView style={{flex:1}}>
-    <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }}  />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
-    </Stack.Navigator>
+        <Stack.Navigator>
+          <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }}  />
+          <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+          <Stack.Group screenOptions={{ presentation: 'modal' }}>
+            <Stack.Screen name="Modal" component={ModalScreen} />
+          </Stack.Group>
+        </Stack.Navigator>
       </SafeAreaView>
   );
 }
@@ -60,6 +60,39 @@ function Title () {
     )
 }
 
+const styles = StyleSheet.create({
+    container: {
+      backgroundColor: "#FBF4E6",
+      flex: 1,
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+
+    },
+    backgroundImage: {
+      height: 60,
+
+    }
+  }
+)
+
+
+function TabBarLogo (){
+    return (
+        <View style={styles.container}>
+            <ImageBackground
+                style={StyleSheet.absoluteFillObject}
+                source={require("../res/images/backgroundtabbar.png")}
+            />
+            <ImageBackground
+                style={StyleSheet.absoluteFillObject}
+                source={require("../res/images/gress.png")}
+                blurRadius={1}
+            />
+        </View>
+    )
+}
+
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
@@ -70,8 +103,13 @@ function BottomTabNavigator() {
       initialRouteName="TabOne"
       screenOptions={{
           headerTitle: () => < Title />,
-          headerBackground: () =>  <LogoTitle />,
-        tabBarActiveTintColor: Colors["light"].tint,
+          headerBackground: () => <LogoTitle />,
+
+          //Vi bestemmer alle her
+          //tabBarBackground: () => <TabBarLogo />
+
+          //foreløpig
+          tabBarStyle: {backgroundColor: "#F5BFB6"}
       }}>
       <BottomTab.Screen
         name="TabOne"
