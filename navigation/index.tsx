@@ -8,7 +8,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Image, ImageBackground, SafeAreaView, StyleSheet, View} from 'react-native';
+import {ColorSchemeName, Image, ImageBackground, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
@@ -20,6 +20,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import {LoginScreen} from "../screens/LoginScreen";
 import {FactsScreen} from "../screens/Facts";
 import {LogoTitle} from "../functions/logoTitle";
+import {MapScreen} from "../screens/MapScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -60,7 +61,7 @@ function Title () {
     )
 }
 
-const styles = StyleSheet.create({
+const stylesTab = StyleSheet.create({
     container: {
       backgroundColor: "#FBF4E6",
       flex: 1,
@@ -76,10 +77,26 @@ const styles = StyleSheet.create({
   }
 )
 
+const styles = StyleSheet.create({
+        container: {
+            backgroundColor: "#FBF4E6",
+            flex: 1,
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+
+        },
+        profile: {
+            width: 55,
+            height: 55,
+        }
+    }
+)
+
 
 function TabBarLogo (){
     return (
-        <View style={styles.container}>
+        <View style={stylesTab.container}>
             <ImageBackground
                 style={StyleSheet.absoluteFillObject}
                 source={require("../res/images/backgroundtabbar.png")}
@@ -104,45 +121,98 @@ function BottomTabNavigator() {
       screenOptions={{
           headerTitle: () => < Title />,
           headerBackground: () => <LogoTitle />,
+          tabBarShowLabel: false,
 
           //Vi bestemmer alle her
           //tabBarBackground: () => <TabBarLogo />
 
           //foreløpig
-          tabBarStyle: {backgroundColor: "#F5BFB6"}
+          tabBarStyle: {
+              backgroundColor: "#F5BFB6",
+              height: 55,
+          },
+
       }}>
+        <BottomTab.Screen
+            name={"Third" as const}
+            component={LoginScreen}
+            options={{
+                tabBarIcon: ({focused}) => (
+                    <View style={{alignItems: "center", justifyContent: "center"}}>
+                        <Image source={require("../res/images/tabs/profil.png")} resizeMode="contain"
+                               style={{
+                                   width: 50,
+                                   height: 50,
+                                   opacity: focused ? 0.4 : 1
+                               }} />
+                        <Text style={{opacity: focused ? 0.4 : 1, fontSize: 12, top: -10}}>Profile</Text>
+                    </View>
+                ),
+            }}
+        />
+
+        <BottomTab.Screen
+            name="fakta"
+            component={FactsScreen}
+            options={{
+                tabBarIcon: ({focused}) => (
+                    <View style={{alignItems: "center", justifyContent: "center"}}>
+                        <Image source={require("../res/images/tabs/factsicon.png")} resizeMode="contain"
+                               style={{
+                                   width: 50,
+                                   height: 50,
+                                   opacity: focused ? 0.4 : 1
+                               }} />
+                        <Text style={{opacity: focused ? 0.4 : 1, fontSize: 12, top: -10}}>Fakta</Text>
+                    </View>
+                ),
+            }}
+        />
+
       <BottomTab.Screen
         name="TabOne"
         component={Home}
         options={({ navigation }) => ({
             title: "Hjem",
-          tabBarIcon: () => <Image source={require('../res/images/homeicon.png')} style={{height:50, width:50, marginBottom: 10}}/>,
+          tabBarIcon: () => <Image source={require('../res/images/tabs/homeicon.png')} style={{height:50, width:50, marginBottom: 10}}/>,
         })}
       />
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Informasjon',
-          tabBarIcon: () => <AntDesign name="infocirlce" size={24} color="black" />,
+            tabBarIcon: ({focused}) => (
+                <View style={{alignItems: "center", justifyContent: "center"}}>
+                    <Image source={require("../res/images/tabs/quiz.png")} resizeMode="contain"
+                           style={{
+                               width: 50,
+                               height: 50,
+                               opacity: focused ? 0.4 : 1
+                           }} />
+                    <Text style={{opacity: focused ? 0.4 : 1, fontSize: 12, top: -10}}>Quiz</Text>
+                </View>
+            ),
         }}
       />
+
         <BottomTab.Screen
-            name={"Third" as const}
-            component={LoginScreen}
+            name="map"
+            component={MapScreen}
             options={{
-                title: 'Logg inn',
-                tabBarIcon: () => <Entypo name="login" size={24} color="black" />,
+                tabBarIcon: ({focused}) => (
+                    <View style={{alignItems: "center", justifyContent: "center"}}>
+                        <Image source={require("../res/images/tabs/kart.png")} resizeMode="contain"
+                               style={{
+                                   width: 50,
+                                   height: 50,
+                                   opacity: focused ? 0.4 : 1
+                               }} />
+                        <Text style={{opacity: focused ? 0.4 : 1, fontSize: 12, top: -10}}>Profile</Text>
+                    </View>
+                ),
             }}
         />
-         <BottomTab.Screen
-            name="fakta"
-            component={FactsScreen}
-            options={{
-                title: 'Fakta',
-                tabBarIcon: () => <Image source={require('../res/images/factsicon.png')} style={{height:30, width:30, marginBottom: 10}}/>,
-            }}
-        />
+
     </BottomTab.Navigator>
   );
 }
