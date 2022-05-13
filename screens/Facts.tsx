@@ -100,7 +100,6 @@ function Facts(){
 
     return(
         <SafeAreaView style={{flex: 1}}>
-            <StatusBar barStyle="light-content" backgroundColor={"red"} />
             <View style={styles.container}>
                 {renderFacts()}
                 {renderNextButton()}

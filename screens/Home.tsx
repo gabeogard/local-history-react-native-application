@@ -1,14 +1,10 @@
-import {StyleSheet, Image, Platform, Pressable, ImageBackground} from 'react-native';
+import {StyleSheet, Image, Pressable, ImageBackground,View, SafeAreaView, Text} from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
-
-
-
-export default function Home({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function Home() {
   return (
-      <View style={styles.container}>
+        //safeAreaView skal ha en annen style
+        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
 
           <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
               <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
@@ -40,6 +36,7 @@ export default function Home({ navigation }: RootTabScreenProps<'TabOne'>) {
           <Image style={styles.onTour} source={require("../res/images/onTour.png")}/>
 
       </View>
+        </SafeAreaView>
   );
 }
 

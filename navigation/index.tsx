@@ -8,7 +8,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Image, Pressable} from 'react-native';
+import {ColorSchemeName, Image, ImageBackground, SafeAreaView, StyleSheet, View} from 'react-native';
 import { AntDesign,Entypo } from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -39,18 +39,39 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
+      <SafeAreaView style={{flex:1}}>
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }}  />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
     </Stack.Navigator>
+      </SafeAreaView>
   );
 }
 
+const BottomTab = createBottomTabNavigator();
 
-const BottomTab = createBottomTabNavigator<RootTabParamList>();
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }}
+  )
+
+function LogoTitle() {
+    return (
+        <View>
+        <ImageBackground
+            style={StyleSheet.absoluteFillObject}
+
+            source={require("../res/images/header.png")}
+            imageStyle={{height:75}}
+        />
+        </View>
+    );
+}
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
@@ -62,27 +83,15 @@ function BottomTabNavigator() {
       initialRouteName="TabOne"
       screenOptions={{
         tabBarActiveTintColor: Colors["light"].tint,
+          headerBackground: () =>  <LogoTitle />,
+
       }}>
       <BottomTab.Screen
         name="TabOne"
         component={Home}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
+        options={({ navigation }) => ({
           title: 'Hjem',
           tabBarIcon: () => <Image source={require('../res/images/homeicon.png')} style={{height:50, width:50, marginBottom: 10}}/>,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
         })}
       />
       <BottomTab.Screen
