@@ -71,10 +71,9 @@ const styles = StyleSheet.create({
       shadowRadius: 4,
   },
     introBox: {
-        //position: "absolute",
         width: 278,
         height: 90,
-        top: -40,
+        top: 50,
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
@@ -99,29 +98,26 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     cloudLeft:{
-        position: "absolute",
         zIndex:1,
         width: 108,
         height: 46,
-        left: 25,
-        top: 129,
+        left: -80,
+        top: 60,
     },
 
     onTour:{
-      position:"absolute",
         zIndex:1,
         width: 56,
         height: 76,
-        left: 260,
-        top: 379
+        left: 130,
+        top: -10
 },
     cloudRight: {
-        position: "absolute",
         zIndex:1,
         width: 108,
         height: 46,
-        left: 190,
-        top: 129,
+        left: 85,
+        top: 14,
     },
     textBox: {
         resizeMode: "cover",
