@@ -14,6 +14,8 @@ export function QuizApp() {
 
     return (
         <View style={styles.container}>
+
+            <View style={styles.textBox}>
             <Text style={styles.title}>Points: {points}</Text>
             <Text style={styles.title}>{questions[currentIndex].question}</Text>
             <Button title={questions[currentIndex].answers[0]}
@@ -54,6 +56,7 @@ export function QuizApp() {
                         }
                     }}
             />
+                </View>
         </View>
     );
 }

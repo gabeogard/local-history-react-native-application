@@ -56,19 +56,32 @@ const BottomTab = createBottomTabNavigator();
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
-    }}
+        backgroundColor: "#FBF4E6",
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+     circle: {
+         height: 70,
+         width: 80,
+         zIndex:1,
+         top: 23
+    }
+
+}
   )
 
 function LogoTitle() {
     return (
-        <View>
+        <View style={styles.container}>
         <ImageBackground
             style={StyleSheet.absoluteFillObject}
 
             source={require("../res/images/header.png")}
-            imageStyle={{height:75}}
+            imageStyle={{height:60}}
         />
+            <Image style={styles.circle} source={require("../res/images/logo-circle.png")} />
         </View>
     );
 }
@@ -82,15 +95,15 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="TabOne"
       screenOptions={{
+          headerTitleAlign: "left",
         tabBarActiveTintColor: Colors["light"].tint,
           headerBackground: () =>  <LogoTitle />,
-
       }}>
       <BottomTab.Screen
         name="TabOne"
         component={Home}
         options={({ navigation }) => ({
-          title: 'Hjem',
+            title: "Hjem",
           tabBarIcon: () => <Image source={require('../res/images/homeicon.png')} style={{height:50, width:50, marginBottom: 10}}/>,
         })}
       />
