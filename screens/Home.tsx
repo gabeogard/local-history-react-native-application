@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        top: 25
+        top: 10,
+        zIndex: -1,
   },
   button: {
       backgroundColor: "#F5BFB6",
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     introBox: {
         width: 278,
         height: 90,
-        top: 70,
+        top: 65,
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
@@ -99,9 +100,15 @@ const styles = StyleSheet.create({
         width: 108,
         height: 46,
         left: -80,
-        top: 75,
+        top: 63,
     },
-
+    cloudRight: {
+    zIndex:1,
+        width: 108,
+        height: 46,
+        left: 85,
+        top: 17,
+    },
     onTour:{
         zIndex:1,
         width: 56,
@@ -109,20 +116,13 @@ const styles = StyleSheet.create({
         left: 130,
         top: -21
 },
-    cloudRight: {
-        zIndex:1,
-        width: 108,
-        height: 46,
-        left: 85,
-        top: 29,
-    },
     textBox: {
         resizeMode: "cover",
         backgroundColor: "#FFCB2F",
         borderRadius: 10,
         borderColor: "#000000",
         borderWidth: 1,
-        top: 15,
+        top: 5,
         shadowColor: "#000000",
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.5,

@@ -84,7 +84,7 @@ const stylesTab = StyleSheet.create({
       height: 60,
     },
     shadow: {
-        shadowColor: "#7F5DF0",
+        shadowColor: "#000000",
         shadowOffset: {
             width: 0,
             height: 10,
@@ -108,7 +108,6 @@ const styles = (props: any) => StyleSheet.create({
         }
     }
 )
-
 
 function TabBarLogo (){
     return (
@@ -151,14 +150,13 @@ const CustomTabBarHomeButton = (props: any) => (
         <View
         style={{
             backgroundColor: "#FBF4E6",
-            width: 70,
-            height: 70,
+            width: 65,
+            height: 65,
             borderRadius: 35,
-            borderWidth: 1
+            borderRightWidth:1.3,
+            borderLeftWidth:1.3,
         }}
-        >
-            {props.children}
-        </View>
+        >{props.children}</View>
     </TouchableOpacity>
 )
 
@@ -185,6 +183,7 @@ function BottomTabNavigator() {
           tabBarStyle: {
               backgroundColor: "#F5BFB6",
               height: 55,
+              borderTopWidth: 1.3
           },
 
       }}>
@@ -223,7 +222,7 @@ function BottomTabNavigator() {
         component={Home}
         options={({ navigation }) => ({
             title: "Hjem",
-          tabBarIcon: ({focused}) => (<Image source={require('../res/images/tabs/homeicon.png')} style={{height:50, width:50}}/>),
+          tabBarIcon: ({focused}) => (<Image source={require('../res/images/tabs/homeicon.png')} style={{height:45, width:45}}/>),
             tabBarButton: (props) => (
                 <CustomTabBarHomeButton {...props} />
             )
