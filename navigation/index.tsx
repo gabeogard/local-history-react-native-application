@@ -22,6 +22,7 @@ import {FactsScreen} from "../screens/Facts";
 import {LogoTitle} from "../functions/logoTitle";
 import {MapScreen} from "../screens/MapScreen";
 
+
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
@@ -72,8 +73,7 @@ const stylesTab = StyleSheet.create({
     },
     backgroundImage: {
       height: 60,
-
-    }
+    },
   }
 )
 
@@ -110,6 +110,20 @@ function TabBarLogo (){
     )
 }
 
+function TabBarIconCustom(props: any){
+    return (
+        <View style={{alignItems: "center", justifyContent: "center"}}>
+            <Image source={props.image} resizeMode="contain"
+                   style={{
+                       width: 50,
+                       height: 50,
+                       opacity: props.focused ? 0.4 : 1
+                   }} />
+            <Text style={{opacity: props.focused ? 0.4 : 1, fontSize: 12, top: -10}}>{props.text}</Text>
+        </View>
+    )
+}
+
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
@@ -136,36 +150,25 @@ function BottomTabNavigator() {
         <BottomTab.Screen
             name={"Third" as const}
             component={LoginScreen}
+
             options={{
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: "center", justifyContent: "center"}}>
-                        <Image source={require("../res/images/tabs/profil.png")} resizeMode="contain"
-                               style={{
-                                   width: 50,
-                                   height: 50,
-                                   opacity: focused ? 0.4 : 1
-                               }} />
-                        <Text style={{opacity: focused ? 0.4 : 1, fontSize: 12, top: -10}}>Profile</Text>
-                    </View>
-                ),
+                tabBarIcon: ({focused}) => <TabBarIconCustom
+                    focused={focused}
+                    image={require("../res/images/tabs/profil.png")}
+                    text={"profile"}/>
             }}
+
         />
 
         <BottomTab.Screen
             name="fakta"
             component={FactsScreen}
+
             options={{
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: "center", justifyContent: "center"}}>
-                        <Image source={require("../res/images/tabs/factsicon.png")} resizeMode="contain"
-                               style={{
-                                   width: 50,
-                                   height: 50,
-                                   opacity: focused ? 0.4 : 1
-                               }} />
-                        <Text style={{opacity: focused ? 0.4 : 1, fontSize: 12, top: -10}}>Fakta</Text>
-                    </View>
-                ),
+                tabBarIcon: ({focused}) => <TabBarIconCustom
+                    focused={focused}
+                    image={require("../res/images/tabs/factsicon.png")}
+                    text={"Fakta"}/>
             }}
         />
 
@@ -180,36 +183,26 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
+
         options={{
-            tabBarIcon: ({focused}) => (
-                <View style={{alignItems: "center", justifyContent: "center"}}>
-                    <Image source={require("../res/images/tabs/quiz.png")} resizeMode="contain"
-                           style={{
-                               width: 50,
-                               height: 50,
-                               opacity: focused ? 0.4 : 1
-                           }} />
-                    <Text style={{opacity: focused ? 0.4 : 1, fontSize: 12, top: -10}}>Quiz</Text>
-                </View>
-            ),
+            tabBarIcon: ({focused}) => <TabBarIconCustom
+                focused={focused}
+                image={require("../res/images/tabs/quiz.png")}
+                text={"Quiz"}
+            />
         }}
       />
 
         <BottomTab.Screen
             name="map"
             component={MapScreen}
+
             options={{
-                tabBarIcon: ({focused}) => (
-                    <View style={{alignItems: "center", justifyContent: "center"}}>
-                        <Image source={require("../res/images/tabs/kart.png")} resizeMode="contain"
-                               style={{
-                                   width: 50,
-                                   height: 50,
-                                   opacity: focused ? 0.4 : 1
-                               }} />
-                        <Text style={{opacity: focused ? 0.4 : 1, fontSize: 12, top: -10}}>Profile</Text>
-                    </View>
-                ),
+                tabBarIcon: ({focused}) => <TabBarIconCustom
+                    focused={focused}
+                    image={require("../res/images/tabs/kart.png")}
+                    text={"Kart"}
+                />
             }}
         />
 
