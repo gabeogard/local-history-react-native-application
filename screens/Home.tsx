@@ -1,6 +1,6 @@
 import {StyleSheet, Image, Pressable, ImageBackground,View, SafeAreaView, Text} from 'react-native';
 
-export default function Home() {
+export default function Home({navigation}:{navigation: any}) {
   return (
         //safeAreaView skal ha en annen style
         <SafeAreaView style={styles.container}>
@@ -24,7 +24,7 @@ export default function Home() {
                   <Text>Spill som gjest</Text>
               </Pressable>
 
-              <Pressable style={styles.button} onPress={ () => alert("Login")}>
+              <Pressable style={styles.button} onPress={ () => navigation.navigate("Third")}>
                   <Text>Logg inn</Text>
               </Pressable>
 
