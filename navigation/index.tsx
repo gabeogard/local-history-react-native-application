@@ -8,7 +8,16 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Image, ImageBackground, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+    ColorSchemeName,
+    Image,
+    ImageBackground,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
@@ -55,7 +64,7 @@ function RootNavigator() {
 
 const BottomTab = createBottomTabNavigator();
 
-
+//header title
 function Title () {
     return (
         <View/>
@@ -74,21 +83,28 @@ const stylesTab = StyleSheet.create({
     backgroundImage: {
       height: 60,
     },
+    shadow: {
+        shadowColor: "#7F5DF0",
+        shadowOffset: {
+            width: 0,
+            height: 10,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5,
+        //for andriod
+        elevation: 5
+    }
   }
 )
 
-const styles = StyleSheet.create({
+//trenger ikke den foreløpig
+const styles = (props: any) => StyleSheet.create({
         container: {
             backgroundColor: "#FBF4E6",
             flex: 1,
             flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
-
-        },
-        profile: {
-            width: 55,
-            height: 55,
         }
     }
 )
@@ -115,14 +131,39 @@ function TabBarIconCustom(props: any){
         <View style={{alignItems: "center", justifyContent: "center"}}>
             <Image source={props.image} resizeMode="contain"
                    style={{
-                       width: 50,
-                       height: 50,
-                       opacity: props.focused ? 0.4 : 1
+                       width: props.iconSize ? 40:  50,
+                       height: props.iconSize ? 40:  50,
+                       opacity: props.focused ? 0.4 : 1,
+                       marginBottom: props.iconSize ? 9:  0,
+                       top: props.iconSize ? 2:  0,
                    }} />
             <Text style={{opacity: props.focused ? 0.4 : 1, fontSize: 12, top: -10}}>{props.text}</Text>
         </View>
     )
 }
+
+const CustomTabBarHomeButton = (props: any) => (
+
+    <TouchableOpacity
+        style={{top: -30, justifyContent: "center", alignItems: "center", ...stylesTab.shadow}}
+        onPress={props.onPress}
+    >
+        <View
+        style={{
+            backgroundColor: "#FBF4E6",
+            width: 70,
+            height: 70,
+            borderRadius: 35,
+            borderWidth: 1
+        }}
+        >
+            {props.children}
+        </View>
+    </TouchableOpacity>
+)
+
+
+
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
@@ -155,7 +196,10 @@ function BottomTabNavigator() {
                 tabBarIcon: ({focused}) => <TabBarIconCustom
                     focused={focused}
                     image={require("../res/images/tabs/profil.png")}
-                    text={"profile"}/>
+                    text={"profile"}
+                    iconSize={false}
+                />
+
             }}
 
         />
@@ -168,7 +212,9 @@ function BottomTabNavigator() {
                 tabBarIcon: ({focused}) => <TabBarIconCustom
                     focused={focused}
                     image={require("../res/images/tabs/factsicon.png")}
-                    text={"Fakta"}/>
+                    text={"Fakta"}
+                    iconSize={false}
+                />
             }}
         />
 
@@ -177,7 +223,10 @@ function BottomTabNavigator() {
         component={Home}
         options={({ navigation }) => ({
             title: "Hjem",
-          tabBarIcon: () => <Image source={require('../res/images/tabs/homeicon.png')} style={{height:50, width:50, marginBottom: 10}}/>,
+          tabBarIcon: ({focused}) => (<Image source={require('../res/images/tabs/homeicon.png')} style={{height:50, width:50}}/>),
+            tabBarButton: (props) => (
+                <CustomTabBarHomeButton {...props} />
+            )
         })}
       />
       <BottomTab.Screen
@@ -189,6 +238,7 @@ function BottomTabNavigator() {
                 focused={focused}
                 image={require("../res/images/tabs/quiz.png")}
                 text={"Quiz"}
+                iconSize={true}
             />
         }}
       />
@@ -202,6 +252,7 @@ function BottomTabNavigator() {
                     focused={focused}
                     image={require("../res/images/tabs/kart.png")}
                     text={"Kart"}
+                    iconSize={true}
                 />
             }}
         />
