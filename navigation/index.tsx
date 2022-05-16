@@ -16,7 +16,8 @@ import {
     StyleSheet,
     Text,
     TouchableOpacity,
-    View
+    View,
+    Dimensions
 } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -134,9 +135,11 @@ function TabBarIconCustom(props: any){
                        height: props.iconSize ? 40:  50,
                        opacity: props.focused ? 0.4 : 1,
                        marginBottom: props.iconSize ? 9:  0,
-                       top: props.iconSize ? 2:  0,
+                       top: Dimensions.get("window").width >= 400 ? 11 : 2 ? props.iconSize ? 2:  0: 0,
+                       //top: props.iconSize ? 2:  0,
+                       margin: Dimensions.get("window").width >= 400 ? 10 : 0
                    }} />
-            <Text style={{opacity: props.focused ? 0.4 : 1, fontSize: 12, top: -10}}>{props.text}</Text>
+            <Text style={{opacity: props.focused ? 0.4 : 1, fontSize: 12, top: Dimensions.get("window").width >= 400 ? 1: -10 }}>{props.text}</Text>
         </View>
     )
 }
@@ -144,7 +147,7 @@ function TabBarIconCustom(props: any){
 const CustomTabBarHomeButton = (props: any) => (
 
     <TouchableOpacity
-        style={{top: -30, justifyContent: "center", alignItems: "center", ...stylesTab.shadow}}
+        style={{top: Dimensions.get("window").width >= 400 ? -15: -30, justifyContent: "center", alignItems: "center", ...stylesTab.shadow}}
         onPress={props.onPress}
     >
         <View
@@ -183,6 +186,7 @@ function BottomTabNavigator() {
           tabBarStyle: {
               backgroundColor: "#F5BFB6",
               height: 55,
+              borderBottomWidth: 0.5,
               borderTopWidth: 1.3
           },
 
