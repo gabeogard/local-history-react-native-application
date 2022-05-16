@@ -30,12 +30,14 @@ function Facts(){
                 <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
                     <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
                 </ImageBackground>
-
-                <View style={styles.factBox}>
+                <View>
+                    <View style={styles.factBox}>
                         <Text style={styles.title}>{curFact+1}</Text>
                         <Text style={styles.title}>{facts[curFact]?.Title}</Text>
                         <Text style={styles.factText}>{facts[curFact]?.Text}</Text>
+                    </View>
                 </View>
+
             </View>
 
         )
@@ -115,7 +117,6 @@ export function FactsScreen(){
 }
 
 
-
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#FBF4E6',
@@ -134,17 +135,16 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius:20,
         borderColor: '#000',
-        width:'60%',
-        height:'50%',
+        width: 400,
+        height: 400,
     },
     factText: {
-        paddingTop: '10%',
         fontSize: 15,
         borderColor:'black',
         fontWeight:'normal',
         paddingBottom:'10%',
-        paddingLeft:'1%',
-        paddingRight: '50%',
+        paddingLeft:'10%',
+        paddingTop: '5%',
 
     },
     buttonsNext: {
