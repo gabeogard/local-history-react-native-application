@@ -31,6 +31,7 @@ import {LoginScreen} from "../screens/LoginScreen";
 import {FactsScreen} from "../screens/Facts";
 import {LogoTitle} from "../functions/logoTitle";
 import {MapScreen} from "../screens/MapScreen";
+import {CreateAccount} from "../screens/CreateAccount"
 
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -51,7 +52,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-      <SafeAreaView style={{flex:2}}>
+      //<SafeAreaView style={{flex:1}}>
         <Stack.Navigator>
           <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }}  />
           <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
@@ -59,13 +60,13 @@ function RootNavigator() {
             <Stack.Screen name="Modal" component={ModalScreen} />
           </Stack.Group>
         </Stack.Navigator>
-      </SafeAreaView>
+      //</SafeAreaView>
   );
 }
 
 const BottomTab = createBottomTabNavigator();
 
-//header title
+//hide header title
 function Title () {
     return (
         <View/>
@@ -108,7 +109,6 @@ const stylesTab = StyleSheet.create({
     }
   }
 )
-
 
 function TabBarBackground (){
    return (
@@ -156,14 +156,11 @@ function TabBarIconCustom(props: any){
 }
 
 const CustomTabBarHomeButton = (props: any) => (
-
-
     <TouchableOpacity
         style={{top: Dimensions.get("window").width >= 400 ? -15: -30, justifyContent: "center", alignItems: "center", ...stylesTab.shadow}}
         onPress={props.onPress}
-    >
+        >
         <View
-
         style={{
             backgroundColor: "#FBF4E6",
             width: 65,
@@ -172,13 +169,9 @@ const CustomTabBarHomeButton = (props: any) => (
             borderRightWidth:1.3,
             borderLeftWidth:1.3,
 
-        }}
-        >{props.children}</View>
+        }}>{props.children}</View>
     </TouchableOpacity>
 )
-
-
-
 
 
 function BottomTabNavigator() {
@@ -223,9 +216,7 @@ function BottomTabNavigator() {
                     text={"profile"}
                     iconSize={false}
                 />
-
             }}
-
         />
 
         <BottomTab.Screen
