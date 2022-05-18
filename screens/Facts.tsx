@@ -3,7 +3,7 @@ import {
     Button,
     Image,
     ImageBackground,
-    Platform,
+    Platform, Pressable,
     SafeAreaView,
     StatusBar,
     StyleSheet,
@@ -94,7 +94,9 @@ function Facts(){
         if (showHomeButton){
             return(
                 <TouchableOpacity onPress={handleHomeButton}>
-                    <Text style={styles.buttonsHome}>Back to home!</Text>
+
+                        <Text style={styles.buttonsHome}>Back to home!</Text>
+
                 </TouchableOpacity>
             )
         }
@@ -104,9 +106,11 @@ function Facts(){
         <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
                 {renderFacts()}
+                <View style={{top: -100}}>
                 {renderNextButton()}
                 {renderBackButton()}
                 {renderHomeButton()}
+                </View>
             </View>
         </SafeAreaView>
     )
