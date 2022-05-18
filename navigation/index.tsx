@@ -52,7 +52,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-      //<SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{flex:1}}>
         <Stack.Navigator>
           <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }}  />
           <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
@@ -60,7 +60,7 @@ function RootNavigator() {
             <Stack.Screen name="Modal" component={ModalScreen} />
           </Stack.Group>
         </Stack.Navigator>
-      //</SafeAreaView>
+      </SafeAreaView>
   );
 }
 
