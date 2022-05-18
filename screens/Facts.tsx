@@ -15,7 +15,7 @@ import {facts} from "../res/quiz/facts.json";
 import {useState} from "react";
 
 
-function Facts(){
+export function FactsScreen({navigation}:{navigation: any}){
 
 
     const [curFact, setFact] = useState(0)
@@ -81,22 +81,11 @@ function Facts(){
     }
 
 
-    const handleHomeButton = () => {
-        if (curFact === facts.length+1){
-            setShowHomeButton(true)
-
-        }else {
-
-        }
-    }
-
     const renderHomeButton = () => {
         if (showHomeButton){
             return(
-                <TouchableOpacity onPress={handleHomeButton}>
-
+                <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
                         <Text style={styles.buttonsHome}>Back to home!</Text>
-
                 </TouchableOpacity>
             )
         }
@@ -106,7 +95,7 @@ function Facts(){
         <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
                 {renderFacts()}
-                <View style={{top: -100}}>
+                <View style={{flex: 1, flexDirection: "row", justifyContent: "space-between", top: -100}}>
                 {renderNextButton()}
                 {renderBackButton()}
                 {renderHomeButton()}
@@ -114,10 +103,6 @@ function Facts(){
             </View>
         </SafeAreaView>
     )
-}
-
-export function FactsScreen(){
-    return <Facts />
 }
 
 
@@ -153,11 +138,10 @@ const styles = StyleSheet.create({
     },
     buttonsNext: {
         backgroundColor: "#F5BFB6",
-        marginTop: 5,
+        //marginTop: 5,
         borderWidth:1,
         borderRadius:6,
         padding: 3,
-        marginBottom: 20,
 
         shadowColor: "#000000",
         shadowOffset: {width: 0, height: 4},
@@ -166,14 +150,14 @@ const styles = StyleSheet.create({
     },
     buttonsHome: {
         backgroundColor: "#F5BFB6",
-        marginTop: Platform.OS === "web" ? 5 : 4,
+        //marginTop: Platform.OS === "web" ? 5 : 4,
         borderWidth:1,
         borderRadius:6,
         fontWeight: 'bold',
     },
     buttonsBack: {
         backgroundColor: "#F5BFB6",
-        marginTop: Platform.OS === "web" ? 5 : 4,
+        //marginTop: Platform.OS === "web" ? 5 : 4,
         borderWidth:1,
         borderRadius:6,
         fontWeight: 'bold',
