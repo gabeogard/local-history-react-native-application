@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    Button,
+    Button, Dimensions,
     Image,
     ImageBackground,
     Platform, Pressable,
@@ -57,7 +57,7 @@ export function FactsScreen({navigation}:{navigation: any}){
     const renderNextButton = () => {
         return(
             <TouchableOpacity onPress={handleNext}>
-                <Text style={styles.buttonsNext}>Next</Text>
+                <Text style={styleButton.button}>Next</Text>
             </TouchableOpacity>
         )
     }
@@ -75,7 +75,7 @@ export function FactsScreen({navigation}:{navigation: any}){
     const renderBackButton = () => {
         return(
             <TouchableOpacity onPress={handlePrev}>
-                <Text style={styles.buttonsBack}>Back</Text>
+                <Text style={styleButton.button}>Back</Text>
             </TouchableOpacity>
         )
     }
@@ -85,7 +85,7 @@ export function FactsScreen({navigation}:{navigation: any}){
         if (showHomeButton){
             return(
                 <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
-                        <Text style={styles.buttonsHome}>Back to home!</Text>
+                        <Text style={styleButton.button}>Back to home!</Text>
                 </TouchableOpacity>
             )
         }
@@ -95,15 +95,38 @@ export function FactsScreen({navigation}:{navigation: any}){
         <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
                 {renderFacts()}
-                <View style={{flex: 1, flexDirection: "row", justifyContent: "space-between", top: -100}}>
-                {renderNextButton()}
+                <View style={styleButton.buttonFlex}>
                 {renderBackButton()}
+                {renderNextButton()}
                 {renderHomeButton()}
                 </View>
             </View>
         </SafeAreaView>
     )
 }
+
+const styleButton = StyleSheet.create({
+    buttonFlex: {
+
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        top: -100
+},
+button: {
+    backgroundColor: "#F5BFB6",
+        marginTop: Dimensions.get("window").width >= 400 ? 10: 5,
+        //marginTop: 5,
+        borderWidth:1,
+        borderRadius:6,
+        padding: 3,
+        margin: 10,
+        shadowColor: "#000000",
+        shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.3,
+        shadowRadius: 4,
+}
+})
 
 
 const styles = StyleSheet.create({
