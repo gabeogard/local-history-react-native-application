@@ -100,12 +100,12 @@ const stylesTab = StyleSheet.create({
         flex: 1,
         width: 400,
         backgroundColor: "#F5BFB6",
-        borderRadius: Dimensions.get("window").width >= 400 ? 29: 0,
+        borderRadius: Dimensions.get("window").width >= 375 ? 29: 0,
         borderWidth: 1,
-        borderBottomWidth: Dimensions.get("window").width >= 400 ? 0.5: 0,
+        borderBottomWidth: Dimensions.get("window").width >= 375 ? 0.5: 0,
         borderTopWidth: 1.3,
-        borderLeftWidth: Dimensions.get("window").width >= 400 ? 0.5: 0,
-        borderRightWidth: Dimensions.get("window").width >= 400 ? 0.5: 0
+        borderLeftWidth: Dimensions.get("window").width >= 375 ? 0.5: 0,
+        borderRightWidth: Dimensions.get("window").width >= 375 ? 0.5: 0
     }
   }
 )
@@ -145,19 +145,19 @@ function TabBarIconCustom(props: any){
                        height: props.iconSize ? 40:  50,
                        opacity: props.focused ? 0.4 : 1,
                        marginBottom: props.iconSize ? 9:  0,
-                       top: Dimensions.get("window").width >= 400 ? 11 : 2 ? props.iconSize ? 2:  0: 0,
-                       marginTop: Dimensions.get("window").width >= 400 ? props.iconSize ? 14:  11 : 0,
+                       top: Dimensions.get("window").width >= 375 ? 11 : 2 ? props.iconSize ? 2:  0: 0,
+                       marginTop: Dimensions.get("window").width >= 375 ? props.iconSize ? 14:  11 : 0,
                        //top: props.iconSize ? 2:  0,
-                       margin: Dimensions.get("window").width >= 400 ? 10 : 0
+                       margin: Dimensions.get("window").width >= 375 ? 10 : 0
                    }} />
-            <Text style={{opacity: props.focused ? 0.4 : 1, fontSize: 12, top: Dimensions.get("window").width >= 400 ? 1: -10 }}>{props.text}</Text>
+            <Text style={{opacity: props.focused ? 0.4 : 1, fontSize: 12, top: Dimensions.get("window").width >= 375 ? 1: -10 }}>{props.text}</Text>
         </View>
     )
 }
 
 const CustomTabBarHomeButton = (props: any) => (
     <TouchableOpacity
-        style={{top: Dimensions.get("window").width >= 400 ? -15: -30, justifyContent: "center", alignItems: "center", ...stylesTab.shadow}}
+        style={{top: Dimensions.get("window").width >= 375 ? -15: -30, justifyContent: "center", alignItems: "center", ...stylesTab.shadow}}
         onPress={props.onPress}
         >
         <View
@@ -195,7 +195,7 @@ function BottomTabNavigator() {
           tabBarBackground: () => <TabBarBackground />,
           tabBarStyle: {
               backgroundColor: "#FBF4E6",
-              height: Dimensions.get("window").width >= 400 ? 60 : 55,
+              height: Dimensions.get("window").width >= 375 ? 60 : 55,
               //height: 55,
               borderTopWidth:0,
               //borderBottomWidth: Dimensions.get("window").width >= 428 ? 0.5: 0,
