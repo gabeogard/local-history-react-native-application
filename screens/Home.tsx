@@ -1,4 +1,4 @@
-import {StyleSheet, Image, Pressable, ImageBackground,View, SafeAreaView, Text} from 'react-native';
+import {StyleSheet, Image, Pressable, ImageBackground,View, SafeAreaView, Text, Dimensions} from 'react-native';
 
 export default function Home({navigation}:{navigation: any}) {
   return (
@@ -15,8 +15,8 @@ export default function Home({navigation}:{navigation: any}) {
           <Image style={styles.cloudRight} source={require("../res/images/cloud.png")}/>
 
           <View style={styles.textBox}>
-              <Text style={styles.text}>Velkommen til Byåa Kultursti,{'\n'}her kan du samle poeng ved å{'\n'}svare på
-                  spørsmål om Byåa og konkurrere med vennene dine.{'\n'}Er du den beste i klassen din?</Text>
+              <Text style={styles.text}>Velkommen til Byåa Kultursti, her kan du samle poeng ved å svare på
+                  spørsmål om Byåa og konkurrere med vennene dine. Er du den beste i klassen din?</Text>
           </View>
 
           <View style={styles.buttonFlex}>
@@ -53,12 +53,14 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        top: 10,
+        top: Dimensions.get("window").width >= 400 ? 50: 10,
+        //top: 10,
         zIndex: -1,
   },
   button: {
       backgroundColor: "#F5BFB6",
-      marginTop: 5,
+      marginTop: Dimensions.get("window").width >= 400 ? 10: 5,
+      //marginTop: 5,
       borderWidth:1,
       borderRadius:6,
       padding: 3,
@@ -69,9 +71,9 @@ const styles = StyleSheet.create({
       shadowRadius: 4,
   },
     introBox: {
-        width: 278,
-        height: 90,
-        top: 65,
+        width: Dimensions.get("window").width >= 400 ? 350: 278,
+        height: Dimensions.get("window").width >= 400 ? 115: 90,
+        top: Dimensions.get("window").width >= 400 ? 10: 65,
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
@@ -99,14 +101,16 @@ const styles = StyleSheet.create({
         zIndex:1,
         width: 108,
         height: 46,
-        left: -80,
+        left: Dimensions.get("window").width >= 400 ? -115: -80,
+        //left: -80,
         top: 63,
     },
     cloudRight: {
     zIndex:1,
         width: 108,
         height: 46,
-        left: 85,
+        left: Dimensions.get("window").width >= 400 ? 115: 85,
+        //left: 85,
         top: 17,
     },
     onTour:{
@@ -117,6 +121,8 @@ const styles = StyleSheet.create({
         top: -21
 },
     textBox: {
+        width: Dimensions.get("window").width >= 400 ? 349: 271,
+        height: Dimensions.get("window").width >= 400 ? 200: 132,
         resizeMode: "cover",
         backgroundColor: "#FFCB2F",
         borderRadius: 10,
@@ -132,7 +138,8 @@ const styles = StyleSheet.create({
         //fontFamily: 'Roboto-Regular',
         fontStyle: "normal",
         fontWeight: "400",
-        fontSize: 18,
+        fontSize: Dimensions.get("window").width >= 400 ? 24.9: 18,
+        //fontSize: 18,
         padding: 11,
         shadowColor: "#000000",
         shadowOffset: {width: 0, height: 4},

@@ -51,7 +51,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   return (
-      <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{flex:2}}>
         <Stack.Navigator>
           <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }}  />
           <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
@@ -94,21 +94,36 @@ const stylesTab = StyleSheet.create({
         shadowRadius: 3.5,
         //for andriod
         elevation: 5
+    },
+    TabBarBackground: {
+        flex: 1,
+        width: 400,
+        backgroundColor: "#F5BFB6",
+        borderRadius: Dimensions.get("window").width >= 400 ? 29: 0,
+        borderWidth: 1,
+        borderBottomWidth: Dimensions.get("window").width >= 400 ? 0.5: 0,
+        borderTopWidth: 1.3,
+        borderLeftWidth: Dimensions.get("window").width >= 400 ? 0.5: 0,
+        borderRightWidth: Dimensions.get("window").width >= 400 ? 0.5: 0
+
+
+        //borderBottomWidth: Dimensions.get("window").width >= 428 ? 0.5: 0,
+        //borderRadius: Dimensions.get("window").width >= 428 ? 25: 0,
+        //borderTopWidth: 1.3,
     }
   }
 )
 
-//trenger ikke den foreløpig
-const styles = (props: any) => StyleSheet.create({
-        container: {
-            backgroundColor: "#FBF4E6",
-            flex: 1,
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-        }
-    }
-)
+
+function TabBarBackground (){
+   return (
+       <View style={{flex: 1,
+           alignItems: "center",
+           justifyContent: "center",}}>
+       <View style={stylesTab.TabBarBackground}></View>
+       </View>
+       )
+}
 
 function TabBarLogo (){
     return (
@@ -135,12 +150,12 @@ function TabBarIconCustom(props: any){
                        height: props.iconSize ? 40:  50,
                        opacity: props.focused ? 0.4 : 1,
                        marginBottom: props.iconSize ? 9:  0,
-                       top: Dimensions.get("window").width >= 428 ? 11 : 2 ? props.iconSize ? 2:  0: 0,
-                       marginTop: Dimensions.get("window").width >= 428 ? props.iconSize ? 14:  11 : 0,
+                       top: Dimensions.get("window").width >= 400 ? 11 : 2 ? props.iconSize ? 2:  0: 0,
+                       marginTop: Dimensions.get("window").width >= 400 ? props.iconSize ? 14:  11 : 0,
                        //top: props.iconSize ? 2:  0,
-                       margin: Dimensions.get("window").width >= 428 ? 10 : 0
+                       margin: Dimensions.get("window").width >= 400 ? 10 : 0
                    }} />
-            <Text style={{opacity: props.focused ? 0.4 : 1, fontSize: 12, top: Dimensions.get("window").width >= 428 ? 1: -10 }}>{props.text}</Text>
+            <Text style={{opacity: props.focused ? 0.4 : 1, fontSize: 12, top: Dimensions.get("window").width >= 400 ? 1: -10 }}>{props.text}</Text>
         </View>
     )
 }
@@ -167,6 +182,7 @@ const CustomTabBarHomeButton = (props: any) => (
 
 
 
+
 function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
@@ -175,22 +191,27 @@ function BottomTabNavigator() {
     return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
+
       screenOptions={{
           headerTitle: () => < Title />,
           headerBackground: () => <LogoTitle />,
           tabBarShowLabel: false,
 
+
           //Vi bestemmer alle her
           //tabBarBackground: () => <TabBarLogo />
-
           //foreløpig
+          tabBarBackground: () => <TabBarBackground />,
           tabBarStyle: {
-              backgroundColor: "#F5BFB6",
-              height: 55,
-              borderBottomWidth: Dimensions.get("window").width >= 428 ? 0.5: 0,
+              backgroundColor: "#FBF4E6",
+              height: Dimensions.get("window").width >= 400 ? 60 : 55,
+              //height: 55,
+              borderTopWidth:0,
+              //borderBottomWidth: Dimensions.get("window").width >= 428 ? 0.5: 0,
               //borderRadius: Dimensions.get("window").width >= 428 ? 25: 0,
-              borderTopWidth: 1.3
+              //borderTopWidth: 1.3,
           },
+
 
       }}>
         <BottomTab.Screen
