@@ -105,11 +105,6 @@ const stylesTab = StyleSheet.create({
         borderTopWidth: 1.3,
         borderLeftWidth: Dimensions.get("window").width >= 400 ? 0.5: 0,
         borderRightWidth: Dimensions.get("window").width >= 400 ? 0.5: 0
-
-
-        //borderBottomWidth: Dimensions.get("window").width >= 428 ? 0.5: 0,
-        //borderRadius: Dimensions.get("window").width >= 428 ? 25: 0,
-        //borderTopWidth: 1.3,
     }
   }
 )
@@ -162,11 +157,13 @@ function TabBarIconCustom(props: any){
 
 const CustomTabBarHomeButton = (props: any) => (
 
+
     <TouchableOpacity
         style={{top: Dimensions.get("window").width >= 400 ? -15: -30, justifyContent: "center", alignItems: "center", ...stylesTab.shadow}}
         onPress={props.onPress}
     >
         <View
+
         style={{
             backgroundColor: "#FBF4E6",
             width: 65,
@@ -174,6 +171,7 @@ const CustomTabBarHomeButton = (props: any) => (
             borderRadius: 35,
             borderRightWidth:1.3,
             borderLeftWidth:1.3,
+
         }}
         >{props.children}</View>
     </TouchableOpacity>
@@ -247,13 +245,16 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="TabOne"
         component={Home}
-        options={({ navigation }) => ({
-            title: "Hjem",
-          tabBarIcon: ({focused}) => (<Image source={require('../res/images/tabs/homeicon.png')} style={{height:45, width:45}}/>),
+        options={{
+          tabBarIcon: ({focused}) => (
+              <Image source={require('../res/images/tabs/homeicon.png')} style={{height:45, width:45, opacity: focused ? 0.4 : 1,}}
+              />
+          ),
+
             tabBarButton: (props) => (
                 <CustomTabBarHomeButton {...props} />
             )
-        })}
+        }}
       />
       <BottomTab.Screen
         name="TabTwo"
