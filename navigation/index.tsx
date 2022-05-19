@@ -54,7 +54,7 @@ const HomeStack = () => {
         <Stack.Navigator>
             <Stack.Screen name="Home" component={Home} options={{ headerShown: false,}}/>
             <Stack.Screen name="CreateAccrount" component={CreateAccount} options={{
-                headerTitle: () => < Title />,
+                headerTitle: () => false,
                 headerStyle: {
                     backgroundColor: "#FBF4E6",
                 },
@@ -65,12 +65,6 @@ const HomeStack = () => {
     )
 }
 
-//hide header title
-function Title () {
-    return (
-        <View/>
-    )
-}
 
 function BottomTabNavigator() {
 
