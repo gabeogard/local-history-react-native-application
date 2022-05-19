@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {Platform, StyleSheet} from "react-native";
 
 export const styles = StyleSheet.create({
     container: {
@@ -30,4 +30,11 @@ export const styles = StyleSheet.create({
         height: 1,
         width: '80%',
     },
+    answerBtn: {
+        backgroundColor: "#F5BFB6",
+        marginTop: Platform.OS === "web" ? 5 : 4,
+        borderWidth:1,
+        borderRadius:6,
+        margin: 5
+    }
 });

@@ -192,8 +192,6 @@ const CustomTabBarHomeButton = (props: any) => (
 export function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
-  // @ts-ignore
-    // @ts-ignore
     return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
