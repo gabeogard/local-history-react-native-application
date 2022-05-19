@@ -1,3 +1,7 @@
+/**
+* https://github.com/APSL/react-native-keyboard-aware-scroll-view
+*/
+
 import {
     Button,
     Dimensions,
@@ -11,6 +15,7 @@ import {
     KeyboardAvoidingView, ScrollView
 } from "react-native";
 import React, {useState} from "react";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 
 export function CreateAccount() {
@@ -29,8 +34,8 @@ export function CreateAccount() {
     }
 
     return (
-            <KeyboardAvoidingView behavior="position" style={styles.container}>
-                <ScrollView>
+            <KeyboardAwareScrollView extraHeight={120} style={styles.container}>
+
                 <View style={{
                     justifyContent: "center",
                     alignItems: "center",}}>
@@ -89,8 +94,7 @@ export function CreateAccount() {
                         </TouchableOpacity>
                     </View>
                 </View>
-                </ScrollView>
-            </KeyboardAvoidingView>
+            </KeyboardAwareScrollView>
     );
 
 }
@@ -99,6 +103,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "#FBF4E6",
         flex: 1,
+        paddingHorizontal: 20,
 
     },
     buttonFlex: {
