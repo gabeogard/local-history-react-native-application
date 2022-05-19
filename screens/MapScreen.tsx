@@ -5,7 +5,7 @@ export function MapScreen() {
 
         <SafeAreaView style={{flex: 1, backgroundColor: "#fff"}} >
             <View style={{flex: 1}} >
-                <Text>Map</Text>
+                <Text>Faen</Text>
             </View>
         </SafeAreaView>
     );

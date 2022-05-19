@@ -1,5 +1,5 @@
 import {Text, View} from "./Themed";
-import {Button, SafeAreaView, TouchableOpacity, StatusBar, Platform} from "react-native";
+import {Button, SafeAreaView, TouchableOpacity, StatusBar, Platform, Modal} from "react-native";
 import {styles} from "../constants/styles";
 import * as React from 'react';
 import {useState} from "react";
@@ -15,6 +15,7 @@ export function QuizApp() {
     const [isOptionsDisabled, setIsOptionsDisabled] = useState(false)
     const [score, setScore] = useState(0)
     const [showNextButton, setShowNextButton] = useState(false)
+    const [showScoreModal, setShowScoreModal] = useState(false)
 
     function validateAnswer(selectedOption: string) {
         let correct_option = allQuestions[currentQuestionIndex].correctOption
@@ -42,58 +43,85 @@ export function QuizApp() {
 
     const renderOptions = () => {
         return (
-            <>
+            <SafeAreaView>
                 {
                     allQuestions[currentQuestionIndex]?.answers.map(option => (
                         <TouchableOpacity
-                            onPress={() => validateAnswer(option)}
+                            onPress={()=> validateAnswer(option)}
                             disabled={isOptionsDisabled}
                             key={option}
                             style={{
-                                borderColor: option == correctOption ? '#2AA816FF':
-                                    option==currentSelectedOption ? '#CB0000FF': '#000000',
-                                backgroundColor: "#F5BFB6",
-                                marginTop: Platform.OS === "web" ? 5 : 4,
-                                borderWidth: 1,
-                                borderRadius: 6,
-                                margin: 5,
-                            }}>
-                            <Text style={styles.answerBtnText}>{option}</Text>
+                                borderWidth: 2,
+                                borderColor: option==correctOption
+                                    ? 'green'
+                                    : option==currentSelectedOption
+                                        ? 'red'
+                                        : 'black',
+                                backgroundColor: '#F5BFB6',
+                                height: 40,
+                                borderRadius: 20,
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                width: 325,
+                                alignSelf: "center",
+                                paddingHorizontal: 20,
+                                marginVertical: 10
+                            }}
+                        >
+                            <Text style={{fontSize: 20, color: 'white'}}>{option}</Text>
 
                             {
-                                option == correctOption ? (
-                                    <SafeAreaView
-                                        style={{alignItems: 'flex-end', marginRight: 10, flexDirection: 'column'}}>
-                                        <FontAwesome name="check" size={24} color="green"/>
-                                    </SafeAreaView>
-                                ) : option == currentSelectedOption ? (
-                                    <SafeAreaView
-                                        style={{alignItems: 'flex-end', marginRight: 10, flexDirection: 'column'}}>
-                                        <Foundation name="x" size={24} color="red"/>
-                                    </SafeAreaView>
+                                option==correctOption ? (
+                                    <View style={{backgroundColor: "#F5BFB6"}}>
+                                        <FontAwesome name="check" size={24} color="green" />
+                                    </View>
+                                ): option == currentSelectedOption ? (
+                                    <View style={{backgroundColor: "#F5BFB6"}}>
+                                        <Foundation name="x" size={24} color="red" />
+                                    </View>
                                 ) : null
                             }
+
                         </TouchableOpacity>
                     ))
                 }
-            </>
+            </SafeAreaView>
         )
     }
 
-    function handleNext() {
-        if(currentQuestionIndex == allQuestions.length-1){
-
+    const handleNext = () => {
+        if(currentQuestionIndex== allQuestions.length-1){
+            // Last Question
+            setShowNextButton(false)
+            setShowScoreModal(true)
+        }else{
+            setCurrentQuestionIndex(currentQuestionIndex+1);
+            setCurrentSelectedOption('');
+            setCorrectOption('');
+            setIsOptionsDisabled(false);
+            setShowNextButton(false);
         }
     }
 
     const renderNextButton = () => {
         if(showNextButton){
             return (
-                <TouchableOpacity onPress={handleNext} style={styles.answerBtn}>
-                    <Text>Next</Text>
+                <TouchableOpacity onPress={handleNext} style={styles.nextBtn}>
+                    <Text style={styles.answerBtnText}>Next</Text>
                 </TouchableOpacity>
             )
         }
+    }
+
+    function restartQuiz() {
+        setShowScoreModal(false);
+        setCurrentQuestionIndex(0);
+        setScore(0);
+        setCurrentSelectedOption('');
+        setCorrectOption('');
+        setIsOptionsDisabled(false);
+        setShowNextButton(false);
     }
 
     return (
@@ -101,14 +129,44 @@ export function QuizApp() {
             <View style={styles.container}>
                 <View style={styles.textBox}>
 
-                    {/*ProgressBar*/}
-
-                    {/*Question*/}
                     {renderQuestion()}
-                    {/*AnswerOptions*/}
+
                     {renderOptions()}
-                    {/*NextButton*/}
+
                     {renderNextButton()}
+
+                    <Modal
+                        animationType="slide"
+                        transparent={true}
+                        visible={showScoreModal}
+                    >
+                        <View style={styles.modal}>
+                                <Text style={{fontSize: 30, fontWeight: 'bold'}}>{ score> (allQuestions.length/2) ? 'Gratulerer' : 'Oops!' }</Text>
+                                <View>
+                                    <Text style={{
+                                        backgroundColor: "#FFCB2F",
+                                        fontSize: 30,
+                                        color: score> (allQuestions.length/2) ? 'green' : 'red'
+                                    }}> Du fikk {score} poeng! Del på poengtavlen og sammenlign med dine venner. Eller prøv quizen igjen</Text>
+                                </View>
+
+                            <TouchableOpacity
+                                onPress={restartQuiz}
+                                style={styles.submitBtn}>
+                                <Text style={{
+                                    textAlign: 'center', color: 'white', fontSize: 20, padding: 4
+                                }}>Fullfør og del</Text>
+                            </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={restartQuiz}
+                                    style={styles.nextBtn}>
+                                    <Text style={{
+                                        textAlign: 'center', color: 'white', fontSize: 20, padding: 4
+                                    }}>Retry Quiz</Text>
+                                </TouchableOpacity>
+
+                        </View>
+                    </Modal>
                 </View>
             </View>
         </SafeAreaView>
