@@ -49,7 +49,7 @@ export function CreateAccount() {
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(username) => setUsername(username)}
                         value={userName}
-                        returnKeyType={ 'done' }
+                        returnKeyType={ "done" }
                     />
                     <TextInput
                         style={styles.input}
@@ -57,25 +57,25 @@ export function CreateAccount() {
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(email) => setEmail(email)}
                         value={email}
-                        returnKeyType={ 'done' }
+                        returnKeyType={ "done" }
                     />
                     <TextInput
                         style={styles.input}
                         secureTextEntry
-                        placeholder='Passord'
+                        placeholder="Passord"
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(password) => setPassword(password)}
                         value={password}
-                        returnKeyType={ 'done' }
+                        returnKeyType={ "done" }
                     />
                     <TextInput
                         style={styles.input}
                         secureTextEntry
-                        placeholder='Bekreft passord'
+                        placeholder="Bekreft passord"
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(conPassword) => setConfirmPassword(conPassword)}
                         value={confirmPassword}
-                        returnKeyType={ 'done' }
+                        returnKeyType={ "done" }
                     />
                 </View>
                     <View style={styles.buttonFlex}>

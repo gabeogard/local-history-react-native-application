@@ -1,7 +1,7 @@
 import {Image, ImageBackground, StyleSheet, View} from "react-native";
 import * as React from "react";
 
-export function LogoTitle() {
+export function HeaderLogo() {
     return (
         <View style={styles.container}>
             <ImageBackground
