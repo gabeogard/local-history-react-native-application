@@ -65,7 +65,6 @@ const HomeStack = () => {
     )
 }
 
-
 function BottomTabNavigator() {
 
     return (
