@@ -42,9 +42,7 @@ export function CreateAccount() {
                 </ImageBackground>
 
                 <Text style={styles.text}>Register deg</Text>
-
-
-
+                <View>
                     <TextInput
                         style={styles.input}
                         placeholder="Brukernavn"
@@ -52,8 +50,6 @@ export function CreateAccount() {
                         onChangeText={(username) => setUsername(username)}
                         value={userName}
                         returnKeyType={ 'done' }
-                        underlineColorAndroid="transparent"
-                        autoCapitalize="none"
                     />
                     <TextInput
                         style={styles.input}
@@ -62,8 +58,6 @@ export function CreateAccount() {
                         onChangeText={(email) => setEmail(email)}
                         value={email}
                         returnKeyType={ 'done' }
-                        underlineColorAndroid="transparent"
-                        autoCapitalize="none"
                     />
                     <TextInput
                         style={styles.input}
@@ -73,8 +67,6 @@ export function CreateAccount() {
                         onChangeText={(password) => setPassword(password)}
                         value={password}
                         returnKeyType={ 'done' }
-                        underlineColorAndroid="transparent"
-                        autoCapitalize="none"
                     />
                     <TextInput
                         style={styles.input}
@@ -84,10 +76,8 @@ export function CreateAccount() {
                         onChangeText={(conPassword) => setConfirmPassword(conPassword)}
                         value={confirmPassword}
                         returnKeyType={ 'done' }
-                        underlineColorAndroid="transparent"
-                        autoCapitalize="none"
                     />
-
+                </View>
                     <View style={styles.buttonFlex}>
                         <TouchableOpacity
                             style={styles.button}
@@ -161,14 +151,14 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     input: {
-        height: 20,
+        height: 25,
         width: 120,
         borderRadius: 10,
         backgroundColor: "#fff",
         borderWidth:1,
         overflow: 'hidden',
-        marginTop: 10,
-        padding: 12,
+        marginTop: 12,
+        padding: 5,
         top: 30
-    }
+    },
 });
