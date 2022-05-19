@@ -24,24 +24,25 @@ export function FactsScreen({navigation}:{navigation: any}){
     const [showBackButton, setBackButton] = useState(false);
 
 
+
     const renderFacts = () => {
         return (
             <View style={styles.container}>
-                <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
-                    <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
-                </ImageBackground>
-                <View>
-                    <View style={styles.factBox}>
-                        <Text style={styles.title}>{curFact+1}</Text>
-                        <Text style={styles.title}>{facts[curFact]?.Title}</Text>
-                        <Text style={styles.factText}>{facts[curFact]?.Text}</Text>
-                    </View>
+                <View style={styles.factBox}>
+                    <Text style={styles.title}>{curFact+1}</Text>
+                    <Text style={styles.title}>{facts[curFact]?.Title}</Text>
+                    <Text style={styles.factText}>{facts[curFact]?.Text}</Text>
+                    <Image source={require("../res/images/sun.png")} />
                 </View>
-
             </View>
+
 
         )
     }
+
+    /*
+    * <Image source={require(facts[curFact]?.Image)}></Image>
+    * */
 
     const handleNext = () => {
         if (facts[curFact]?.Title === "Kvernhus"){
@@ -57,7 +58,7 @@ export function FactsScreen({navigation}:{navigation: any}){
     const renderNextButton = () => {
         return(
             <TouchableOpacity onPress={handleNext}>
-                <Text style={styleButton.button}>Next</Text>
+                <Text style={styleButton.button}>Neste</Text>
             </TouchableOpacity>
         )
     }
@@ -75,7 +76,7 @@ export function FactsScreen({navigation}:{navigation: any}){
     const renderBackButton = () => {
         return(
             <TouchableOpacity onPress={handlePrev}>
-                <Text style={styleButton.button}>Back</Text>
+                <Text style={styleButton.button}>Tilbake</Text>
             </TouchableOpacity>
         )
     }
@@ -85,7 +86,7 @@ export function FactsScreen({navigation}:{navigation: any}){
         if (showHomeButton){
             return(
                 <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
-                        <Text style={styleButton.button}>Back to home!</Text>
+                        <Text style={styleButton.button}>Hjem</Text>
                 </TouchableOpacity>
             )
         }
@@ -94,6 +95,9 @@ export function FactsScreen({navigation}:{navigation: any}){
     return(
         <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
+                <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
+                    <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
+                </ImageBackground>
                 {renderFacts()}
                 <View style={styleButton.buttonFlex}>
                 {renderBackButton()}
@@ -111,20 +115,24 @@ const styleButton = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
-        top: -100
+        top: -30
 },
 button: {
     backgroundColor: "#F5BFB6",
-        marginTop: Dimensions.get("window").width >= 400 ? 10: 5,
+        marginTop: Dimensions.get("window").width >= 400 ? 20: 5,
         //marginTop: 5,
         borderWidth:1,
+        width: 55,
+        height: 30,
         borderRadius:6,
         padding: 3,
         margin: 10,
         shadowColor: "#000000",
         shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.3,
+        shadowOpacity: 0.3,
         shadowRadius: 4,
+        textAlign: "center",
+
 }
 })
 
@@ -149,6 +157,7 @@ const styles = StyleSheet.create({
         borderColor: '#000',
         width: 400,
         height: 400,
+        top: 120,
     },
     factText: {
         fontSize: 15,
@@ -157,6 +166,7 @@ const styles = StyleSheet.create({
         paddingBottom:'10%',
         paddingLeft:'10%',
         paddingTop: '5%',
+        paddingRight:'40%',
 
     },
     buttonsNext: {
@@ -189,7 +199,7 @@ const styles = StyleSheet.create({
         //position: "absolute",
         width: 278,
         height: 90,
-        top: -40,
+        top: 30,
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
