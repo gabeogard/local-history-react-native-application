@@ -7,7 +7,8 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    View
+    View,
+    KeyboardAvoidingView, ScrollView
 } from "react-native";
 import React, {useState} from "react";
 
@@ -28,7 +29,8 @@ export function CreateAccount() {
     }
 
     return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView behavior="position" style={styles.container}>
+                <ScrollView>
                 <View style={{
                     justifyContent: "center",
                     alignItems: "center",}}>
@@ -38,7 +40,7 @@ export function CreateAccount() {
 
                 <Text style={styles.text}>Register deg</Text>
 
-                <View>
+
 
                     <TextInput
                         style={styles.input}
@@ -87,8 +89,8 @@ export function CreateAccount() {
                         </TouchableOpacity>
                     </View>
                 </View>
-                </View>
-            </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
     );
 
 }
@@ -97,6 +99,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "#FBF4E6",
         flex: 1,
+
     },
     buttonFlex: {
         backgroundColor: "#FBF4E6",
