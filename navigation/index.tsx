@@ -20,7 +20,6 @@ import {MapScreen} from "../screens/MapScreen";
 import {CreateAccount} from "../screens/CreateAccount"
 import {CustomTabBarHomeButton, TabBarBackground, TabBarIconCustom} from "../functions/tabBarBackground";
 
-
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
