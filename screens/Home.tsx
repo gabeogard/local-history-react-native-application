@@ -28,7 +28,7 @@ export default function Home({navigation}:{navigation: any}) {
                   <Text>Logg inn</Text>
               </Pressable>
 
-              <Pressable style={styles.button} onPress={ () => alert("Register")}>
+              <Pressable style={styles.button} onPress={ () => navigation.navigate("CreateAccrount")}>
                   <Text>Registrer</Text>
               </Pressable>
           </View>

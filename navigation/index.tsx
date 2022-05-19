@@ -48,7 +48,8 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator();
+const BottomTab = createBottomTabNavigator();
 
 function RootNavigator() {
   return (
@@ -64,7 +65,21 @@ function RootNavigator() {
   );
 }
 
-const BottomTab = createBottomTabNavigator();
+const HomeStack = () => {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen name="Home" component={Home} options={{ headerShown: false,}}/>
+            <Stack.Screen name="CreateAccrount" component={CreateAccount} options={{
+                headerTitle: () => < Title />,
+                headerStyle: {
+                    backgroundColor: "#FBF4E6",
+                },
+                headerShadowVisible: false,
+                headerBackTitle: "Tilbake"
+            }} />
+        </Stack.Navigator>
+    )
+}
 
 //hide header title
 function Title () {
@@ -174,7 +189,7 @@ const CustomTabBarHomeButton = (props: any) => (
 )
 
 
-function BottomTabNavigator() {
+export function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
   // @ts-ignore
@@ -235,7 +250,7 @@ function BottomTabNavigator() {
 
       <BottomTab.Screen
         name="TabOne"
-        component={Home}
+        component={HomeStack}
         options={{
           tabBarIcon: ({focused}) => (
               <Image source={require('../res/images/tabs/homeicon.png')} style={{height:45, width:45, opacity: focused ? 0.4 : 1,}}
