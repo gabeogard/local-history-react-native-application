@@ -1,5 +1,5 @@
-{
-  "questions": [
+
+const data = [
     {
       "question": "Hvor er Rælingen?",
       "answers": [
@@ -8,7 +8,7 @@
         "Ikke helt i Norge",
         "Ikke helt ikke i norge heller"
       ],
-      "correctIndex": 1
+      "correctOption": "Langt i gokk"
     },
     {
       "question": "Hvor er Rælingen",
@@ -18,7 +18,7 @@
         "Ikke i atlanterhavet",
         "Ikke utenfor USA hvertfall"
       ],
-      "correctIndex": 1
+      "correctOption": "Langt i gokk"
     },
     {
       "question": "Er denne appen fin?",
@@ -28,7 +28,7 @@
         "Hva snakker du om",
         "Selvfølgelig"
       ],
-      "correctIndex": 3
+      "correctOption": "Selvfølgelig"
     },
     {
       "question": "Fucker du med pizza?",
@@ -38,7 +38,7 @@
         "Maybe check if this works before making 50 questions",
         "Okei her er vi da, to retards som ikke liker pizza"
       ],
-      "correctIndex": 0
+      "correctOption": "Ja"
     }
-  ]
-}
+    ]
+  export default data

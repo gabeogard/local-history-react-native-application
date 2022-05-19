@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
         backgroundColor: "#FBF4E6",
     },
     textBox: {
-        width: 250,
-        height: 250,
+        width: 300,
+        height: 375,
         resizeMode: "cover",
         backgroundColor: "#FFCB2F",
         borderRadius: 10,
@@ -35,6 +35,9 @@ export const styles = StyleSheet.create({
         marginTop: Platform.OS === "web" ? 5 : 4,
         borderWidth:1,
         borderRadius:6,
-        margin: 5
+        margin: 5,
+    },
+    answerBtnText: {
+        fontSize: 20
     }
 });

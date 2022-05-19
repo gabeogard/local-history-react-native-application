@@ -1,108 +1,116 @@
 import {Text, View} from "./Themed";
-import {Button, TouchableOpacity} from "react-native";
+import {Button, SafeAreaView, TouchableOpacity, StatusBar, Platform} from "react-native";
 import {styles} from "../constants/styles";
-import {questions} from "../res/quiz/questions.json";
-import React, {useState} from "react";
-import {QuizAnswer} from '../components/QuizAnswer'
+import * as React from 'react';
+import {useState} from "react";
+import data from "../res/quiz/questions";
+import {FontAwesome, Foundation} from '@expo/vector-icons';
+
 
 export function QuizApp() {
-    const [currentIndex, setIndex] = useState(0)
-    const [points, setPoints] = useState(0)
+    const allQuestions = data;
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+    const [currentSelectedOption, setCurrentSelectedOption] = useState('')
+    const [correctOption, setCorrectOption] = useState('')
+    const [isOptionsDisabled, setIsOptionsDisabled] = useState(false)
+    const [score, setScore] = useState(0)
+    const [showNextButton, setShowNextButton] = useState(false)
 
-    function answerQuestion( answer: number, correctIndex: number): Boolean {
-    
-        if(answer===correctIndex){
-            return true
-    
-        } else{
-           
-            return false
+    function validateAnswer(selectedOption: string) {
+        let correct_option = allQuestions[currentQuestionIndex].correctOption
+        setCurrentSelectedOption(selectedOption)
+        setCorrectOption(correct_option)
+        setIsOptionsDisabled(true)
+        if (selectedOption == correct_option) {
+            setScore(score + 50)
+        }
+        setShowNextButton(true)
+    }
+
+    const renderQuestion = () => {
+        return (
+            <>
+                <SafeAreaView style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+                    <Text style={{fontSize: 20, opacity: 0.6}}>{currentQuestionIndex + 1}</Text>
+                    <Text style={{fontSize: 18, opacity: 0.6}}>/{allQuestions.length}</Text>
+                </SafeAreaView>
+
+                <Text style={{fontSize: 25}}>{allQuestions[currentQuestionIndex]?.question}</Text>
+            </>
+        )
+    }
+
+    const renderOptions = () => {
+        return (
+            <>
+                {
+                    allQuestions[currentQuestionIndex]?.answers.map(option => (
+                        <TouchableOpacity
+                            onPress={() => validateAnswer(option)}
+                            disabled={isOptionsDisabled}
+                            key={option}
+                            style={{
+                                borderColor: option == correctOption ? '#2AA816FF':
+                                    option==currentSelectedOption ? '#CB0000FF': '#000000',
+                                backgroundColor: "#F5BFB6",
+                                marginTop: Platform.OS === "web" ? 5 : 4,
+                                borderWidth: 1,
+                                borderRadius: 6,
+                                margin: 5,
+                            }}>
+                            <Text style={styles.answerBtnText}>{option}</Text>
+
+                            {
+                                option == correctOption ? (
+                                    <SafeAreaView
+                                        style={{alignItems: 'flex-end', marginRight: 10, flexDirection: 'column'}}>
+                                        <FontAwesome name="check" size={24} color="green"/>
+                                    </SafeAreaView>
+                                ) : option == currentSelectedOption ? (
+                                    <SafeAreaView
+                                        style={{alignItems: 'flex-end', marginRight: 10, flexDirection: 'column'}}>
+                                        <Foundation name="x" size={24} color="red"/>
+                                    </SafeAreaView>
+                                ) : null
+                            }
+                        </TouchableOpacity>
+                    ))
+                }
+            </>
+        )
+    }
+
+    function handleNext() {
+        if(currentQuestionIndex == allQuestions.length-1){
+
+        }
+    }
+
+    const renderNextButton = () => {
+        if(showNextButton){
+            return (
+                <TouchableOpacity onPress={handleNext} style={styles.answerBtn}>
+                    <Text>Next</Text>
+                </TouchableOpacity>
+            )
         }
     }
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView>
+            <View style={styles.container}>
+                <View style={styles.textBox}>
 
-            <View style={styles.textBox}>
-                <Text style={styles.title}>Points: {points}</Text>
-                <Text style={styles.title}>{questions[currentIndex].question}</Text>
-                <QuizAnswer answer={questions[currentIndex].answers[0]} 
-                onPress={() => {
-                    if(
-                        answerQuestion(
-                            questions[currentIndex].answers.indexOf(
-                                questions[currentIndex].answers[0]),
-                                questions[currentIndex].correctIndex)
-                    ){
-                        if(!(currentIndex > questions.length -1)){
-                            setPoints(points + 100)
-                        setIndex(currentIndex + 1)
-                        }
-                    } else{
-                        if(!(currentIndex > questions.length -1)){
-                            setIndex(currentIndex + 1)
-                        }
-                    }
-                
-                }}/>
-                <QuizAnswer answer={questions[currentIndex].answers[1]} 
-                onPress={() => {
-                    if(
-                        answerQuestion(
-                            questions[currentIndex].answers.indexOf(
-                                questions[currentIndex].answers[1]),
-                                questions[currentIndex].correctIndex)
-                    ){
-                        if(!(currentIndex > questions.length -1)){
-                            setPoints(points + 100)
-                        setIndex(currentIndex + 1)
-                        }
-                    } else{
-                        if(!(currentIndex > questions.length -1)){
-                            setIndex(currentIndex + 1)
-                        }
-                    }
-                
-                }}/>
-                <QuizAnswer answer={questions[currentIndex].answers[2]} 
-                onPress={() => {
-                    if(
-                        answerQuestion(
-                            questions[currentIndex].answers.indexOf(
-                                questions[currentIndex].answers[2]),
-                                questions[currentIndex].correctIndex)
-                    ){
-                        if(!(currentIndex > questions.length -2)){
-                            setPoints(points + 100)
-                        setIndex(currentIndex + 1)
-                        }
-                    } else{
-                        if(!(currentIndex > questions.length -2)){
-                            setIndex(currentIndex + 1)
-                        }
-                    }
-                
-                }}/>
-                <QuizAnswer answer={questions[currentIndex].answers[3]} 
-                onPress={() => {
-                    if(
-                        answerQuestion(
-                            questions[currentIndex].answers.indexOf(
-                                questions[currentIndex].answers[3]),
-                                questions[currentIndex].correctIndex)
-                    ){
-                        if(!(currentIndex > questions.length -2)){
-                            setPoints(points + 100)
-                        setIndex(currentIndex + 1)
-                        }
-                    } else{
-                        if(!(currentIndex > questions.length -2)){
-                            setIndex(currentIndex + 1)
-                        }
-                    }
-                
-                }}/>
+                    {/*ProgressBar*/}
+
+                    {/*Question*/}
+                    {renderQuestion()}
+                    {/*AnswerOptions*/}
+                    {renderOptions()}
+                    {/*NextButton*/}
+                    {renderNextButton()}
+                </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
