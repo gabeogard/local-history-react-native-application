@@ -6,13 +6,11 @@ import {
     Button,
     Dimensions,
     ImageBackground,
-    Pressable,
     StyleSheet,
     Text,
     TextInput,
     TouchableOpacity,
     View,
-    KeyboardAvoidingView, ScrollView
 } from "react-native";
 import React, {useState} from "react";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
@@ -53,6 +51,7 @@ export function CreateAccount() {
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(username) => setUsername(username)}
                         value={userName}
+                        returnKeyType={ 'done' }
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
@@ -62,6 +61,7 @@ export function CreateAccount() {
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(email) => setEmail(email)}
                         value={email}
+                        returnKeyType={ 'done' }
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
@@ -72,6 +72,7 @@ export function CreateAccount() {
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(password) => setPassword(password)}
                         value={password}
+                        returnKeyType={ 'done' }
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
@@ -82,6 +83,7 @@ export function CreateAccount() {
                         placeholderTextColor="#aaaaaa"
                         onChangeText={(conPassword) => setConfirmPassword(conPassword)}
                         value={confirmPassword}
+                        returnKeyType={ 'done' }
                         underlineColorAndroid="transparent"
                         autoCapitalize="none"
                     />
