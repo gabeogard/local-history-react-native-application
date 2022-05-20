@@ -15,7 +15,7 @@ import React, {useState} from "react";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {createUserWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth"
 import {auth} from "../firebase"
-LogBox.ignoreAllLogs();//Hide all warning notifications on front-end but u still see on console
+LogBox.ignoreLogs(["AsyncStorage has"]);
 
 export function CreateAccount() {
 
