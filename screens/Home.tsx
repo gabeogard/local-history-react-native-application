@@ -1,6 +1,16 @@
 import {StyleSheet, Image, Pressable, ImageBackground,View, SafeAreaView, Text, Dimensions} from 'react-native';
+import {useState} from "react";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "../firebase";
 
 export default function Home({navigation}:{navigation: any}) {
+
+    const [user, setUser] = useState<{} | null>({})
+
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser)
+    })
+
   return (
         //safeAreaView skal ha en annen style
         <SafeAreaView style={styles.container}>
@@ -24,13 +34,33 @@ export default function Home({navigation}:{navigation: any}) {
                   <Text>Spill som gjest</Text>
               </Pressable>
 
-              <Pressable style={styles.button} onPress={ () => navigation.navigate("Third")}>
-                  <Text>Logg inn</Text>
-              </Pressable>
+              {
+                  (user as any)?.email ?
+                      <View>
+                          <Pressable style={styles.button} onPress={ () => navigation.navigate("Third")}>
+                              <Text>Gå til Fakta</Text>
+                          </Pressable>
 
-              <Pressable style={styles.button} onPress={ () => navigation.navigate("CreateAccrount")}>
-                  <Text>Registrer</Text>
-              </Pressable>
+
+                          <Pressable style={styles.button} onPress={ () => navigation.navigate("CreateAccrount")}>
+                              <Text>Chat</Text>
+                          </Pressable>
+                      </View>
+                      :
+
+                      <View>
+                      <Pressable style={styles.button} onPress={ () => navigation.navigate("Third")}>
+                          <Text>Logg inn</Text>
+                      </Pressable>
+
+
+                      <Pressable style={styles.button} onPress={ () => navigation.navigate("CreateAccrount")}>
+                          <Text>Registrer</Text>
+                      </Pressable>
+                      </View>
+              }
+
+
           </View>
 
           <Image style={styles.onTour} source={require("../res/images/onTour.png")}/>
@@ -58,6 +88,10 @@ const styles = StyleSheet.create({
         zIndex: -1,
   },
   button: {
+      //skal fjernes
+      justifyContent: "center",
+      alignItems: "center",
+
       backgroundColor: "#F5BFB6",
       marginTop: Dimensions.get("window").width >= 400 ? 10: 5,
       //marginTop: 5,
