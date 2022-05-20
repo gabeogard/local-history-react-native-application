@@ -7,7 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Dimensions, Image, StyleSheet} from 'react-native';
+import {ColorSchemeName, Dimensions, Image, StyleSheet, View, Text} from 'react-native';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Home from '../screens/Home';
@@ -21,6 +21,9 @@ import {CreateAccount} from "../screens/CreateAccount"
 import {CustomTabBarHomeButton, TabBarBackground, TabBarIconCustom} from "../functions/tabBarBackground";
 import {UserProfileScreen} from "../screens/UserProfileScreen";
 import {HeaderLoginInfo} from "../functions/headerLoginInfo";
+import {useState} from "react";
+import {onAuthStateChanged} from "firebase/auth";
+import {auth} from "../firebase";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -68,7 +71,13 @@ const HomeStack = () => {
     )
 }
 
-function BottomTabNavigator() {
+function BottomTabNavigator({navigation}:{navigation: any}) {
+
+    const [user, setUser] = useState<{} | null>({})
+
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser)
+    })
 
     return (
     <BottomTab.Navigator
@@ -87,7 +96,7 @@ function BottomTabNavigator() {
       }}>
         <BottomTab.Screen
             name={"Third" as const}
-            component={LoginScreen}
+            component={(user as any)?.email ? UserProfileScreen : LoginScreen}
 
             options={{
                 tabBarIcon: ({focused}) => <TabBarIconCustom

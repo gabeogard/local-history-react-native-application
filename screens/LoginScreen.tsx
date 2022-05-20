@@ -76,7 +76,7 @@ export function LoginScreen({navigation}:{navigation: any}) {
                         onPress={() => { }}
                         style={styles.button}
                     >
-                        <Text style={styles.text}>Register</Text>
+                        <Text style={styles.text}>Ny bruker?</Text>
                     </TouchableOpacity>
                 </View>
 

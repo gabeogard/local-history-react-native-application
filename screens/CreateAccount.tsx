@@ -15,6 +15,7 @@ import React, {useState} from "react";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {createUserWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth"
 import {auth} from "../firebase"
+// ignoring warnings that start in a string that matchs asyncStorage. issue have to be fixed on firebase side(next update)
 LogBox.ignoreLogs(["AsyncStorage has"]);
 
 export function CreateAccount() {
@@ -25,7 +26,6 @@ export function CreateAccount() {
     const [confirmPassword, setConfirmPassword] = useState('')
 
     const [user, setUser] = useState<{} | null>({})
-
 
     onAuthStateChanged(auth, (currentUser) => {
         setUser(currentUser)
