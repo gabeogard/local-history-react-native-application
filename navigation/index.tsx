@@ -7,7 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Dimensions, Image, StyleSheet, View} from 'react-native';
+import {ColorSchemeName, Dimensions, Image, StyleSheet} from 'react-native';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Home from '../screens/Home';
@@ -20,6 +20,7 @@ import {MapScreen} from "../screens/MapScreen";
 import {CreateAccount} from "../screens/CreateAccount"
 import {CustomTabBarHomeButton, TabBarBackground, TabBarIconCustom} from "../functions/tabBarBackground";
 import {UserProfileScreen} from "../screens/UserProfileScreen";
+import {HeaderLoginInfo} from "../functions/headerLoginInfo";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -74,7 +75,10 @@ function BottomTabNavigator() {
       initialRouteName="TabOne"
 
       screenOptions={{
-          headerTitleStyle: {display: "none"},
+          headerTitle: () => false,
+          headerRight: () => <HeaderLoginInfo />,
+          headerRightContainerStyle: styles.headerRightContainerStyle,
+
           headerBackground: () => <HeaderLogo />,
           tabBarShowLabel: false,
 
@@ -160,8 +164,15 @@ const styles = StyleSheet.create({
         backgroundColor: "#FBF4E6",
         height: Dimensions.get("window").width >= 375 ? 90 : 55,
         borderTopWidth:0,
-    }
-    }
+    },
+     headerRightContainerStyle: {
+         flex: 1,
+         justifyContent: "center",
+         alignItems: "center",
+         top: "14%",
+         left: "80%"
+     }
+}
 )
 
 
