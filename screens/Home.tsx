@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         width: 56,
         height: 76,
         left: 130,
-        top: -21
+        top: 66
 },
     textBox: {
         width: Dimensions.get("window").width >= 400 ? 349: 271,
