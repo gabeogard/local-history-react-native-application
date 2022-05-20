@@ -27,21 +27,22 @@ export function FactsScreen({navigation}:{navigation: any}){
     const renderFacts = () => {
         return (
             <View style={styles.container}>
-                <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
-                    <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
-                </ImageBackground>
                 <View>
                     <View style={styles.factBox}>
                         <Text style={styles.title}>{curFact+1}</Text>
                         <Text style={styles.title}>{facts[curFact]?.Title}</Text>
                         <Text style={styles.factText}>{facts[curFact]?.Text}</Text>
+                        <Image style={styles.image} source={require('../res/images/vannsag.png')}></Image>
                     </View>
                 </View>
-
             </View>
-
         )
     }
+
+    /*
+    <Image source={require(facts[curFact]?.Image)}></Image>
+
+     */
 
     const handleNext = () => {
         if (facts[curFact]?.Title === "Kvernhus"){
@@ -57,7 +58,7 @@ export function FactsScreen({navigation}:{navigation: any}){
     const renderNextButton = () => {
         return(
             <TouchableOpacity onPress={handleNext}>
-                <Text style={styleButton.button}>Next</Text>
+                <Text style={styleButton.button}>Neste</Text>
             </TouchableOpacity>
         )
     }
@@ -75,7 +76,7 @@ export function FactsScreen({navigation}:{navigation: any}){
     const renderBackButton = () => {
         return(
             <TouchableOpacity onPress={handlePrev}>
-                <Text style={styleButton.button}>Back</Text>
+                <Text style={styleButton.button}>Tilbake</Text>
             </TouchableOpacity>
         )
     }
@@ -85,7 +86,7 @@ export function FactsScreen({navigation}:{navigation: any}){
         if (showHomeButton){
             return(
                 <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
-                        <Text style={styleButton.button}>Back to home!</Text>
+                        <Text style={styleButton.button}>Hjem</Text>
                 </TouchableOpacity>
             )
         }
@@ -94,6 +95,9 @@ export function FactsScreen({navigation}:{navigation: any}){
     return(
         <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
+                <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
+                    <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
+                </ImageBackground>
                 {renderFacts()}
                 <View style={styleButton.buttonFlex}>
                 {renderBackButton()}
@@ -111,7 +115,6 @@ const styleButton = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
-        top: -100
 },
 button: {
     backgroundColor: "#F5BFB6",
@@ -123,8 +126,13 @@ button: {
         margin: 10,
         shadowColor: "#000000",
         shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.3,
+        shadowOpacity: 0.3,
         shadowRadius: 4,
+        width: 80,
+        textAlign: "center",
+        height: 30,
+        fontWeight: "bold",
+        top:"55%",
 }
 })
 
@@ -148,14 +156,16 @@ const styles = StyleSheet.create({
         borderRadius:20,
         borderColor: '#000',
         width: 400,
-        height: 400,
+        height: 420,
+        top:"30%",
     },
     factText: {
-        fontSize: 15,
+        fontSize: 18,
         borderColor:'black',
         fontWeight:'normal',
-        paddingBottom:'10%',
+        paddingBottom:'15%',
         paddingLeft:'10%',
+        paddingRight: '50%',
         paddingTop: '5%',
 
     },
@@ -186,10 +196,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     introBox: {
-        //position: "absolute",
-        width: 278,
-        height: 90,
-        top: -40,
+        width: Dimensions.get("window").width >= 375 ? 350: 278,
+        height: Dimensions.get("window").width >= 375 ? 115: 90,
+        top: 40,
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
@@ -213,6 +222,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 4,
     },
+    image: {
+        top: "20%",
+        right: "5%",
+        position:"absolute",
+        borderWidth:2,
+        borderRadius:6,
+    }
 
 
 
