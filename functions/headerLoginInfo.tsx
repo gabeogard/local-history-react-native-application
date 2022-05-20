@@ -2,7 +2,7 @@ import * as React from "react";
 import {useState} from "react";
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import {auth} from "../firebase";
-import {Text, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 
 export function HeaderLoginInfo() {
 
@@ -18,17 +18,7 @@ export function HeaderLoginInfo() {
 
     const renderLogout = () => {
         return (
-            <Text style={{
-                backgroundColor: "#C7E6D5",
-                borderWidth: 1,
-                borderRadius: 6,
-                padding: 3,
-                overflow: "hidden",
-                shadowColor: "#000000",
-                shadowOffset: {width: 0, height: 4},
-                shadowOpacity: 0.3,
-                shadowRadius: 4,
-            }} onPress={logout}>Logg ut</Text>)
+            <Text style={styles.button} onPress={logout}>Logg ut</Text>)
     }
     return (
         <View>
@@ -39,3 +29,18 @@ export function HeaderLoginInfo() {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+        button: {
+            backgroundColor: "#C7E6D5",
+            borderWidth: 1,
+            borderRadius: 6,
+            padding: 3,
+            overflow: "hidden",
+            shadowColor: "#000000",
+            shadowOffset: {width: 0, height: 4},
+            shadowOpacity: 0.3,
+            shadowRadius: 4,
+        }
+    }
+)
