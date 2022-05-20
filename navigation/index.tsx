@@ -19,6 +19,7 @@ import {HeaderLogo} from "../functions/HeaderLogo";
 import {MapScreen} from "../screens/MapScreen";
 import {CreateAccount} from "../screens/CreateAccount"
 import {CustomTabBarHomeButton, TabBarBackground, TabBarIconCustom} from "../functions/tabBarBackground";
+import {UserProfileScreen} from "../screens/UserProfileScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -61,6 +62,7 @@ const HomeStack = () => {
                 headerShadowVisible: false,
                 headerBackTitle: "Tilbake"
             }} />
+            <Stack.Screen name="userProfile" component={UserProfileScreen} options={{ headerShown: false,}}/>
         </Stack.Navigator>
     )
 }

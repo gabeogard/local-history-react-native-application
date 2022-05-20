@@ -3,9 +3,8 @@
 */
 
 import {
-    Button,
     Dimensions,
-    ImageBackground,
+    ImageBackground, LogBox,
     StyleSheet,
     Text,
     TextInput,
@@ -14,21 +13,46 @@ import {
 } from "react-native";
 import React, {useState} from "react";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-
+import {createUserWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth"
+import {auth} from "../firebase"
+LogBox.ignoreAllLogs();//Hide all warning notifications on front-end but u still see on console
 
 export function CreateAccount() {
 
-    const [userName, setUsername] = useState('')
+    const [userName, setUserName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
+    const [user, setUser] = useState<{} | null>({})
 
-    const onRegisterPress = () => {
+
+    onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser)
+    })
+
+    const onRegisterPress = async () => {
+
         if (password !== confirmPassword) {
             alert("Passordet stemmer ikke")
             return
         }
+
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            console.log(userCredential )
+
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    const logout = async () => {
+        await signOut(auth)
+    }
+
+    const renderLogout = ()=> {
+        return (<Text onPress={logout}>trykk for å logOut</Text>)
     }
 
     return (
@@ -41,15 +65,29 @@ export function CreateAccount() {
                     <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
                 </ImageBackground>
 
+                    <View style={{top: 13}}>
+                        {(user as any)?.email ?
+                            <View>
+                            <Text>
+                                Du er logget inn med {(user as any)?.email}
+                            </Text>
+                                {renderLogout()}
+                            </View>
+                             : <Text>
+                                du er ikke logget inn
+                            </Text> }
+                    </View>
+
                 <Text style={styles.text}>Register deg</Text>
                 <View>
                     <TextInput
                         style={styles.input}
                         placeholder="Brukernavn"
                         placeholderTextColor="#aaaaaa"
-                        onChangeText={(username) => setUsername(username)}
+                        onChangeText={(username) => setUserName(username)}
                         value={userName}
                         returnKeyType={ "done" }
+                        autoCapitalize="none"
                     />
                     <TextInput
                         style={styles.input}
@@ -58,6 +96,7 @@ export function CreateAccount() {
                         onChangeText={(email) => setEmail(email)}
                         value={email}
                         returnKeyType={ "done" }
+                        autoCapitalize="none"
                     />
                     <TextInput
                         style={styles.input}
