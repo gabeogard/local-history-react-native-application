@@ -37,13 +37,13 @@ export default function Home({navigation}:{navigation: any}) {
               {
                   (user as any)?.email ?
                       <View>
-                          <Pressable style={styles.button} onPress={ () => navigation.navigate("Third")}>
+                          <Pressable style={styles.button} onPress={ () => navigation.navigate("fakta")}>
                               <Text>Gå til Fakta</Text>
                           </Pressable>
 
 
-                          <Pressable style={styles.button} onPress={ () => navigation.navigate("CreateAccrount")}>
-                              <Text>Chat</Text>
+                          <Pressable style={styles.button} onPress={ () => navigation.navigate("userProfile")}>
+                              <Text>profile</Text>
                           </Pressable>
                       </View>
                       :

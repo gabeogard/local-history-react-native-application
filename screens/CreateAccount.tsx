@@ -2,23 +2,16 @@
 * https://github.com/APSL/react-native-keyboard-aware-scroll-view
 */
 
-import {
-    Dimensions,
-    ImageBackground, LogBox,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-} from "react-native";
+import {Dimensions, ImageBackground, LogBox, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
 import React, {useState} from "react";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {createUserWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth"
 import {auth} from "../firebase"
+import {TextInputCustom} from "../library/TextInputCustom";
 // ignoring warnings that start in a string that matchs asyncStorage. issue have to be fixed on firebase side(next update)
 LogBox.ignoreLogs(["AsyncStorage has"]);
 
-export function CreateAccount() {
+export function CreateAccount({navigation}:{navigation: any}) {
 
     const [userName, setUserName] = useState('')
     const [email, setEmail] = useState('')
@@ -40,6 +33,7 @@ export function CreateAccount() {
 
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            navigation.navigate("Home")
             console.log(userCredential )
 
         } catch (error) {
@@ -65,6 +59,7 @@ export function CreateAccount() {
                     <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
                 </ImageBackground>
 
+                    {/*må fjernes*/}
                     <View style={{top: 13}}>
                         {(user as any)?.email ?
                             <View>
@@ -78,44 +73,19 @@ export function CreateAccount() {
                             </Text> }
                     </View>
 
-                <Text style={styles.text}>Register deg</Text>
-                <View>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Brukernavn"
-                        placeholderTextColor="#aaaaaa"
-                        onChangeText={(username) => setUserName(username)}
-                        value={userName}
-                        returnKeyType={ "done" }
-                        autoCapitalize="none"
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Epost"
-                        placeholderTextColor="#aaaaaa"
-                        onChangeText={(email) => setEmail(email)}
-                        value={email}
-                        returnKeyType={ "done" }
-                        autoCapitalize="none"
-                    />
-                    <TextInput
-                        style={styles.input}
-                        secureTextEntry
-                        placeholder="Passord"
-                        placeholderTextColor="#aaaaaa"
-                        onChangeText={(password) => setPassword(password)}
-                        value={password}
-                        returnKeyType={ "done" }
-                    />
-                    <TextInput
-                        style={styles.input}
-                        secureTextEntry
-                        placeholder="Bekreft passord"
-                        placeholderTextColor="#aaaaaa"
-                        onChangeText={(conPassword) => setConfirmPassword(conPassword)}
-                        value={confirmPassword}
-                        returnKeyType={ "done" }
-                    />
+                <View style={{flex: 1}}>
+
+                    <Text style={styles.text}>Register deg</Text>
+
+                    <TextInputCustom name="Brukernavn" value={userName} onChange={setUserName} secureTextEntry={false} />
+
+                    <TextInputCustom name="Epost" value={email} onChange={setEmail} secureTextEntry={false} />
+
+                    <TextInputCustom name="Password" value={password} onChange={setPassword} secureTextEntry={true} />
+
+                   <TextInputCustom name="Bekreft passord" value={confirmPassword} onChange={setConfirmPassword} secureTextEntry={true} />
+
+
                 </View>
                     <View style={styles.buttonFlex}>
                         <TouchableOpacity
@@ -142,8 +112,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        top: Dimensions.get("window").width >= 400 ? 60: 50,
-        //top: 10,
+        top: "35%",
         zIndex: -1,
     },
     button: {
@@ -161,7 +130,7 @@ const styles = StyleSheet.create({
     introBox: {
         width: Dimensions.get("window").width >= 400 ? 350: 278,
         height: Dimensions.get("window").width >= 400 ? 115: 90,
-        top: 10,
+        top: "20%",
         display: "flex",
         alignContent: "center",
         justifyContent: "center",
@@ -186,18 +155,7 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     text: {
-        top: 20,
+        top: "40%",
         fontSize: 20
-    },
-    input: {
-        height: 25,
-        width: 120,
-        borderRadius: 10,
-        backgroundColor: "#fff",
-        borderWidth:1,
-        overflow: 'hidden',
-        marginTop: 12,
-        padding: 5,
-        top: 30
     },
 });

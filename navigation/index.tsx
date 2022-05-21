@@ -7,7 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {DarkTheme, DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import * as React from 'react';
-import {ColorSchemeName, Dimensions, Image, StyleSheet, View, Text} from 'react-native';
+import {ColorSchemeName, Dimensions, Image, StyleSheet} from 'react-native';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Home from '../screens/Home';
@@ -61,8 +61,9 @@ const HomeStack = () => {
             <Stack.Screen name="CreateAccrount" component={CreateAccount} options={{
                 headerTitle: () => false,
                 headerStyle: {
-                    backgroundColor: "#FBF4E6",
+                    backgroundColor: 'transparent',
                 },
+                headerTransparent: true,
                 headerShadowVisible: false,
                 headerBackTitle: "Tilbake"
             }} />
@@ -71,7 +72,7 @@ const HomeStack = () => {
     )
 }
 
-function BottomTabNavigator({navigation}:{navigation: any}) {
+function BottomTabNavigator() {
 
     const [user, setUser] = useState<{} | null>({})
 
