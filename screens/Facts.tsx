@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
         borderColor:'black',
         fontWeight:'normal',
         paddingBottom:'15%',
-        paddingLeft:'10%',
+        paddingLeft:'5%',
         paddingRight: '50%',
         paddingTop: '5%',
 
@@ -223,12 +223,17 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     image: {
+        left: "55%",
         top: "20%",
-        right: "5%",
-        position:"absolute",
-        borderWidth:2,
-        borderRadius:6,
-    }
+        position: "absolute",
+        borderWidth: 2,
+        borderRadius: 3,
+        width: "40%",
+        height: "60%",
+
+
+    },
+
 
 
 
