@@ -6,7 +6,6 @@ export const TextInputCustom = (props: any) => {
 
     return (
         <TextInput style={{
-            height: "20%",
             borderRadius: 10,
             backgroundColor: "#fff",
             borderWidth: 1,
