@@ -1,20 +1,12 @@
-import {TextInput} from "react-native";
+import {StyleSheet, TextInput} from "react-native";
 import React from "react";
 
 export const TextInputCustom = (props: any) => {
     const {value, onChange, name, secureTextEntry} = props;
 
     return (
-        <TextInput style={{
-            borderRadius: 10,
-            backgroundColor: "#fff",
-            borderWidth: 1,
-            overflow: 'hidden',
-            marginTop: "2%",
-            padding: "1%",
-            top: "40%",
-            zIndex: 1
-        }}
+        <TextInput
+           style={styles.input}
            placeholder={name}
            onChangeText={text => onChange(text)}
            value={value}
@@ -24,4 +16,19 @@ export const TextInputCustom = (props: any) => {
         />
     );
 }
+
+const styles = StyleSheet.create({
+    input: {
+        height: 25,
+        width: 120,
+        borderRadius: 10,
+        backgroundColor: "#fff",
+        borderWidth: 1,
+        overflow: 'hidden',
+        marginTop: "2%",
+        padding: "1%",
+        top: "40%",
+        zIndex: 1
+    }
+})
 

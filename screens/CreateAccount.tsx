@@ -5,7 +5,7 @@
 import {Dimensions, ImageBackground, LogBox, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
 import React, {useState} from "react";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {createUserWithEmailAndPassword, onAuthStateChanged, signOut} from "firebase/auth"
+import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth"
 import {auth} from "../firebase"
 import {TextInputCustom} from "../library/TextInputCustom";
 // ignoring warnings that start in a string that matchs asyncStorage. issue have to be fixed on firebase side(next update)
@@ -18,12 +18,6 @@ export function CreateAccount({navigation}:{navigation: any}) {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    const [user, setUser] = useState<{} | null>({})
-
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser)
-    })
-
     const onRegisterPress = async () => {
 
         if (password !== confirmPassword) {
@@ -32,21 +26,17 @@ export function CreateAccount({navigation}:{navigation: any}) {
         }
 
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            navigation.navigate("Home")
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+                .then(userData => {
+                    updateProfile(userData.user, {
+                        displayName: userName
+                    })
+                });
             console.log(userCredential )
-
+            navigation.navigate("Home")
         } catch (error) {
             alert(error.message)
         }
-    }
-
-    const logout = async () => {
-        await signOut(auth)
-    }
-
-    const renderLogout = ()=> {
-        return (<Text onPress={logout}>trykk for å logOut</Text>)
     }
 
     return (
@@ -58,20 +48,6 @@ export function CreateAccount({navigation}:{navigation: any}) {
                 <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
                     <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
                 </ImageBackground>
-
-                    {/*må fjernes*/}
-                    <View style={{top: 13}}>
-                        {(user as any)?.email ?
-                            <View>
-                            <Text>
-                                Du er logget inn med {(user as any)?.email}
-                            </Text>
-                                {renderLogout()}
-                            </View>
-                             : <Text>
-                                du er ikke logget inn
-                            </Text> }
-                    </View>
 
                 <View style={{flex: 1}}>
 
@@ -97,7 +73,6 @@ export function CreateAccount({navigation}:{navigation: any}) {
                 </View>
             </KeyboardAwareScrollView>
     );
-
 }
 
 const styles = StyleSheet.create({
