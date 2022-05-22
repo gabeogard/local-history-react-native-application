@@ -3,11 +3,13 @@
 */
 
 import {Dimensions, ImageBackground, LogBox, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth"
-import {auth} from "../firebase"
 import {TextInputCustom} from "../library/TextInputCustom";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {auth} from "../firebase";
+import {db} from "../firebase";
+import {setDoc, doc} from "firebase/firestore/lite"
 // ignoring warnings that start in a string that matchs asyncStorage. issue have to be fixed on firebase side(next update)
 LogBox.ignoreLogs(["AsyncStorage has"]);
 
@@ -18,6 +20,7 @@ export function CreateAccount({navigation}:{navigation: any}) {
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
+
     const onRegisterPress = async () => {
 
         if (password !== confirmPassword) {
@@ -26,25 +29,22 @@ export function CreateAccount({navigation}:{navigation: any}) {
         }
 
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-                .then(userData => {
-                    updateProfile(userData.user, {
-                        displayName: userName
+            await createUserWithEmailAndPassword(auth, email, password)
+                .then((userData) => {
+                    const docRef = doc(db, "users", userData.user.uid);
+                    setDoc(docRef, {
+                        username: userName,
                     })
-                });
-            console.log(userCredential )
-            navigation.navigate("Home")
+                    console.log("user and username have been added")
+                })
+                navigation.navigate("Home")
         } catch (error) {
             alert(error.message)
         }
     }
-
     return (
             <KeyboardAwareScrollView extraHeight={120} style={styles.container}>
-
-                <View style={{
-                    justifyContent: "center",
-                    alignItems: "center",}}>
+                <View style={{justifyContent: "center", alignItems: "center",}}>
                 <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
                     <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
                 </ImageBackground>
