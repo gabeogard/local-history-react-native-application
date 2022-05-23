@@ -2,14 +2,23 @@ import * as React from "react";
 import {useState} from "react";
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import {auth} from "../firebase";
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View, Alert} from "react-native";
 
 export function HeaderLoginInfo() {
 
     const [user, setUser] = useState<{} | null>({})
 
     const logout = async () => {
-        await signOut(auth)
+
+        try {
+            await signOut(auth).then(() =>{
+                Alert.alert("vellykket", "Du er nå logget ut")
+            })
+
+        }catch (error){
+            console.log(error)
+        }
+
     }
 
     onAuthStateChanged(auth, (currentUser) => {
