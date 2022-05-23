@@ -1,25 +1,32 @@
 import {SafeAreaView, Text, View} from "react-native";
-import {db} from "../firebase";
-import {collection, getDocs} from "firebase/firestore/lite"
+import {auth, db} from "../firebase";
+import {collection, getDocs, query} from "firebase/firestore/lite"
 import {useEffect, useState} from "react";
 
 
 export function UserProfileScreen() {
 
-    const [users, setUsers] = useState([])
+    const [username, setUsername] = useState({})
 
     const [isLoading, setIsLoading] = useState(false)
 
-    const usersCollectionRef = collection(db, "users")
+    const q = query(collection(db, "users"));
+
 
     useEffect(() => {
         setIsLoading(true)
         const getUsers = async () => {
 
            try {
-               let data = await getDocs((usersCollectionRef as any))
-               setUsers(data.docs.map((doc) => ({...doc.data() as any, id: doc.id})) as any)
-               console.log(data)
+               const querySnapshot = await getDocs(q);
+               querySnapshot.forEach((doc) => {
+                   // doc.data() is never undefined for query doc snapshots
+                   if (doc.id == auth.currentUser?.uid){
+                       setUsername(doc.data() as any)
+                       console.log(doc.id, " => ", doc.data());
+                   }
+               });
+
                setIsLoading(false)
 
            } catch (error){
@@ -41,12 +48,7 @@ export function UserProfileScreen() {
 
         <SafeAreaView style={{flex: 1, backgroundColor: "#fff"}} >
             <View style={{flex: 1}} >
-
-                {users.map((users, index) => {
-                    return <Text key={index}>name: {(users as any)?.username}</Text>
-                })}
-
-                <Text>Du er logget in</Text>
+                <Text style={{top: "20%"}}>Du er logget på, brukerN: {Object.values(username)}</Text>
             </View>
         </SafeAreaView>
     );
