@@ -3,9 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    TextInput,
     TouchableOpacity,
-    KeyboardAvoidingView, Dimensions, ImageBackground
+    Dimensions, ImageBackground, Alert
 } from "react-native";
 import {auth} from "../firebase.js";
 import {signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
@@ -34,7 +33,9 @@ export function LoginScreen({navigation}:{navigation: any}) {
         const onPressLogin = async () => {
             try {
                 setLoading(true);
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const userCredential = await signInWithEmailAndPassword(auth, email, password)
+                Alert.alert("vellykket", "Du er nå logget på")
+                navigation.navigate("Home")
                 console.log(userCredential )
 
             } catch (error) {
