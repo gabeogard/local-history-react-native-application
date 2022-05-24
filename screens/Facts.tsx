@@ -15,9 +15,10 @@ import {facts} from "../res/quiz/facts.json";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {useState} from "react";
-import {storage} from "../firebase";
+import {auth, db, storage} from "../firebase";
 import {ref, listAll, getDownloadURL} from "firebase/storage"
 import * as url from "url";
+import {collection, getDocs, query} from "firebase/firestore/lite";
 
 
 export function FactsScreen({navigation}:{navigation: any}){
@@ -29,56 +30,64 @@ export function FactsScreen({navigation}:{navigation: any}){
     const [showBackButton, setBackButton] = useState(false);
 
     const [imageList, setImageList] = useState([])
-    const imageListRef = ref(storage, "images/")
+
+
+    const [username, setUsername] = useState([])
+
+    const [isLoading, setIsLoading] = useState(false)
+
+
 
     useEffect(() => {
 
-        const run = async () => {
-            await listAll(imageListRef).then((response) => {
-                response.items.forEach((item) => {
 
-                    console.log(item.fullPath)
+        const getUsers = async () => {
 
-                    getDownloadURL(item).then((url) => {
+            try {
+                const q = query(collection(db, "factTest"));
+                const querySnapshot = await getDocs(q);
+                const item: any = []
+                querySnapshot.forEach((doc) => {
+                    // doc.data() is never undefined for query doc snapshots
+                    item.push(doc.data())
+                        setUsername(item)
+                });
 
-                        if (facts[curFact]?.Title === "gs://smidig-auth.appspot.com/images/vannsag.png"){
-                            console.log("fungerte")
-                        }
 
-                        console.log(item + "item")
-                        setImageList((prev: any) => [...prev, url] as any)
-                    })
-                })
-            })
-
+            } catch (error){
+                console.log(error)
+            }
         }
 
-        run()
+        getUsers()
 
     }, [])
 
+
+
+
     const renderFacts = () => {
-        return (
-                <View>
+
+        console.log(facts + " facts")
+
+        console.log(username + " username")
+
+            return (
                     <View style={styles.factBox}>
-                        <Text style={styles.title}>{curFact+1}</Text>
-                        <Text style={styles.title}>{facts[curFact]?.Title}</Text>
-                        <Text style={styles.factText}>{facts[curFact]?.Text}</Text>
-                        {imageList.map((url, index) => {
 
-                            let urlSubs = (url as any).toString().substring(79)
-                            let split = urlSubs.split("?".trim())
-                            console.log(split[0])
-
-                            if (facts[curFact].image === split[0]){
-                                return <View key={index}><img src={url}/></View>
-                            }
-
-
-                        })}
+                    <View>
+                    <Text style={styles.title}>{curFact+1}</Text>
+                    <Text style={styles.factText}>{(username[curFact] as any)?.title}</Text>
+                    <Text style={styles.factText}>{(username[curFact] as any)?.text}</Text>
+                    <Text style={styles.factText}>{(username[curFact] as any)?.image}</Text>
                     </View>
-                </View>
-        )
+
+                    </View>
+
+            )
+
+
+
     }
 
     /*
