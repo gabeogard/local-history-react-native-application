@@ -3,7 +3,7 @@
     {
       "Title": "Silkesagen",
       "Text": "1750 kom silkesagen, de tynnere bladene ga 25% mindre svinn enn de eldre type sagene og sagingen gikk raskere.",
-      "image":  "../res/images/ekorn.png"
+      "image":  "ekorn.png"
     },
     {
       "Title": "Sagbruk",
@@ -23,7 +23,7 @@
     {
       "Title": "Vannsag",
       "Text": "Vannsag er en vanndrevet sag med et rett sagblad som beveger seg rett opp og ned.",
-      "image": "../res/images/ekorn.png"
+      "image": "vannsag.png"
     },
     {
       "Title": "Kulturminner",

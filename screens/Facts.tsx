@@ -66,7 +66,15 @@ export function FactsScreen({navigation}:{navigation: any}){
                         <Text style={styles.factText}>{facts[curFact]?.Text}</Text>
                         {imageList.map((url, index) => {
 
-                            return <View key={index}><img src={url}/></View>
+                            let urlSubs = (url as any).toString().substring(79)
+                            let split = urlSubs.split("?".trim())
+                            console.log(split[0])
+
+                            if (facts[curFact].image === split[0]){
+                                return <View key={index}><img src={url}/></View>
+                            }
+
+
                         })}
                     </View>
                 </View>
