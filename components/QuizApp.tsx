@@ -5,6 +5,8 @@ import * as React from 'react';
 import {useState} from "react";
 import data from "../res/quiz/questions";
 import {FontAwesome, Foundation} from '@expo/vector-icons';
+import {auth, db} from "../firebase";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
 
 export function QuizApp() {
@@ -124,6 +126,15 @@ export function QuizApp() {
         setShowNextButton(false);
     }
 
+    const submitResults = async () => {
+        const results = {
+            userid: auth.currentUser?.email,
+            points: score
+        }
+        const docRef = doc(db,"leaderboard")
+        await setDoc(docRef, results);
+    }
+
     return (
         <SafeAreaView>
             <View style={styles.container}>
@@ -151,7 +162,7 @@ export function QuizApp() {
                                 </View>
 
                             <TouchableOpacity
-                                onPress={restartQuiz}
+                                onPress={submitResults}
                                 style={styles.submitBtn}>
                                 <Text style={{
                                     textAlign: 'center', color: 'white', fontSize: 20, padding: 4
