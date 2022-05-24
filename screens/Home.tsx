@@ -1,15 +1,50 @@
 import {StyleSheet, Image, Pressable, ImageBackground,View, SafeAreaView, Text, Dimensions} from 'react-native';
-import {useState} from "react";
-import {onAuthStateChanged} from "firebase/auth";
+import {useEffect, useState} from "react";
 import {auth} from "../firebase";
+
+function ifUserLoggedIn(navigation: any) {
+    return <View>
+        <Pressable style={styles.button} onPress={() => navigation.navigate("fakta")}>
+            <Text>Gå til Fakta</Text>
+        </Pressable>
+
+        <View style={{justifyContent: "center", alignItems: "center",}}>
+        <Pressable style={styles.button} onPress={() => navigation.navigate("userProfile")}>
+            <Text>profile</Text>
+        </Pressable>
+        </View>
+    </View>;
+}
+
+function ifUserNotLoggedIn(navigation: any) {
+    return <View>
+        <Pressable style={styles.button} onPress={() => navigation.navigate("Third")}>
+            <Text>Logg inn</Text>
+        </Pressable>
+
+
+        <Pressable style={styles.button} onPress={() => navigation.navigate("CreateAccrount")}>
+            <Text>Registrer</Text>
+        </Pressable>
+    </View>;
+}
 
 export default function Home({navigation}:{navigation: any}) {
 
+    const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState<{} | null>({})
 
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser)
-    })
+    function onAuthStateChanged(user: any) {
+        setUser(user);
+        if (initializing){
+            setInitializing(false);
+        }
+    }
+
+    useEffect(() => {
+        const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
+        return subscriber; // unsubscribe on unmount
+    }, []);
 
   return (
         //safeAreaView skal ha en annen style
@@ -36,30 +71,10 @@ export default function Home({navigation}:{navigation: any}) {
 
               {
                   (user as any)?.email ?
-                      <View>
-                          <Pressable style={styles.button} onPress={ () => navigation.navigate("fakta")}>
-                              <Text>Gå til Fakta</Text>
-                          </Pressable>
-
-
-                          <Pressable style={styles.button} onPress={ () => navigation.navigate("userProfile")}>
-                              <Text>profile</Text>
-                          </Pressable>
-                      </View>
+                      ifUserLoggedIn(navigation)
                       :
-
-                      <View>
-                      <Pressable style={styles.button} onPress={ () => navigation.navigate("Third")}>
-                          <Text>Logg inn</Text>
-                      </Pressable>
-
-
-                      <Pressable style={styles.button} onPress={ () => navigation.navigate("CreateAccrount")}>
-                          <Text>Registrer</Text>
-                      </Pressable>
-                      </View>
+                      ifUserNotLoggedIn(navigation)
               }
-
 
           </View>
 
