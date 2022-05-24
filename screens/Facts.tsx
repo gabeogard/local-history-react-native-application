@@ -12,6 +12,8 @@ import {
     View
 } from "react-native";
 import {facts} from "../res/quiz/facts.json";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {useState} from "react";
 
 
@@ -26,7 +28,6 @@ export function FactsScreen({navigation}:{navigation: any}){
 
     const renderFacts = () => {
         return (
-            <View style={styles.container}>
                 <View>
                     <View style={styles.factBox}>
                         <Text style={styles.title}>{curFact+1}</Text>
@@ -35,7 +36,6 @@ export function FactsScreen({navigation}:{navigation: any}){
                         <Image style={styles.image} source={require('../res/images/vannsag.png')}></Image>
                     </View>
                 </View>
-            </View>
         )
     }
 
@@ -94,13 +94,11 @@ export function FactsScreen({navigation}:{navigation: any}){
 
     return(
         <SafeAreaView style={{flex: 1}}>
-            <View style={styles.container}>
                 {renderFacts()}
                 <View style={styleButton.buttonFlex}>
-                {renderBackButton()}
-                {renderNextButton()}
+                    {renderBackButton()}
+                    {renderNextButton()}
                 </View>
-            </View>
         </SafeAreaView>
     )
 }
@@ -110,12 +108,14 @@ const styleButton = StyleSheet.create({
 
         flex: 1,
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "flex-end",
+        bottom: "12%",
+        right: "4%",
+
 },
 button: {
     backgroundColor: "#F5BFB6",
         marginTop: Dimensions.get("window").width >= 400 ? 10: 5,
-        //marginTop: 5,
         borderWidth:1,
         borderRadius:6,
         padding: 3,
@@ -124,22 +124,16 @@ button: {
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.3,
         shadowRadius: 4,
-        width: 80,
+        width: 70,
         textAlign: "center",
         height: 30,
         fontWeight: "bold",
-        top:"55%",
+
 }
 })
 
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#FBF4E6',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     title: {
        fontWeight: 'bold',
         fontSize: 30,
@@ -153,7 +147,8 @@ const styles = StyleSheet.create({
         borderColor: '#000',
         width: 365,
         height: 520,
-        top:"30%",
+        top:"10%",
+        left: "5%",
     },
     factText: {
         fontSize: 18,
@@ -170,19 +165,11 @@ const styles = StyleSheet.create({
         //marginTop: 5,
         borderWidth:1,
         borderRadius:6,
-        padding: 3,
 
         shadowColor: "#000000",
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.3,
         shadowRadius: 4,
-    },
-    buttonsHome: {
-        backgroundColor: "#F5BFB6",
-        //marginTop: Platform.OS === "web" ? 5 : 4,
-        borderWidth:1,
-        borderRadius:6,
-        fontWeight: 'bold',
     },
     buttonsBack: {
         backgroundColor: "#F5BFB6",
@@ -226,8 +213,6 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         width: "40%",
         height: "60%",
-
-
     },
 
 
