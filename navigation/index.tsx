@@ -21,8 +21,7 @@ import {CreateAccount} from "../screens/CreateAccount"
 import {CustomTabBarHomeButton, TabBarBackground, TabBarIconCustom} from "../functions/tabBarBackground";
 import {UserProfileScreen} from "../screens/UserProfileScreen";
 import {HeaderLoginInfo} from "../functions/headerLoginInfo";
-import {useState} from "react";
-import {onAuthStateChanged} from "firebase/auth";
+import {useEffect, useState} from "react";
 import {auth} from "../firebase";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -74,11 +73,21 @@ const HomeStack = () => {
 
 function BottomTabNavigator() {
 
+    const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState<{} | null>({})
 
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser)
-    })
+    function onAuthStateChanged(user: any) {
+        setUser(user);
+        if (initializing){
+            setInitializing(false);
+        }
+    }
+    console.log("Log from index: " + (user as any)?.email)
+
+    useEffect(() => {
+        const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
+        return subscriber; // unsubscribe on unmount
+    }, []);
 
     return (
     <BottomTab.Navigator
