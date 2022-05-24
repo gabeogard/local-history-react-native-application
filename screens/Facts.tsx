@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Button, Dimensions,
     Image,
@@ -15,6 +15,9 @@ import {facts} from "../res/quiz/facts.json";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {useState} from "react";
+import {storage} from "../firebase";
+import {ref, listAll, getDownloadURL} from "firebase/storage"
+import * as url from "url";
 
 
 export function FactsScreen({navigation}:{navigation: any}){
@@ -25,6 +28,34 @@ export function FactsScreen({navigation}:{navigation: any}){
     const [showHomeButton, setShowHomeButton] = useState(false)
     const [showBackButton, setBackButton] = useState(false);
 
+    const [imageList, setImageList] = useState([])
+    const imageListRef = ref(storage, "images/")
+
+    useEffect(() => {
+
+        const run = async () => {
+            await listAll(imageListRef).then((response) => {
+                response.items.forEach((item) => {
+
+                    console.log(item.fullPath)
+
+                    getDownloadURL(item).then((url) => {
+
+                        if (facts[curFact]?.Title === "gs://smidig-auth.appspot.com/images/vannsag.png"){
+                            console.log("fungerte")
+                        }
+
+                        console.log(item + "item")
+                        setImageList((prev: any) => [...prev, url] as any)
+                    })
+                })
+            })
+
+        }
+
+        run()
+
+    }, [])
 
     const renderFacts = () => {
         return (
@@ -33,7 +64,10 @@ export function FactsScreen({navigation}:{navigation: any}){
                         <Text style={styles.title}>{curFact+1}</Text>
                         <Text style={styles.title}>{facts[curFact]?.Title}</Text>
                         <Text style={styles.factText}>{facts[curFact]?.Text}</Text>
-                        <Image style={styles.image} source={require('../res/images/vannsag.png')}></Image>
+                        {imageList.map((url, index) => {
+
+                            return <View key={index}><img src={url}/></View>
+                        })}
                     </View>
                 </View>
         )
