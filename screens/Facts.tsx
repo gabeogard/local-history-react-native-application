@@ -95,14 +95,10 @@ export function FactsScreen({navigation}:{navigation: any}){
     return(
         <SafeAreaView style={{flex: 1}}>
             <View style={styles.container}>
-                <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
-                    <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
-                </ImageBackground>
                 {renderFacts()}
                 <View style={styleButton.buttonFlex}>
                 {renderBackButton()}
                 {renderNextButton()}
-                {renderHomeButton()}
                 </View>
             </View>
         </SafeAreaView>
@@ -155,8 +151,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius:20,
         borderColor: '#000',
-        width: 400,
-        height: 420,
+        width: 365,
+        height: 520,
         top:"30%",
     },
     factText: {
