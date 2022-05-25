@@ -36,7 +36,7 @@ export function FactsScreen({navigation}:{navigation: any}){
 
     const [isLoading, setIsLoading] = useState(false)
 
-
+    const [img, setImg] = useState();
 
     useEffect(() => {
 
@@ -53,6 +53,12 @@ export function FactsScreen({navigation}:{navigation: any}){
                     setUsername(item)
                 });
 
+                const res = await fetch("https://firebasestorage.googleapis.com/v0/b/smidig-auth.appspot.com/o/images%2Fvannsag.png?alt=media&token=f2c147ac-6ae6-4774-b598-8fc6ba7887fd");
+                const imageBlob = await res.blob();
+                const imageObjectURL = URL.createObjectURL(imageBlob);
+                setImg((imageObjectURL as any))
+
+                console.log(imageObjectURL)
 
             } catch (error){
                 console.log(error)
@@ -79,7 +85,9 @@ export function FactsScreen({navigation}:{navigation: any}){
                         <Text style={styles.title}>{curFact+1}</Text>
                         <Text style={styles.title}>{(username[curFact] as any)?.title}</Text>
                         <Text style={styles.factText}>{(username[curFact] as any)?.text}</Text>
-                        <Text style={styles.image}>{(username[curFact] as any)?.image}</Text>
+                        <Image source={{uri: (username[curFact] as any)?.image}}
+                        style={{width: 400, height: 400}}
+                        />
                     </View>
 
                 </View>
@@ -87,9 +95,6 @@ export function FactsScreen({navigation}:{navigation: any}){
             </View>
 
         )
-
-
-
     }
 
     /*
@@ -187,6 +192,7 @@ const styleButton = StyleSheet.create({
 const styles = StyleSheet.create({
 
     container: {
+        flex: 1,
         backgroundColor: "#FBF4E6",
         flexDirection: "column",
         justifyContent: "center",
