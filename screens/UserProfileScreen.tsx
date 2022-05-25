@@ -64,7 +64,7 @@ export function UserProfileScreen() {
 
                     <View style={{width: "97%"}}>
                         <Text numberOfLines={1} adjustsFontSizeToFit style={styles.text}>{auth.currentUser?.email}</Text>
-                        <Text numberOfLines={1} adjustsFontSizeToFit style={styles.text}>Bruker: {Object.values(username)}</Text>
+                        <Text numberOfLines={1} adjustsFontSizeToFit style={styles.text}>Bruker: <Text style={styles.textUsername}>{Object.values(username)}</Text></Text>
                     </View>
                 </View>
 
@@ -155,5 +155,8 @@ const styles = StyleSheet.create({
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.4,
         shadowRadius: 10,
+    },
+    textUsername: {
+        fontWeight: "bold"
     }
 })

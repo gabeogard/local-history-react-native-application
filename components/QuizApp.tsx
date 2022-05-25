@@ -1,16 +1,15 @@
 import {Text, View} from "./Themed";
-import {Button, SafeAreaView, TouchableOpacity, StatusBar, Platform, Modal} from "react-native";
+import {SafeAreaView, TouchableOpacity, Modal} from "react-native";
 import {styles} from "../constants/styles";
 import * as React from 'react';
-import {useState} from "react";
-import data from "../res/quiz/questions";
+import {useEffect, useState} from "react";
 import {FontAwesome, Foundation} from '@expo/vector-icons';
 import {auth, db} from "../firebase";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import {doc, setDoc, getDocs, collection} from "firebase/firestore/lite";
 
 
-export function QuizApp() {
-    const allQuestions = data;
+export const QuizApp = () => {
+    //const allQuestions = data;
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [currentSelectedOption, setCurrentSelectedOption] = useState('')
     const [correctOption, setCorrectOption] = useState('')
@@ -18,8 +17,20 @@ export function QuizApp() {
     const [score, setScore] = useState(0)
     const [showNextButton, setShowNextButton] = useState(false)
     const [showScoreModal, setShowScoreModal] = useState(false)
+    const [allQuestions, setAllQuestions] = useState <any[]>([])
 
-    function validateAnswer(selectedOption: string) {
+    const fetchQuestions = async () =>
+        (await getDocs(collection(db, "quiz"))).docs.map(value => value.data())
+
+    useEffect(() => {
+        (async () => {
+            setAllQuestions(await fetchQuestions())
+        })();
+    },[])
+
+    console.log(allQuestions)
+
+    const validateAnswer = (selectedOption: string) => {
         let correct_option = allQuestions[currentQuestionIndex].correctOption
         setCurrentSelectedOption(selectedOption)
         setCorrectOption(correct_option)
@@ -47,16 +58,16 @@ export function QuizApp() {
         return (
             <SafeAreaView>
                 {
-                    allQuestions[currentQuestionIndex]?.answers.map(option => (
+                    allQuestions[currentQuestionIndex]?.answers.map((option: string) => (
                         <TouchableOpacity
-                            onPress={()=> validateAnswer(option)}
+                            onPress={() => validateAnswer(option)}
                             disabled={isOptionsDisabled}
                             key={option}
                             style={{
                                 borderWidth: 2,
-                                borderColor: option==correctOption
+                                borderColor: option == correctOption
                                     ? 'green'
-                                    : option==currentSelectedOption
+                                    : option == currentSelectedOption
                                         ? 'red'
                                         : 'black',
                                 backgroundColor: '#F5BFB6',
@@ -74,13 +85,13 @@ export function QuizApp() {
                             <Text style={{fontSize: 20, color: 'white'}}>{option}</Text>
 
                             {
-                                option==correctOption ? (
+                                option == correctOption ? (
                                     <View style={{backgroundColor: "#F5BFB6"}}>
-                                        <FontAwesome name="check" size={24} color="green" />
+                                        <FontAwesome name="check" size={24} color="green"/>
                                     </View>
-                                ): option == currentSelectedOption ? (
+                                ) : option == currentSelectedOption ? (
                                     <View style={{backgroundColor: "#F5BFB6"}}>
-                                        <Foundation name="x" size={24} color="red" />
+                                        <Foundation name="x" size={24} color="red"/>
                                     </View>
                                 ) : null
                             }
@@ -93,12 +104,12 @@ export function QuizApp() {
     }
 
     const handleNext = () => {
-        if(currentQuestionIndex== allQuestions.length-1){
+        if (currentQuestionIndex == allQuestions.length - 1) {
             // Last Question
             setShowNextButton(false)
             setShowScoreModal(true)
-        }else{
-            setCurrentQuestionIndex(currentQuestionIndex+1);
+        } else {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
             setCurrentSelectedOption('');
             setCorrectOption('');
             setIsOptionsDisabled(false);
@@ -107,7 +118,7 @@ export function QuizApp() {
     }
 
     const renderNextButton = () => {
-        if(showNextButton){
+        if (showNextButton) {
             return (
                 <TouchableOpacity onPress={handleNext} style={styles.nextBtn}>
                     <Text style={styles.answerBtnText}>Next</Text>
@@ -116,7 +127,7 @@ export function QuizApp() {
         }
     }
 
-    function restartQuiz() {
+    const restartQuiz = () => {
         setShowScoreModal(false);
         setCurrentQuestionIndex(0);
         setScore(0);
@@ -126,13 +137,66 @@ export function QuizApp() {
         setShowNextButton(false);
     }
 
-    const submitResults = async () => {
-        const results = {
-            userid: auth.currentUser?.email,
-            points: score
+
+    const submitPoints = async () => {
+        const docData = {
+            score: score
         }
-        const docRef = doc(db,"leaderboard")
-        await setDoc(docRef, results);
+        try {
+            if (auth.currentUser?.uid !== undefined) {
+                const docRef = doc(db, "leaderboards", auth.currentUser.uid)
+                await setDoc(docRef, docData)
+            }
+        } catch (error) {
+            alert(error.message)
+        }
+        console.log("Points submitted:", score, "points for", auth.currentUser?.email)
+
+    }
+
+    const renderModal = () => {
+        return (
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={showScoreModal}
+            >
+                <View style={styles.modal}>
+                    <Text style={{
+                        fontSize: 30,
+                        fontWeight: 'bold'
+                    }}>{score > (allQuestions.length / 2) ? 'Gratulerer' : 'Oops!'}
+                    </Text>
+                    <View>
+                        <Text style={{
+                            backgroundColor: "#FFCB2F",
+                            fontSize: 30,
+                            color: score > (allQuestions.length / 2) ? 'green' : 'red'
+                        }}> Du fikk {score} poeng! Del på poengtavlen og sammenlign med dine venner. Eller prøv quizen
+                            igjen
+                        </Text>
+                    </View>
+
+                    <TouchableOpacity
+                        onPress={submitPoints}
+                        style={styles.submitBtn}>
+                        <Text style={{
+                            textAlign: 'center', color: 'white', fontSize: 20, padding: 4
+                        }}>Fullfør og del
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={restartQuiz}
+                        style={styles.nextBtn}>
+                        <Text style={{
+                            textAlign: 'center', color: 'white', fontSize: 20, padding: 4
+                        }}>Prøv igjen
+                        </Text>
+                    </TouchableOpacity>
+
+                </View>
+            </Modal>
+        );
     }
 
     return (
@@ -146,38 +210,7 @@ export function QuizApp() {
 
                     {renderNextButton()}
 
-                    <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={showScoreModal}
-                    >
-                        <View style={styles.modal}>
-                                <Text style={{fontSize: 30, fontWeight: 'bold'}}>{ score> (allQuestions.length/2) ? 'Gratulerer' : 'Oops!' }</Text>
-                                <View>
-                                    <Text style={{
-                                        backgroundColor: "#FFCB2F",
-                                        fontSize: 30,
-                                        color: score> (allQuestions.length/2) ? 'green' : 'red'
-                                    }}> Du fikk {score} poeng! Del på poengtavlen og sammenlign med dine venner. Eller prøv quizen igjen</Text>
-                                </View>
-
-                            <TouchableOpacity
-                                onPress={submitResults}
-                                style={styles.submitBtn}>
-                                <Text style={{
-                                    textAlign: 'center', color: 'white', fontSize: 20, padding: 4
-                                }}>Fullfør og del</Text>
-                            </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={restartQuiz}
-                                    style={styles.nextBtn}>
-                                    <Text style={{
-                                        textAlign: 'center', color: 'white', fontSize: 20, padding: 4
-                                    }}>Retry Quiz</Text>
-                                </TouchableOpacity>
-
-                        </View>
-                    </Modal>
+                    {renderModal()}
                 </View>
             </View>
         </SafeAreaView>
