@@ -1,46 +1,51 @@
-import {Image, SafeAreaView, StyleSheet, Text, View} from "react-native";
-import {ReactNativeZoomableView} from "@dudigital/react-native-zoomable-view/dist";
+import * as React from 'react';
+import MapView, {Callout, Marker} from 'react-native-maps';
+import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
 
 
 export function MapScreen({navigation}:{navigation: any}) {
-    return (
 
-        <SafeAreaView style={styles.container}>
-            <View style={styles.container}>
-                <ReactNativeZoomableView
-                    maxZoom={2.5}
-                    minZoom={1}
-                    zoomStep={0.3}
-                    initialZoom={1}
-                    bindToBorders={true}
-                    pinchToZoomInSensitivity={5}
-                    zoomCenteringLevelDistance={5}
+    return (
+        <View style={styles.container}>
+            <MapView style={styles.map}
+                     initialRegion={{
+                latitude: 59.85327892882451,
+                longitude: 11.102734024705288,
+                latitudeDelta: 0.0022,
+                longitudeDelta: 0.0231,
+
+                     }}
+
+            >
+                <Marker coordinate={{
+                    latitude: 59.85327892882451,
+                    longitude: 11.102734024705288,
+
+                }}
                 >
-               <Image style={styles.map} source={require("../res/images/Map.png")}/>
-                </ReactNativeZoomableView>
-            </View>
-        </SafeAreaView>
+                    <Image source={require("../res/images/ekorn.png")} style={{height: 35, width: 35}}></Image>
+                    
+                    <Callout>
+                    <Text>Hello</Text>
+                    </Callout>
+                </Marker>
+
+            </MapView>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-
     container: {
-        backgroundColor: "#FBF4E6",
         flex: 1,
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-
     map: {
-    width: "90%",
-    height: "90%",
-        aspectRatio: 2,
-        resizeMode: "contain",
-
-}
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+    },
 
 
 });
