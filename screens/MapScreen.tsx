@@ -1,5 +1,5 @@
 import {Image, SafeAreaView, StyleSheet, Text, View} from "react-native";
-import ReactNativeZoomableView from "@dudigital/react-native-zoomable-view/src/ReactNativeZoomableView";
+import {ReactNativeZoomableView} from "@dudigital/react-native-zoomable-view/dist";
 
 
 export function MapScreen({navigation}:{navigation: any}) {

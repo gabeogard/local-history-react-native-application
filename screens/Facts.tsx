@@ -44,13 +44,13 @@ export function FactsScreen({navigation}:{navigation: any}){
         const getUsers = async () => {
 
             try {
-                const q = query(collection(db, "factTest"));
+                const q = query(collection(db, "facts"));
                 const querySnapshot = await getDocs(q);
                 const item: any = []
                 querySnapshot.forEach((doc) => {
                     // doc.data() is never undefined for query doc snapshots
                     item.push(doc.data())
-                        setUsername(item)
+                    setUsername(item)
                 });
 
 
@@ -72,19 +72,19 @@ export function FactsScreen({navigation}:{navigation: any}){
 
         console.log(username + " username")
 
-            return (
-                    <View style={styles.factBox}>
+        return (
+            <View style={styles.factBox}>
 
-                    <View>
+                <View>
                     <Text style={styles.title}>{curFact+1}</Text>
                     <Text style={styles.factText}>{(username[curFact] as any)?.title}</Text>
                     <Text style={styles.factText}>{(username[curFact] as any)?.text}</Text>
-                    <Text style={styles.factText}>{(username[curFact] as any)?.image}</Text>
-                    </View>
+                    <Text style={styles.image}>{(username[curFact] as any)?.image}</Text>
+                </View>
 
-                    </View>
+            </View>
 
-            )
+        )
 
 
 
@@ -92,7 +92,6 @@ export function FactsScreen({navigation}:{navigation: any}){
 
     /*
     <Image source={require(facts[curFact]?.Image)}></Image>
-
      */
 
     const handleNext = () => {
@@ -137,7 +136,7 @@ export function FactsScreen({navigation}:{navigation: any}){
         if (showHomeButton){
             return(
                 <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
-                        <Text style={styleButton.button}>Hjem</Text>
+                    <Text style={styleButton.button}>Hjem</Text>
                 </TouchableOpacity>
             )
         }
@@ -145,27 +144,26 @@ export function FactsScreen({navigation}:{navigation: any}){
 
     return(
         <SafeAreaView style={{flex: 1}}>
-                {renderFacts()}
-                <View style={styleButton.buttonFlex}>
-                    {renderBackButton()}
-                    {renderNextButton()}
-                </View>
+            {renderFacts()}
+            <View style={styleButton.buttonFlex}>
+                {renderBackButton()}
+                {renderNextButton()}
+            </View>
         </SafeAreaView>
     )
 }
 
 const styleButton = StyleSheet.create({
     buttonFlex: {
-
         flex: 1,
         flexDirection: "row",
         justifyContent: "flex-end",
         bottom: "12%",
         right: "4%",
 
-},
-button: {
-    backgroundColor: "#F5BFB6",
+    },
+    button: {
+        backgroundColor: "#F5BFB6",
         marginTop: Dimensions.get("window").width >= 400 ? 10: 5,
         borderWidth:1,
         borderRadius:6,
@@ -180,35 +178,30 @@ button: {
         height: 30,
         fontWeight: "bold",
 
-}
+    }
 })
 
 
 const styles = StyleSheet.create({
     title: {
-       fontWeight: 'bold',
+        fontWeight: 'bold',
         fontSize: 30,
     },
     factBox: {
-        alignItems: "center",
         backgroundColor: "#FFCB2F",
         borderStyle: 'solid',
         borderWidth: 2,
         borderRadius:20,
         borderColor: '#000',
-        width: 365,
-        height: 520,
-        top:"10%",
-        left: "5%",
+        width: "85%",
+        height: "85%",
+        justifyContent: "space-evenly",
+        top:"8%",
+
     },
     factText: {
-        fontSize: 18,
-        borderColor:'black',
-        fontWeight:'normal',
-        paddingBottom:'15%',
-        paddingLeft:'5%',
-        paddingRight: '50%',
-        paddingTop: '5%',
+
+
 
     },
     buttonsNext: {
