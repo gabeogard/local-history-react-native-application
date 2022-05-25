@@ -36,7 +36,6 @@ export function FactsScreen({navigation}:{navigation: any}){
 
     const [isLoading, setIsLoading] = useState(false)
 
-    const [img, setImg] = useState();
 
     useEffect(() => {
 
@@ -53,12 +52,7 @@ export function FactsScreen({navigation}:{navigation: any}){
                     setUsername(item)
                 });
 
-                const res = await fetch("https://firebasestorage.googleapis.com/v0/b/smidig-auth.appspot.com/o/images%2Fvannsag.png?alt=media&token=f2c147ac-6ae6-4774-b598-8fc6ba7887fd");
-                const imageBlob = await res.blob();
-                const imageObjectURL = URL.createObjectURL(imageBlob);
-                setImg((imageObjectURL as any))
 
-                console.log(imageObjectURL)
 
             } catch (error){
                 console.log(error)
@@ -86,7 +80,7 @@ export function FactsScreen({navigation}:{navigation: any}){
                         <Text style={styles.title}>{(username[curFact] as any)?.title}</Text>
                         <Text style={styles.factText}>{(username[curFact] as any)?.text}</Text>
                         <Image source={{uri: (username[curFact] as any)?.image}}
-                        style={{width: 400, height: 400}}
+                        style={styles.image}
                         />
                     </View>
 
@@ -165,7 +159,7 @@ const styleButton = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "flex-end",
-        bottom: "12%",
+        bottom: "-40%",
         right: "4%",
 
     },
@@ -197,11 +191,13 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        top: "25%",
     },
 
     title: {
         fontWeight: 'bold',
         fontSize: 30,
+        textAlign: "center",
     },
     factBox: {
         backgroundColor: "#FFCB2F",
@@ -210,13 +206,15 @@ const styles = StyleSheet.create({
         borderRadius:20,
         borderColor: '#000',
         width: "90%",
-        height: "90%",
-        justifyContent: "space-evenly",
-        top:"8%",
+        height: "160%",
+
 
     },
     factText: {
-
+        paddingLeft: "5%",
+        paddingRight: "50%",
+        fontSize:20,
+        top: "23%"
 
 
     },
@@ -267,12 +265,12 @@ const styles = StyleSheet.create({
     },
     image: {
         left: "55%",
-        top: "20%",
-        position: "absolute",
+        top: "50%",
         borderWidth: 2,
-        borderRadius: 3,
+        borderRadius: 10,
         width: "40%",
-        height: "60%",
+        height: "200%",
+        position: "absolute",
     },
 
 
