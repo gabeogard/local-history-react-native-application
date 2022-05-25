@@ -73,13 +73,15 @@ export function FactsScreen({navigation}:{navigation: any}){
         console.log(username + " username")
 
         return (
-            <View style={styles.factBox}>
+            <View style={styles.container}>
+                <View style={styles.factBox}>
+                    <View>
+                        <Text style={styles.title}>{curFact+1}</Text>
+                        <Text style={styles.title}>{(username[curFact] as any)?.title}</Text>
+                        <Text style={styles.factText}>{(username[curFact] as any)?.text}</Text>
+                        <Text style={styles.image}>{(username[curFact] as any)?.image}</Text>
+                    </View>
 
-                <View>
-                    <Text style={styles.title}>{curFact+1}</Text>
-                    <Text style={styles.factText}>{(username[curFact] as any)?.title}</Text>
-                    <Text style={styles.factText}>{(username[curFact] as any)?.text}</Text>
-                    <Text style={styles.image}>{(username[curFact] as any)?.image}</Text>
                 </View>
 
             </View>
@@ -183,6 +185,14 @@ const styleButton = StyleSheet.create({
 
 
 const styles = StyleSheet.create({
+
+    container: {
+        backgroundColor: "#FBF4E6",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
     title: {
         fontWeight: 'bold',
         fontSize: 30,
@@ -193,8 +203,8 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius:20,
         borderColor: '#000',
-        width: "85%",
-        height: "85%",
+        width: "90%",
+        height: "90%",
         justifyContent: "space-evenly",
         top:"8%",
 
