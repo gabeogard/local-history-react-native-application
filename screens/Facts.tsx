@@ -19,6 +19,7 @@ import {auth, db, storage} from "../firebase";
 import {ref, listAll, getDownloadURL} from "firebase/storage"
 import * as url from "url";
 import {collection, getDocs, query} from "firebase/firestore/lite";
+import flatten = StyleSheet.flatten;
 
 
 export function FactsScreen({navigation}:{navigation: any}){
@@ -73,6 +74,28 @@ export function FactsScreen({navigation}:{navigation: any}){
         console.log(username + " username")
 
         return (
+            <View style={{flex: 1}}>
+
+                <View style={{width: "100%", height: "20%" ,backgroundColor: "blue", justifyContent: "center", alignItems: "center"}}>
+                    <Text style={{fontSize: 50}}>{(username[curFact] as any)?.title}</Text>
+                </View>
+
+                <View style={{flexDirection: "row", height: "80%", width: "100%", justifyContent: "space-between", backgroundColor: "#FFCB2F"}}>
+
+                    <View style={{width: "60%", height: "100%", justifyContent: "center" }}>
+                        <Text numberOfLines={20} adjustsFontSizeToFit style={{fontSize: 80, padding: 10}}>{(username[curFact] as any)?.text}</Text>
+                    </View>
+
+                    <View  style={{backgroundColor: "#FFCB2F", width: "40%", height: "100%", justifyContent: "center", alignItems: "center", zIndex: 1}}>
+                        <View style={{width: "100%", height: "50%", justifyContent: "center"}}>
+                        <Image style={{width: "99%", height: "100%", borderWidth:1, borderRadius:6,}} source={{uri: (username[curFact] as any)?.image}}/>
+                        </View>
+                    </View>
+
+                 </View>
+
+            </View>
+            /*
             <View style={styles.container}>
                 <View style={styles.factBoxFlex}>
                     <View>
@@ -86,7 +109,7 @@ export function FactsScreen({navigation}:{navigation: any}){
 
                 </View>
 
-            </View>
+            </View>*/
 
         )
     }
@@ -144,13 +167,40 @@ export function FactsScreen({navigation}:{navigation: any}){
     }
 
     return(
+
+        <View style={{flex: 1, backgroundColor: "#FBF4E6", justifyContent: "center", alignItems: "center"}}>
+
+            <View style={{width: "100%", height: "80%"}}>
+
+                {/*tilegg*/}
+                {renderFacts()}
+
+                <View style={{width: "100%", height: "20%", backgroundColor: "#FFCB2F", alignItems: "center"}}>
+
+                    <View style={{width: "50%", height: "100%", flexDirection: "row", justifyContent: "space-evenly",}}>
+                    <View>
+                        {renderBackButton()}
+                    </View>
+
+                    <View>
+                        {renderNextButton()}
+                    </View>
+                    </View>
+                </View>
+
+
+            </View>
+
+        </View>
+
+        /*
         <SafeAreaView style={{flex: 1}}>
             {renderFacts()}
             <View style={styleButton.buttonFlex}>
                 {renderBackButton()}
                 {renderNextButton()}
             </View>
-        </SafeAreaView>
+        </SafeAreaView>*/
     )
 }
 
@@ -178,6 +228,7 @@ const styleButton = StyleSheet.create({
         textAlign: "center",
         height: 30,
         fontWeight: "bold",
+        overflow: "hidden"
 
     }
 })
