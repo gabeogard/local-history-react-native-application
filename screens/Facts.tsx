@@ -74,7 +74,7 @@ export function FactsScreen({navigation}:{navigation: any}){
 
         return (
             <View style={styles.container}>
-                <View style={styles.factBox}>
+                <View style={styles.factBoxFlex}>
                     <View>
                         <Text style={styles.title}>{curFact+1}</Text>
                         <Text style={styles.title}>{(username[curFact] as any)?.title}</Text>
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         textAlign: "center",
     },
-    factBox: {
+    factBoxFlex: {
         backgroundColor: "#FFCB2F",
         borderStyle: 'solid',
         borderWidth: 2,
