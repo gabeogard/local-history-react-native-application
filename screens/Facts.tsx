@@ -76,7 +76,7 @@ export function FactsScreen({navigation}:{navigation: any}){
         return (
             <View style={{flex: 1}}>
 
-                <View style={{width: "100%", height: "20%" ,backgroundColor: "blue", justifyContent: "center", alignItems: "center"}}>
+                <View style={{width: "100%", height: "20%" ,backgroundColor: "#FFCB2F", justifyContent: "center", alignItems: "center"}}>
                     <Text style={{fontSize: 50}}>{(username[curFact] as any)?.title}</Text>
                 </View>
 
