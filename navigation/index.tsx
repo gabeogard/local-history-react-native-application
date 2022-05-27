@@ -185,11 +185,10 @@ const styles = StyleSheet.create({
         borderTopWidth:0,
     },
      headerRightContainerStyle: {
-         flex: 1,
-         justifyContent: "center",
-         alignItems: "center",
-         top: "14%",
-         left: "80%"
+         justifyContent: "flex-end",
+         alignItems: "flex-end",
+         top: "10%",
+         right: "30%"
      }
 }
 )
