@@ -1,33 +1,14 @@
 import * as React from "react";
-import {useState} from "react";
-import {onAuthStateChanged, signOut} from "firebase/auth";
-import {auth} from "../firebase";
 import {Dimensions, StyleSheet, Text, View, Alert} from "react-native";
+import {useUserContext} from "./UserContext";
 
 export function HeaderLoginInfo() {
 
-    const [user, setUser] = useState<{} | null>({})
-
-    const logout = async () => {
-
-        try {
-            await signOut(auth).then(() =>{
-                Alert.alert("vellykket", "Du er nå logget ut")
-            })
-
-        }catch (error){
-            console.log(error)
-        }
-
-    }
-
-    onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser)
-    })
+    const {user, logoutUser}: any = useUserContext()
 
     const renderLogout = () => {
         return (
-            <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button} onPress={logout}>Logg ut</Text>)
+            <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button} onPress={logoutUser}>Logg ut</Text>)
     }
     return (
         <View>

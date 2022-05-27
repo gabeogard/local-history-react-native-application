@@ -1,10 +1,8 @@
-import React, {useEffect, useRef, useState} from "react"
+import React, {useState} from "react"
 import {Alert, Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {auth} from "../firebase.js";
-import {signInWithEmailAndPassword} from "firebase/auth";
 import {TextInputCustom} from "../library/TextInputCustom";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
-import {ErrorHandler} from "../functions/ErrorHandler";
+
 import {useUserContext} from "../functions/UserContext";
 
 export function LoginScreen({navigation}:{navigation: any}) {
