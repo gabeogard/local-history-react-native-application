@@ -2,29 +2,15 @@ import {StyleSheet, Image, Pressable, ImageBackground,View, Text} from 'react-na
 import {useEffect, useState} from "react";
 import {auth} from "../firebase";
 
-function ifUserNotLoggedIn(navigation: any) {
+function NavigationAuth(props: any) {
     return <>
-        <Pressable style={[styles.Pressable, styles.shadow]} onPress={() => navigation.navigate("Third")}>
-            <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button}>Logg inn</Text>
+        <Pressable style={[styles.Pressable, styles.shadow]} onPress={() => props.navigation.navigate(props.route)}>
+            <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button}>{props.text}</Text>
         </Pressable>
 
-        <Pressable style={[styles.Pressable, styles.shadow]} onPress={() => navigation.navigate("CreateAccrount")}>
+        <Pressable style={[styles.Pressable, styles.shadow]} onPress={() => props.navigation.navigate(props.routeTwo)}>
 
-            <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button}>Registrer</Text>
-
-        </Pressable>
-    </>;
-}
-
-function ifUserLoggedIn(navigation: any) {
-    return <>
-        <Pressable style={[styles.Pressable, styles.shadow]} onPress={() => navigation.navigate("fakta")}>
-            <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button}>Gå til fakta</Text>
-        </Pressable>
-
-        <Pressable style={[styles.Pressable, styles.shadow]} onPress={() => navigation.navigate("userProfile")}>
-
-            <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button}>Profile</Text>
+            <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button}>{props.textTwo}</Text>
 
         </Pressable>
     </>;
@@ -87,9 +73,9 @@ export default function Home({navigation}:{navigation: any}) {
 
                 {
                     (user as any)?.email ?
-                        ifUserLoggedIn(navigation)
+                        <NavigationAuth   navigation={navigation} route={"fakta"} text={"Gå til fakta"} routeTwo={"userProfile"} textTwo={"Profile"} />
                         :
-                        ifUserNotLoggedIn(navigation)
+                        <NavigationAuth  navigation={navigation} route={"Third"} text={"Logg inn"} routeTwo={"CreateAccrount"} textTwo={"Registrer"} />
                 }
 
             </View>
