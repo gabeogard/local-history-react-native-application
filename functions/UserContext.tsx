@@ -2,10 +2,14 @@ import {createContext, useContext, useEffect, useState} from "react";
 import {
     createUserWithEmailAndPassword,
     onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signOut,
+    sendPasswordResetEmail
 } from "firebase/auth/"
 import {auth, db} from "../firebase";
 import {doc, setDoc} from "firebase/firestore/lite";
-
+import {Alert} from "react-native";
+import {ErrorHandler} from "./ErrorHandler";
 
 const UserContext = createContext({})
 
@@ -52,20 +56,45 @@ export const UserContextProvider = ({children}: any) => {
         }
     }
 
-
     const signInUser = async (email: string, password: string, navigation: any) => {
-        //Todo
+        setLoading(true)
+        try {
+            await signInWithEmailAndPassword(auth, email, password)
+            navigation.navigate("Home")
+        }
+        catch (error) {
+            ErrorHandler(error);
+        }
+        finally {
+            setLoading(false)
+        }
     }
 
     const logoutUser = () => {
-        //Todo
+        try {
+            signOut(auth).then(() =>{
+                Alert.alert("vellykket", "Du er nå logget ut")
+            })
+
+        }catch (error){
+            console.log(error)
+        }
     }
 
-    const forgotPassword = (email: string) => {
-        //Todo
+    const forgotPassword = async (email: string) => {
+        try {
+           await sendPasswordResetEmail(auth, email)
+            alert("Du har fått en melding på din e-postadresse")
+        }
+        catch (error) {
+            alert(error.message)
+        }
+        finally {
+            setLoading(false)
+        }
     }
 
-    const contextValue = {user, isLoading, error, registerUser};
+    const contextValue = {user, isLoading, error, registerUser, signInUser, logoutUser, forgotPassword};
 
     return (
         <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>

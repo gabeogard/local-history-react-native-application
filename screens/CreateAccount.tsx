@@ -20,7 +20,7 @@ export function CreateAccount({navigation}:{navigation: any}) {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const { registerUser }: any = useUserContext();
+    const { registerUser, isLoading }: any = useUserContext();
 
 
     const onRegisterPress = () => {
@@ -31,8 +31,14 @@ export function CreateAccount({navigation}:{navigation: any}) {
         }
 
         registerUser(email, userName, password, navigation)
-
     }
+
+    if (isLoading){
+        return (
+            <View style={styles.loadingScreen}><Text>Logger inn...</Text></View>
+        )
+    }
+
     return (
             <KeyboardAwareScrollView extraHeight={120} style={styles.container}>
                 <View style={{justifyContent: "center", alignItems: "center",}}>
@@ -66,6 +72,12 @@ export function CreateAccount({navigation}:{navigation: any}) {
 }
 
 const styles = StyleSheet.create({
+    loadingScreen: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#FBF4E6"
+    },
     container: {
         backgroundColor: "#FBF4E6",
         flex: 1,

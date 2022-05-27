@@ -1,53 +1,38 @@
 import React, {useEffect, useRef, useState} from "react"
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    Dimensions, ImageBackground, Alert
-} from "react-native";
+import {Alert, Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {auth} from "../firebase.js";
-import {signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
+import {signInWithEmailAndPassword} from "firebase/auth";
 import {TextInputCustom} from "../library/TextInputCustom";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {ErrorHandler} from "../functions/ErrorHandler";
+import {useUserContext} from "../functions/UserContext";
 
 export function LoginScreen({navigation}:{navigation: any}) {
         const [email, setEmail] = useState("");
         const [password, setPassword] = useState("");
-        const [isLoading, setLoading] = useState(true)
+        const {signInUser, forgotPassword, isLoading}: any = useUserContext()
 
-    const mounted = useRef(true);
-        //ikke bruk denne / dette er bare for test
-        useEffect(() => {
-            mounted.current = false;
-            const unsubscribe = auth
-                .onAuthStateChanged((user: any) => {
-                if (user) {
-                    navigation.navigate("userProfile")
-                }
-            })
+        const onPressLogin = () => {
 
-            return unsubscribe
-        }, [])
-
-        const onPressLogin = async () => {
-            try {
-                setLoading(true);
-                const userCredential = await signInWithEmailAndPassword(auth, email, password)
-                Alert.alert("vellykket", "Du er nå logget på")
-                navigation.navigate("Home")
-                console.log(userCredential )
-
-            } catch (error) {
-                alert(error.message)
-                if (mounted.current) {
-                    alert("Failed to Log In");
-                }
+            if (!password && !email) {
+                Alert.alert("Ugyldig", "Skriv inn e-postadresse og password")
+                return
             }
-            if (mounted.current) {
-                setLoading(false);
-            }
+            signInUser(email, password, navigation)
         }
+
+        const onPressResetPassword = async () => {
+            Alert.prompt("Tilbakestille passord","Hvilken e-postadresse gjelder det?", email => {
+                 forgotPassword(email).then(() => {
+                 })
+            })
+        }
+
+    if (isLoading){
+        return (
+            <View style={styles.loadingScreen}><Text>Logger inn...</Text></View>
+        )
+    }
 
     return (
 
@@ -68,6 +53,7 @@ export function LoginScreen({navigation}:{navigation: any}) {
                     <TextInputCustom name="Password" value={password} onChange={setPassword} secureTextEntry={true} />
 
                 </View>
+
                 <View style={styles.buttonFlex}>
                     <TouchableOpacity
                         style={styles.button}
@@ -76,12 +62,37 @@ export function LoginScreen({navigation}:{navigation: any}) {
                     </TouchableOpacity>
                 </View>
             </View>
+            <View>
+            </View>
+
+
+            <View style={styles.buttonFlex}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => onPressResetPassword()}>
+                    <Text>Glemt passord?</Text>
+                </TouchableOpacity>
+            </View>
+
+            <View style={styles.buttonFlex}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate("CreateAccrount")}>
+                    <Text>Ny bruker? Trykk her</Text>
+                </TouchableOpacity>
+            </View>
         </KeyboardAwareScrollView>
 
     );
 }
 
 const styles = StyleSheet.create({
+    loadingScreen: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#FBF4E6"
+    },
     container: {
         backgroundColor: "#FBF4E6",
         flex: 1,
