@@ -1,5 +1,5 @@
 import React, {useState} from "react"
-import {Alert, Dimensions, ImageBackground, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Alert, ImageBackground, Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {TextInputCustom} from "../library/TextInputCustom";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
@@ -11,8 +11,7 @@ export function LoginScreen({navigation}:{navigation: any}) {
         const {signInUser, forgotPassword, isLoading}: any = useUserContext()
 
         const onPressLogin = () => {
-
-            if (!password && !email) {
+            if (!password || !email) {
                 Alert.alert("Ugyldig", "Skriv inn e-postadresse og password")
                 return
             }
@@ -33,55 +32,57 @@ export function LoginScreen({navigation}:{navigation: any}) {
     }
 
     return (
+        <KeyboardAwareScrollView extraHeight={120} contentContainerStyle={styles.container}>
 
-        <KeyboardAwareScrollView extraHeight={120} style={styles.container}>
+            <View style={{width: "90%", height: "80%", justifyContent: "space-between", alignItems: "center",}}>
 
-            <View style={{justifyContent: "center", alignItems: "center",}}>
-                <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
-                    <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
-                </ImageBackground>
+                <View style={[styles.imageContainer, styles.shadow]}>
+                    <ImageBackground source={require("../res/images/landing-picture.png")} style={[StyleSheet.absoluteFillObject, styles.imageTextFlex]}
+                                     imageStyle={styles.image}>
 
-
-                <View style={styles.inputContainer}>
-
-                    <Text style={styles.text}>Logg deg inn</Text>
-
-                    <TextInputCustom name="Epost" value={email} onChange={setEmail} secureTextEntry={false} />
-
-                    <TextInputCustom name="Password" value={password} onChange={setPassword} secureTextEntry={true} />
-
+                        <View style={styles.introTextContainer}>
+                            <Text adjustsFontSizeToFit numberOfLines={1} style={[styles.introText, styles.shadow]}>Byåa Kultursti</Text>
+                        </View>
+                    </ImageBackground>
                 </View>
 
-                <View style={styles.buttonFlex}>
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => onPressLogin()}>
-                        <Text>Logg deg inn</Text>
-                    </TouchableOpacity>
+                <View style={[{width: "100%", height: "75%", backgroundColor: "white", alignItems: "center", borderRadius: 10}, styles.shadow]}>
+
+                    <View style={{height: "25%", width: "100%", backgroundColor: "#45B4EB", alignItems: "center", justifyContent: "space-evenly", borderRadius: 10 }}>
+                        <View style={{height: "40%", width: "35%", justifyContent:"center", alignItems: "center"}}>
+                        <Text numberOfLines={1} adjustsFontSizeToFit style={{textAlign: "center", fontSize: 40, color: "white"}}>Logg inn</Text>
+                        </View>
+                        <View style={{height: "30%", width: "60%", justifyContent:"center", alignItems: "center"}}>
+                        <Text numberOfLines={1} adjustsFontSizeToFit style={{textAlign: "center" ,fontSize: 23, color: "#3F474C"}}>Har du ikke en konto?? Trykk her</Text>
+                        </View>
+
+                    </View>
+
+                    <View style={{width: "80%", height: "75%", justifyContent: "space-evenly"}}>
+
+                        <View style={{width: "100%", height: "15%", justifyContent: "center"}}>
+                            <TextInputCustom label="Epost" value={email} onChange={setEmail} secureTextEntry={false} />
+                        </View>
+
+                        <View style={{width: "100%", height: "15%", justifyContent: "center"}}>
+                            <TextInputCustom label="Password" value={password} onChange={setPassword} secureTextEntry={true} />
+                            <Pressable style={{alignItems: "flex-end", top: "10%"}} onPress={ () => onPressResetPassword()}>
+                                <Text numberOfLines={1} adjustsFontSizeToFit>Glemt passord?</Text>
+                            </Pressable>
+                        </View>
+
+                        <TouchableOpacity style={{backgroundColor: "#F5BFB6", width: "100%", height: "15%", justifyContent: "center", alignItems: "center"}}
+                            onPress={() => onPressLogin()}>
+                            <Text>Logg inn</Text>
+                        </TouchableOpacity>
+
+                    </View>
+
                 </View>
-            </View>
-            <View>
-            </View>
-
-
-            <View style={styles.buttonFlex}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => onPressResetPassword()}>
-                    <Text>Glemt passord?</Text>
-                </TouchableOpacity>
-            </View>
-
-            <View style={styles.buttonFlex}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => navigation.navigate("CreateAccrount")}>
-                    <Text>Ny bruker? Trykk her</Text>
-                </TouchableOpacity>
             </View>
         </KeyboardAwareScrollView>
+    )
 
-    );
 }
 
 const styles = StyleSheet.create({
@@ -92,62 +93,51 @@ const styles = StyleSheet.create({
         backgroundColor: "#FBF4E6"
     },
     container: {
-        backgroundColor: "#FBF4E6",
         flex: 1,
-        paddingHorizontal: 20,
-    },
-    inputContainer: {
-        flex: 1,
-        top: "20%"
-    },
-    buttonFlex: {
-        backgroundColor: "#FBF4E6",
-        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        top: "50%",
-        zIndex: -1,
+        backgroundColor: "#FBF4E6"
     },
-    button: {
-        backgroundColor: "#F5BFB6",
-        borderWidth:1,
-        borderRadius:6,
-        padding: 3,
+    viewContainer: {
+        width: "90%",
+        height: "80%",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+    },
+    imageContainer: {
+        width: "100%",
+        height: "20%"
+    },
+    image: {
+        borderRadius: 10,
+        borderWidth: 1,
 
-        shadowColor: "#000000",
-        shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
+
     },
-    introBox: {
-        width: Dimensions.get("window").width >= 400 ? 350: 278,
-        height: Dimensions.get("window").width >= 400 ? 115: 90,
-        top: "27%",
-        display: "flex",
-        alignContent: "center",
+    imageTextFlex: {
         justifyContent: "center",
+        alignItems: "center"
+    },
+    introTextContainer: {
+        width: "50%",
+        bottom: "16%",
+        right: "6%"
+    },
+    introText: {
+        fontWeight: "bold",
+        fontSize: 27
+    },
 
-        shadowColor: "#000000",
-        shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.5,
-        shadowRadius: 4,
-    },
-    textOnBackground: {
-        //fontFamily: 'Roboto-Regular',
-        fontStyle: "normal",
-        fontWeight: "400",
-        fontSize: 24,
-        lineHeight: 28,
-        paddingLeft: 32,
-        paddingBottom: 33,
 
+    shadow: {
         shadowColor: "#000000",
-        shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.5,
-        shadowRadius: 4,
-    },
-    text: {
-        top: "40%",
-        fontSize: 20
-    },
+        shadowOffset: {
+            width: 0,
+            height: 10,
+        },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.68,
+
+        elevation: 5,
+    }
 });

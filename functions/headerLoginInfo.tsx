@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Dimensions, StyleSheet, Text, View, Alert} from "react-native";
+import {Dimensions, StyleSheet, Text, View} from "react-native";
 import {useUserContext} from "./UserContext";
 
 export function HeaderLoginInfo() {
