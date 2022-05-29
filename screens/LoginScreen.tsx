@@ -18,11 +18,18 @@ export function LoginScreen({navigation}:{navigation: any}) {
             signInUser(email, password, navigation)
         }
 
-        const onPressResetPassword = async () => {
-            Alert.prompt("Tilbakestille passord","Hvilken e-postadresse gjelder det?", email => {
-                 forgotPassword(email).then(() => {
-                 })
-            })
+        const onPressResetPassword = () => {
+
+          Alert.prompt("Tilbakestille passord", "Hvilken e-postadresse gjelder det?", [
+                {
+                    text: "Avbryt",
+                    style: 'cancel',
+                },
+                { text: 'Send', onPress: (email) =>
+                        forgotPassword(email).then(() => {
+                        })
+                    }
+            ]);
         }
 
     if (isLoading){
@@ -34,7 +41,7 @@ export function LoginScreen({navigation}:{navigation: any}) {
     return (
         <KeyboardAwareScrollView extraHeight={120} contentContainerStyle={styles.container}>
 
-            <View style={{width: "90%", height: "80%", justifyContent: "space-between", alignItems: "center",}}>
+            <View style={styles.viewContainer}>
 
                 <View style={[styles.imageContainer, styles.shadow]}>
                     <ImageBackground source={require("../res/images/landing-picture.png")} style={[StyleSheet.absoluteFillObject, styles.imageTextFlex]}
@@ -46,32 +53,32 @@ export function LoginScreen({navigation}:{navigation: any}) {
                     </ImageBackground>
                 </View>
 
-                <View style={[{width: "100%", height: "75%", backgroundColor: "white", alignItems: "center", borderRadius: 10}, styles.shadow]}>
+                <View style={[styles.loginContainer, styles.shadow]}>
 
-                    <View style={{height: "25%", width: "100%", backgroundColor: "#45B4EB", alignItems: "center", justifyContent: "space-evenly", borderRadius: 10 }}>
-                        <View style={{height: "40%", width: "35%", justifyContent:"center", alignItems: "center"}}>
-                        <Text numberOfLines={1} adjustsFontSizeToFit style={{textAlign: "center", fontSize: 40, color: "white"}}>Logg inn</Text>
+                    <View style={styles.loginIntroCtr}>
+                        <View style={styles.loginIntroTxtCtr}>
+                        <Text numberOfLines={1} adjustsFontSizeToFit style={styles.loginIntroText}>Logg inn</Text>
                         </View>
-                        <View style={{height: "30%", width: "60%", justifyContent:"center", alignItems: "center"}}>
-                        <Text numberOfLines={1} adjustsFontSizeToFit style={{textAlign: "center" ,fontSize: 23, color: "#3F474C"}}>Har du ikke en konto?? Trykk her</Text>
+                        <View style={styles.registerCtr}>
+                        <Text numberOfLines={1} adjustsFontSizeToFit style={styles.registerText}>Har du ikke en konto?? Trykk her</Text>
                         </View>
 
                     </View>
 
-                    <View style={{width: "80%", height: "75%", justifyContent: "space-evenly"}}>
+                    <View style={styles.loginFunctionCtr}>
 
-                        <View style={{width: "100%", height: "15%", justifyContent: "center"}}>
+                        <View style={styles.input}>
                             <TextInputCustom label="Epost" value={email} onChange={setEmail} secureTextEntry={false} />
                         </View>
 
-                        <View style={{width: "100%", height: "15%", justifyContent: "center"}}>
+                        <View style={styles.input}>
                             <TextInputCustom label="Password" value={password} onChange={setPassword} secureTextEntry={true} />
-                            <Pressable style={{alignItems: "flex-end", top: "10%"}} onPress={ () => onPressResetPassword()}>
+                            <Pressable style={styles.resetPassword} onPress={ () => onPressResetPassword()}>
                                 <Text numberOfLines={1} adjustsFontSizeToFit>Glemt passord?</Text>
                             </Pressable>
                         </View>
 
-                        <TouchableOpacity style={{backgroundColor: "#F5BFB6", width: "100%", height: "15%", justifyContent: "center", alignItems: "center"}}
+                        <TouchableOpacity style={styles.button}
                             onPress={() => onPressLogin()}>
                             <Text>Logg inn</Text>
                         </TouchableOpacity>
@@ -101,8 +108,8 @@ const styles = StyleSheet.create({
     viewContainer: {
         width: "90%",
         height: "80%",
-        justifyContent: "space-evenly",
-        alignItems: "center",
+        justifyContent: "space-between",
+        alignItems: "center"
     },
     imageContainer: {
         width: "100%",
@@ -111,8 +118,6 @@ const styles = StyleSheet.create({
     image: {
         borderRadius: 10,
         borderWidth: 1,
-
-
     },
     imageTextFlex: {
         justifyContent: "center",
@@ -127,7 +132,66 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 27
     },
-
+    loginContainer: {
+        width: "100%",
+        height: "75%",
+        alignItems: "center",
+        backgroundColor: "#FFFFFF",
+        borderRadius: 10
+    },
+    loginIntroCtr: {
+        height: "25%",
+        width: "100%",
+        justifyContent: "space-evenly",
+        alignItems: "center",
+        backgroundColor: "#45B4EB",
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10
+    },
+    loginIntroTxtCtr: {
+        height: "40%",
+        width: "35%",
+        justifyContent:"center",
+        alignItems: "center"
+    },
+    loginIntroText: {
+        textAlign: "center",
+        fontSize: 40,
+        color: "#FFFFFF"
+    },
+    registerCtr: {
+        height: "30%",
+        width: "60%",
+        justifyContent:"center",
+        alignItems: "center"
+    },
+    registerText: {
+        textAlign: "center",
+        fontSize: 23,
+        color: "#3F474C"
+    },
+    loginFunctionCtr: {
+        width: "80%",
+        height: "75%",
+        justifyContent: "space-evenly"
+    },
+    input: {
+        width: "100%",
+        height: "15%",
+        justifyContent: "center"
+    },
+    resetPassword: {
+        alignItems: "flex-end",
+        top: "10%"
+    },
+    button: {
+        backgroundColor: "#F5BFB6",
+        width: "100%",
+        height: "15%",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 3
+    },
 
     shadow: {
         shadowColor: "#000000",
@@ -140,4 +204,5 @@ const styles = StyleSheet.create({
 
         elevation: 5,
     }
+
 });

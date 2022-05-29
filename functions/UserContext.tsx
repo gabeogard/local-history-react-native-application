@@ -84,7 +84,7 @@ export const UserContextProvider = ({children}: any) => {
     const forgotPassword = async (email: string) => {
         try {
            await sendPasswordResetEmail(auth, email)
-            alert("Du har fått en melding på din e-postadresse")
+            Alert.alert("Vellykket", "Du har fått en melding på din e-postadresse")
         }
         catch (error) {
             alert(error.message)
