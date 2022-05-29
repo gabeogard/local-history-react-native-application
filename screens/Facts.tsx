@@ -93,7 +93,7 @@ export function FactsScreen({navigation}:{navigation: any}){
 
                     <View  style={{backgroundColor: "#FFCB2F", width: "40%", height: "100%", justifyContent: "center", alignItems: "center", zIndex: 1}}>
                         <View style={{width: "100%", height: "50%", justifyContent: "center"}}>
-                        <Image style={{width: "99%", height: "100%", borderWidth:1, borderRadius:6,   }} source={{uri: (username[curFact] as any)?.image}}/>
+                        <Image style={{width: "99%", height: "100%", borderWidth:2, borderRadius:6}} source={{uri: (username[curFact] as any)?.image}}/>
                         </View>
                     </View>
 
@@ -188,7 +188,7 @@ const styleButton = StyleSheet.create({
     button: {
         backgroundColor: "#F5BFB6",
         marginTop: Dimensions.get("window").width >= 400 ? 10: 5,
-        borderWidth:1,
+        borderWidth:2,
         borderRadius:6,
         padding: 3,
         margin: 10,
