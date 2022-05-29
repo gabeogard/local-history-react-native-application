@@ -80,7 +80,7 @@ export function LoginScreen({navigation}:{navigation: any}) {
 
                         <TouchableOpacity style={styles.button}
                             onPress={() => onPressLogin()}>
-                            <Text>Logg inn</Text>
+                            <Text numberOfLines={1} adjustsFontSizeToFit style={{fontSize: 20}}>Logg inn</Text>
                         </TouchableOpacity>
 
                     </View>

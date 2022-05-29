@@ -20,7 +20,7 @@ export const TextInputCustom = (props: any) => {
            theme={theme}
            maxLength={50}
            numberOfLines={1}
-           dense={Dimensions.get("window").width >= 350 ? false : true}
+           dense={Dimensions.get("window").width >= 414 ? false : true}
         />
 
     );
