@@ -34,11 +34,12 @@ export function FactsScreen({navigation}:{navigation: any}){
 
     const [username, setUsername] = useState([])
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setLoading] = useState(false)
 
 
     useEffect(() => {
 
+        setLoading(true)
 
         const getUsers = async () => {
 
@@ -47,12 +48,11 @@ export function FactsScreen({navigation}:{navigation: any}){
                 const querySnapshot = await getDocs(q);
                 const item: any = []
                 querySnapshot.forEach((doc) => {
-                    // doc.data() is never undefined for query doc snapshots
                     item.push(doc.data())
                     setUsername(item)
                 });
 
-
+                setLoading(false)
 
             } catch (error){
                 console.log(error)
@@ -63,7 +63,11 @@ export function FactsScreen({navigation}:{navigation: any}){
 
     }, [])
 
-
+    if (isLoading){
+        return (
+            <View style={styles.loadingScreen}><Text>Laster...</Text></View>
+        )
+    }
 
 
     const renderFacts = () => {
@@ -75,7 +79,9 @@ export function FactsScreen({navigation}:{navigation: any}){
         return (
             <View style={{flex: 1}}>
 
-                <View style={{width: "100%", height: "20%" ,backgroundColor: "#FFCB2F", justifyContent: "center", alignItems: "center"}}>
+                <View style={{width: "100%", height: "20%" ,backgroundColor: "#FFCB2F", justifyContent: "center", alignItems: "center", borderBottomColor: 'black',
+                    borderBottomWidth: 2}}>
+                    <Text style={{fontSize: 30}}>{[curFact+1]}</Text>
                     <Text style={{fontSize: 50}}>{(username[curFact] as any)?.title}</Text>
                 </View>
 
@@ -87,7 +93,7 @@ export function FactsScreen({navigation}:{navigation: any}){
 
                     <View  style={{backgroundColor: "#FFCB2F", width: "40%", height: "100%", justifyContent: "center", alignItems: "center", zIndex: 1}}>
                         <View style={{width: "100%", height: "50%", justifyContent: "center"}}>
-                        <Image style={{width: "99%", height: "100%", borderWidth:1, borderRadius:6,}} source={{uri: (username[curFact] as any)?.image}}/>
+                        <Image style={{width: "99%", height: "100%", borderWidth:1, borderRadius:6,   }} source={{uri: (username[curFact] as any)?.image}}/>
                         </View>
                     </View>
 
@@ -112,7 +118,7 @@ export function FactsScreen({navigation}:{navigation: any}){
     const renderNextButton = () => {
         return(
             <TouchableOpacity onPress={handleNext}>
-                <Text style={styleButton.button}>Neste</Text>
+                <Text numberOfLines={1} adjustsFontSizeToFit style={styleButton.button}>Neste</Text>
             </TouchableOpacity>
         )
     }
@@ -130,7 +136,7 @@ export function FactsScreen({navigation}:{navigation: any}){
     const renderBackButton = () => {
         return(
             <TouchableOpacity onPress={handlePrev}>
-                <Text style={styleButton.button}>Tilbake</Text>
+                <Text numberOfLines={1} adjustsFontSizeToFit style={styleButton.button}>Tilbake</Text>
             </TouchableOpacity>
         )
     }
@@ -141,12 +147,11 @@ export function FactsScreen({navigation}:{navigation: any}){
 
             <View style={{width: "100%", height: "80%"}}>
 
-                {/*tilegg*/}
                 {renderFacts()}
 
                 <View style={{width: "100%", height: "20%", backgroundColor: "#FFCB2F", alignItems: "center"}}>
 
-                    <View style={{width: "70%", height: "100%", flexDirection: "row", justifyContent: "space-evenly",}}>
+                    <View style={{width: "70%", height: "100%", flexDirection: "row", justifyContent:"space-evenly"}}>
                     <View>
                         {renderBackButton()}
                     </View>
@@ -178,8 +183,6 @@ const styleButton = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "flex-end",
-        bottom: "-40%",
-        right: "4%",
 
     },
     button: {
@@ -193,11 +196,11 @@ const styleButton = StyleSheet.create({
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.3,
         shadowRadius: 4,
-        width: 70,
+        width: 80,
         textAlign: "center",
-        height: 30,
-        fontWeight: "bold",
-        overflow: "hidden"
+        height: 40,
+        overflow: "hidden",
+        fontSize: 40,
 
     }
 })
@@ -291,6 +294,12 @@ const styles = StyleSheet.create({
         width: "40%",
         height: "200%",
         position: "absolute",
+    },
+    loadingScreen: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#FBF4E6"
     },
 
 
