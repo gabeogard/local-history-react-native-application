@@ -59,9 +59,9 @@ export function LoginScreen({navigation}:{navigation: any}) {
                         <View style={styles.loginIntroTxtCtr}>
                         <Text numberOfLines={1} adjustsFontSizeToFit style={styles.loginIntroText}>Logg inn</Text>
                         </View>
-                        <View style={styles.registerCtr}>
-                        <Text numberOfLines={1} adjustsFontSizeToFit style={styles.registerText}>Har du ikke en konto?? Trykk her</Text>
-                        </View>
+                        <Pressable style={styles.registerCtr} onPress={ () => navigation.navigate("CreateAccrount")}>
+                            <Text numberOfLines={1} adjustsFontSizeToFit style={styles.registerText}>Har du ikke en konto?? Trykk her</Text>
+                        </Pressable>
 
                     </View>
 
