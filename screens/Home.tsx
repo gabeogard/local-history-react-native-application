@@ -1,6 +1,5 @@
 import {StyleSheet, Image, Pressable, ImageBackground,View, Text} from 'react-native';
-import {useEffect, useState} from "react";
-import {auth} from "../firebase";
+import {useUserContext} from "../functions/UserContext";
 
 function NavigationAuth(props: any) {
     return <>
@@ -18,20 +17,7 @@ function NavigationAuth(props: any) {
 
 export default function Home({navigation}:{navigation: any}) {
 
-    const [initializing, setInitializing] = useState(true);
-    const [user, setUser] = useState<{} | null>({})
-
-    function onAuthStateChanged(user: any) {
-        setUser(user);
-        if (initializing){
-            setInitializing(false);
-        }
-    }
-
-    useEffect(() => {
-        const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
-        return subscriber; // unsubscribe on unmount
-    }, []);
+    const {user}: any = useUserContext()
 
   return (
 
