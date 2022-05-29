@@ -30,7 +30,6 @@ export function FactsScreen({navigation}:{navigation: any}){
     const [showHomeButton, setShowHomeButton] = useState(false)
     const [showBackButton, setBackButton] = useState(false);
 
-    const [imageList, setImageList] = useState([])
 
 
     const [username, setUsername] = useState([])
@@ -93,30 +92,11 @@ export function FactsScreen({navigation}:{navigation: any}){
                     </View>
 
                  </View>
-
             </View>
-            /*
-            <View style={styles.container}>
-                <View style={styles.factBoxFlex}>
-                    <View>
-                        <Text style={styles.title}>{curFact+1}</Text>
-                        <Text style={styles.title}>{(username[curFact] as any)?.title}</Text>
-                        <Text style={styles.factText}>{(username[curFact] as any)?.text}</Text>
-                        <Image source={{uri: (username[curFact] as any)?.image}}
-                        style={styles.image}
-                        />
-                    </View>
-
-                </View>
-
-            </View>*/
 
         )
     }
 
-    /*
-    <Image source={require(facts[curFact]?.Image)}></Image>
-     */
 
     const handleNext = () => {
         if (facts[curFact]?.Title === "Kvernhus"){
@@ -155,17 +135,6 @@ export function FactsScreen({navigation}:{navigation: any}){
         )
     }
 
-
-    const renderHomeButton = () => {
-        if (showHomeButton){
-            return(
-                <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
-                    <Text style={styleButton.button}>Hjem</Text>
-                </TouchableOpacity>
-            )
-        }
-    }
-
     return(
 
         <View style={{flex: 1, backgroundColor: "#FBF4E6", justifyContent: "center", alignItems: "center"}}>
@@ -177,7 +146,7 @@ export function FactsScreen({navigation}:{navigation: any}){
 
                 <View style={{width: "100%", height: "20%", backgroundColor: "#FFCB2F", alignItems: "center"}}>
 
-                    <View style={{width: "50%", height: "100%", flexDirection: "row", justifyContent: "space-evenly",}}>
+                    <View style={{width: "70%", height: "100%", flexDirection: "row", justifyContent: "space-evenly",}}>
                     <View>
                         {renderBackButton()}
                     </View>
