@@ -119,6 +119,7 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     refreshBtn: {
-        alignSelf: "flex-end"
+        alignSelf: "flex-end",
+        marginLeft: 100
     }
 });

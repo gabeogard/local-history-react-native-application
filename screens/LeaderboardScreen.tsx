@@ -40,7 +40,7 @@ export const LeaderboardScreen = () => {
                 <View style={styles.leaderBoardBoxHeader}>
                     <Text style={styles.leaderBoardTitle}>Poengtavle</Text>
                     <TouchableOpacity style={styles.refreshBtn} onPress={() => newRefresh(refresh + 1)}>
-                        <FontAwesome name="refresh" size={24} color="black" />
+                        <FontAwesome name="refresh" size={24} color="#28A5D9FF" />
                     </TouchableOpacity>
                 </View>
                 <FlatList
