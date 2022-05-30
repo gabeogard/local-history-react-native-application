@@ -19,6 +19,7 @@ import {auth, db, storage} from "../firebase";
 import {ref, listAll, getDownloadURL} from "firebase/storage"
 import * as url from "url";
 import {collection, getDocs, query} from "firebase/firestore/lite";
+import flatten = StyleSheet.flatten;
 
 
 export function FactsScreen({navigation}:{navigation: any}){
@@ -29,30 +30,29 @@ export function FactsScreen({navigation}:{navigation: any}){
     const [showHomeButton, setShowHomeButton] = useState(false)
     const [showBackButton, setBackButton] = useState(false);
 
-    const [imageList, setImageList] = useState([])
 
 
     const [username, setUsername] = useState([])
 
-    const [isLoading, setIsLoading] = useState(false)
-
+    const [isLoading, setLoading] = useState(false)
 
 
     useEffect(() => {
 
+        setLoading(true)
 
         const getUsers = async () => {
 
             try {
-                const q = query(collection(db, "factTest"));
+                const q = query(collection(db, "facts"));
                 const querySnapshot = await getDocs(q);
                 const item: any = []
                 querySnapshot.forEach((doc) => {
-                    // doc.data() is never undefined for query doc snapshots
                     item.push(doc.data())
-                        setUsername(item)
+                    setUsername(item)
                 });
 
+                setLoading(false)
 
             } catch (error){
                 console.log(error)
@@ -63,7 +63,11 @@ export function FactsScreen({navigation}:{navigation: any}){
 
     }, [])
 
-
+    if (isLoading){
+        return (
+            <View style={styles.loadingScreen}><Text>Laster...</Text></View>
+        )
+    }
 
 
     const renderFacts = () => {
@@ -72,28 +76,33 @@ export function FactsScreen({navigation}:{navigation: any}){
 
         console.log(username + " username")
 
-            return (
-                    <View style={styles.factBox}>
+        return (
+            <View style={{flex: 1}}>
 
-                    <View>
-                    <Text style={styles.title}>{curFact+1}</Text>
-                    <Text style={styles.factText}>{(username[curFact] as any)?.title}</Text>
-                    <Text style={styles.factText}>{(username[curFact] as any)?.text}</Text>
-                    <Text style={styles.factText}>{(username[curFact] as any)?.image}</Text>
+                <View style={{width: "100%", height: "20%" ,backgroundColor: "#FFCB2F", justifyContent: "center", alignItems: "center", borderBottomColor: 'black',
+                    borderBottomWidth: 2}}>
+                    <Text style={{fontSize: 30}}>{[curFact+1]}</Text>
+                    <Text style={{fontSize: 50}}>{(username[curFact] as any)?.title}</Text>
+                </View>
+
+                <View style={{flexDirection: "row", height: "80%", width: "100%", justifyContent: "space-between", backgroundColor: "#FFCB2F"}}>
+
+                    <View style={{width: "60%", height: "100%", justifyContent: "center" }}>
+                        <Text numberOfLines={20} adjustsFontSizeToFit style={{fontSize: 80, padding: 10}}>{(username[curFact] as any)?.text}</Text>
                     </View>
 
+                    <View  style={{backgroundColor: "#FFCB2F", width: "40%", height: "100%", justifyContent: "center", alignItems: "center", zIndex: 1}}>
+                        <View style={{width: "100%", height: "50%", justifyContent: "center"}}>
+                        <Image style={{width: "99%", height: "100%", borderWidth:2, borderRadius:6}} source={{uri: (username[curFact] as any)?.image}}/>
+                        </View>
                     </View>
 
-            )
+                 </View>
+            </View>
 
-
-
+        )
     }
 
-    /*
-    <Image source={require(facts[curFact]?.Image)}></Image>
-
-     */
 
     const handleNext = () => {
         if (facts[curFact]?.Title === "Kvernhus"){
@@ -109,7 +118,7 @@ export function FactsScreen({navigation}:{navigation: any}){
     const renderNextButton = () => {
         return(
             <TouchableOpacity onPress={handleNext}>
-                <Text style={styleButton.button}>Neste</Text>
+                <Text numberOfLines={1} adjustsFontSizeToFit style={styleButton.button}>Neste</Text>
             </TouchableOpacity>
         )
     }
@@ -127,47 +136,59 @@ export function FactsScreen({navigation}:{navigation: any}){
     const renderBackButton = () => {
         return(
             <TouchableOpacity onPress={handlePrev}>
-                <Text style={styleButton.button}>Tilbake</Text>
+                <Text numberOfLines={1} adjustsFontSizeToFit style={styleButton.button}>Tilbake</Text>
             </TouchableOpacity>
         )
     }
 
-
-    const renderHomeButton = () => {
-        if (showHomeButton){
-            return(
-                <TouchableOpacity onPress={() => navigation.navigate("TabOne")}>
-                        <Text style={styleButton.button}>Hjem</Text>
-                </TouchableOpacity>
-            )
-        }
-    }
-
     return(
-        <SafeAreaView style={{flex: 1}}>
+
+        <View style={{flex: 1, backgroundColor: "#FBF4E6", justifyContent: "center", alignItems: "center"}}>
+
+            <View style={{width: "100%", height: "80%"}}>
+
                 {renderFacts()}
-                <View style={styleButton.buttonFlex}>
-                    {renderBackButton()}
-                    {renderNextButton()}
+
+                <View style={{width: "100%", height: "20%", backgroundColor: "#FFCB2F", alignItems: "center"}}>
+
+                    <View style={{width: "70%", height: "100%", flexDirection: "row", justifyContent:"space-evenly"}}>
+                    <View>
+                        {renderBackButton()}
+                    </View>
+
+                    <View>
+                        {renderNextButton()}
+                    </View>
+                    </View>
                 </View>
-        </SafeAreaView>
+
+
+            </View>
+
+        </View>
+
+        /*
+        <SafeAreaView style={{flex: 1}}>
+            {renderFacts()}
+            <View style={styleButton.buttonFlex}>
+                {renderBackButton()}
+                {renderNextButton()}
+            </View>
+        </SafeAreaView>*/
     )
 }
 
 const styleButton = StyleSheet.create({
     buttonFlex: {
-
         flex: 1,
         flexDirection: "row",
         justifyContent: "flex-end",
-        bottom: "12%",
-        right: "4%",
 
-},
-button: {
-    backgroundColor: "#F5BFB6",
+    },
+    button: {
+        backgroundColor: "#F5BFB6",
         marginTop: Dimensions.get("window").width >= 400 ? 10: 5,
-        borderWidth:1,
+        borderWidth:2,
         borderRadius:6,
         padding: 3,
         margin: 10,
@@ -175,40 +196,49 @@ button: {
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.3,
         shadowRadius: 4,
-        width: 70,
+        width: 80,
         textAlign: "center",
-        height: 30,
-        fontWeight: "bold",
+        height: 40,
+        overflow: "hidden",
+        fontSize: 40,
 
-}
+    }
 })
 
 
 const styles = StyleSheet.create({
-    title: {
-       fontWeight: 'bold',
-        fontSize: 30,
-    },
-    factBox: {
+
+    container: {
+        flex: 1,
+        backgroundColor: "#FBF4E6",
+        flexDirection: "column",
+        justifyContent: "center",
         alignItems: "center",
+        top: "25%",
+    },
+
+    title: {
+        fontWeight: 'bold',
+        fontSize: 30,
+        textAlign: "center",
+    },
+    factBoxFlex: {
         backgroundColor: "#FFCB2F",
         borderStyle: 'solid',
         borderWidth: 2,
         borderRadius:20,
         borderColor: '#000',
-        width: 365,
-        height: 520,
-        top:"10%",
-        left: "5%",
+        width: "90%",
+        height: "160%",
+
+
     },
     factText: {
-        fontSize: 18,
-        borderColor:'black',
-        fontWeight:'normal',
-        paddingBottom:'15%',
-        paddingLeft:'5%',
-        paddingRight: '50%',
-        paddingTop: '5%',
+        paddingLeft: "5%",
+        paddingRight: "50%",
+        fontSize:20,
+        top: "23%"
+
 
     },
     buttonsNext: {
@@ -258,12 +288,18 @@ const styles = StyleSheet.create({
     },
     image: {
         left: "55%",
-        top: "20%",
-        position: "absolute",
+        top: "50%",
         borderWidth: 2,
-        borderRadius: 3,
+        borderRadius: 10,
         width: "40%",
-        height: "60%",
+        height: "200%",
+        position: "absolute",
+    },
+    loadingScreen: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#FBF4E6"
     },
 
 

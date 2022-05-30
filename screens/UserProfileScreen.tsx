@@ -8,13 +8,13 @@ export function UserProfileScreen() {
 
     const [username, setUsername] = useState({})
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setLoading] = useState(false)
 
     const q = query(collection(db, "users"));
 
 
     useEffect(() => {
-        setIsLoading(true)
+        setLoading(true)
         const getUsers = async () => {
 
            try {
@@ -27,7 +27,7 @@ export function UserProfileScreen() {
                    }
                });
 
-               setIsLoading(false)
+               setLoading(false)
 
            } catch (error){
                console.log(error)

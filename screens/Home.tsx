@@ -1,198 +1,170 @@
-import {StyleSheet, Image, Pressable, ImageBackground,View, SafeAreaView, Text, Dimensions} from 'react-native';
-import {useEffect, useState} from "react";
-import {auth} from "../firebase";
+import {StyleSheet, Image, Pressable, ImageBackground,View, Text} from 'react-native';
+import {useUserContext} from "../functions/UserContext";
 
-function ifUserLoggedIn(navigation: any) {
-    return <View>
-        <Pressable style={styles.button} onPress={() => navigation.navigate("fakta")}>
-            <Text>Gå til Fakta</Text>
+function NavigationAuth(props: any) {
+    return <>
+        <Pressable style={[styles.Pressable, styles.shadow]} onPress={() => props.navigation.navigate(props.route)}>
+            <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button}>{props.text}</Text>
         </Pressable>
 
-        <View style={{justifyContent: "center", alignItems: "center",}}>
-        <Pressable style={styles.button} onPress={() => navigation.navigate("userProfile")}>
-            <Text>profile</Text>
-        </Pressable>
-        </View>
-    </View>;
-}
+        <Pressable style={[styles.Pressable, styles.shadow]} onPress={() => props.navigation.navigate(props.routeTwo)}>
 
-function ifUserNotLoggedIn(navigation: any) {
-    return <View>
-        <Pressable style={styles.button} onPress={() => navigation.navigate("Third")}>
-            <Text>Logg inn</Text>
-        </Pressable>
+            <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button}>{props.textTwo}</Text>
 
-
-        <Pressable style={styles.button} onPress={() => navigation.navigate("CreateAccrount")}>
-            <Text>Registrer</Text>
         </Pressable>
-    </View>;
+    </>;
 }
 
 export default function Home({navigation}:{navigation: any}) {
 
-    const [initializing, setInitializing] = useState(true);
-    const [user, setUser] = useState<{} | null>({})
-
-    function onAuthStateChanged(user: any) {
-        setUser(user);
-        if (initializing){
-            setInitializing(false);
-        }
-    }
-
-    useEffect(() => {
-        const subscriber = auth.onAuthStateChanged(onAuthStateChanged);
-        return subscriber; // unsubscribe on unmount
-    }, []);
+    const {user}: any = useUserContext()
 
   return (
-        //safeAreaView skal ha en annen style
-        <SafeAreaView style={styles.container}>
+
         <View style={styles.container}>
 
-          <ImageBackground style={styles.introBox} source={require("../res/images/landing-picture.png")}>
-              <Text style={styles.textOnBackground}>Byåa Kultursti</Text>
-          </ImageBackground>
+            <View style={styles.viewContainer}>
 
-          <Image style={styles.cloudLeft} source={require("../res/images/cloud.png")}/>
 
-          <Image style={styles.cloudRight} source={require("../res/images/cloud.png")}/>
+            <View style={[styles.imageContainer, styles.shadow]}>
+                <ImageBackground source={require("../res/images/landing-picture.png")} style={[StyleSheet.absoluteFillObject, styles.imageTextFlex]}
+                imageStyle={styles.image}>
 
-          <View style={styles.textBox}>
-              <Text style={styles.text}>Velkommen til Byåa Kultursti, her kan du samle poeng ved å svare på
-                  spørsmål om Byåa og konkurrere med vennene dine. Er du den beste i klassen din?</Text>
-          </View>
+                    <View style={styles.introTextContainer}>
+                        <Text adjustsFontSizeToFit numberOfLines={1} style={[styles.introText, styles.shadow]}>Byåa Kultursti</Text>
+                    </View>
+                </ImageBackground>
+            </View>
 
-          <View style={styles.buttonFlex}>
-              <Pressable style={styles.button} onPress={ () => alert("Spill som gjest")}>
-                  <Text>Spill som gjest</Text>
-              </Pressable>
+            <View style={styles.cloudContainer}>
+                <Image resizeMode={"stretch"} style={styles.cloud} source={require("../res/images/cloud.png")}/>
 
-              {
-                  (user as any)?.email ?
-                      ifUserLoggedIn(navigation)
-                      :
-                      ifUserNotLoggedIn(navigation)
-              }
+                <Image resizeMode={"stretch"} style={styles.cloud}  source={require("../res/images/cloud.png")}/>
+            </View>
 
-          </View>
 
-          <Image style={styles.onTour} source={require("../res/images/onTour.png")}/>
+            <View style={[styles.textContainer, styles.shadow]}>
 
-      </View>
-        </SafeAreaView>
-  );
+                <Text numberOfLines={7} adjustsFontSizeToFit style={[styles.text, styles.shadow]}>Velkommen til Byåa Kultursti, her kan du samle poeng ved å svare på
+                    spørsmål om Byåa og konkurrere med vennene dine. Er du den beste i klassen din?</Text>
+
+            </View>
+
+
+            <View style={styles.buttonContainer}>
+
+                <Pressable style={[styles.Pressable, styles.shadow]}  onPress={ () => alert("Spill som gjest")}>
+                    <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button}>Spill som gjest</Text>
+                </Pressable>
+
+                {
+                    (user as any)?.email ?
+                        <NavigationAuth   navigation={navigation} route={"fakta"} text={"Gå til fakta"} routeTwo={"userProfile"} textTwo={"Profile"} />
+                        :
+                        <NavigationAuth  navigation={navigation} route={"Third"} text={"Logg inn"} routeTwo={"CreateAccrount"} textTwo={"Registrer"} />
+                }
+
+            </View>
+
+            </View>
+
+        </View>
+
+  )
 }
 
 const styles = StyleSheet.create({
-  container: {
-      backgroundColor: "#FBF4E6",
-      flex: 1,
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-  },
-    buttonFlex: {
-        backgroundColor: "#FBF4E6",
-        flexDirection: "column",
+    container: {
+        flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        top: Dimensions.get("window").width >= 400 ? 50: 10,
-        //top: 10,
-        zIndex: -1,
-  },
-  button: {
-      //skal fjernes
-      justifyContent: "center",
-      alignItems: "center",
-
-      backgroundColor: "#F5BFB6",
-      marginTop: Dimensions.get("window").width >= 400 ? 10: 5,
-      //marginTop: 5,
-      borderWidth:1,
-      borderRadius:6,
-      padding: 3,
-
-      shadowColor: "#000000",
-      shadowOffset: {width: 0, height: 4},
-      shadowOpacity: 0.3,
-      shadowRadius: 4,
-  },
-    introBox: {
-        width: Dimensions.get("window").width >= 400 ? 350: 278,
-        height: Dimensions.get("window").width >= 400 ? 115: 90,
-        top: Dimensions.get("window").width >= 400 ? 10: 65,
-        display: "flex",
-        alignContent: "center",
-        justifyContent: "center",
-
-        shadowColor: "#000000",
-        shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.5,
-        shadowRadius: 4,
+        backgroundColor: "#FBF4E6"
     },
-    textOnBackground: {
-        //fontFamily: 'Roboto-Regular',
-        fontStyle: "normal",
-        fontWeight: "400",
-        fontSize: 24,
-        lineHeight: 28,
-        paddingLeft: 32,
-        paddingBottom: 33,
-
-        shadowColor: "#000000",
-        shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.5,
-        shadowRadius: 4,
+    viewContainer: {
+        width: "90%",
+        height: "80%",
+        justifyContent: "space-evenly",
+        alignItems: "center",
     },
-    cloudLeft:{
-        zIndex:1,
-        width: 108,
-        height: 46,
-        left: Dimensions.get("window").width >= 400 ? -115: -80,
-        //left: -80,
-        top: 63,
+    imageContainer: {
+        width: "100%",
+        height: "20%"
     },
-    cloudRight: {
-    zIndex:1,
-        width: 108,
-        height: 46,
-        left: Dimensions.get("window").width >= 400 ? 115: 85,
-        //left: 85,
-        top: 17,
-    },
-    onTour:{
-        zIndex:1,
-        width: 56,
-        height: 76,
-        left: 130,
-        top: 66
-},
-    textBox: {
-        width: Dimensions.get("window").width >= 400 ? 349: 271,
-        height: Dimensions.get("window").width >= 400 ? 200: 132,
-        resizeMode: "cover",
-        backgroundColor: "#FFCB2F",
+    image: {
         borderRadius: 10,
-        borderColor: "#000000",
         borderWidth: 1,
-        top: 5,
-        shadowColor: "#000000",
-        shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.5,
-        shadowRadius: 4,
+
+
+    },
+    imageTextFlex: {
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    introTextContainer: {
+        width: "50%",
+        bottom: "16%",
+        right: "6%"
+    },
+    introText: {
+        fontWeight: "bold",
+        fontSize: 27
+    },
+    cloudContainer: {
+        width: "100%",
+        height: "10%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        top: "4%",
+        zIndex: 1
+    },
+    cloud: {
+        width: "33%",
+        height: "100%"
+    },
+    textContainer: {
+        backgroundColor: "#FFCB2F",
+        width: "100%",
+        height: "40%",
+        justifyContent: "center",
+        alignContent: "center",
+        borderRadius: 10,
+        borderWidth: 1
     },
     text: {
-        //fontFamily: 'Roboto-Regular',
+        textAlign: "center",
         fontStyle: "normal",
         fontWeight: "400",
-        fontSize: Dimensions.get("window").width >= 400 ? 24.9: 18,
-        //fontSize: 18,
-        padding: 11,
+        fontSize: 50,
+        padding: 12
+    },
+    buttonContainer: {
+        height: "30%",
+        justifyContent: "space-evenly",
+        alignItems: "center"
+    },
+    Pressable: {
+        width: "100%",
+        height: "25%",
+        justifyContent: "center"
+    },
+    button: {
+        textAlign: "center",
+        fontSize: 30,
+        borderWidth:1,
+        borderRadius:10,
+        padding: 3,
+        backgroundColor: "#F5BFB6",
+        overflow: "hidden",
+    },
+    shadow: {
         shadowColor: "#000000",
-        shadowOffset: {width: 0, height: 4},
+        shadowOffset: {
+            width: 0,
+            height: 10,
+        },
         shadowOpacity: 0.3,
-        shadowRadius: 4,
+        shadowRadius: 4.68,
+
+        elevation: 5,
     }
-});
+})
