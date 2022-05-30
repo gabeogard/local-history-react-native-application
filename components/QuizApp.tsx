@@ -5,7 +5,7 @@ import * as React from 'react';
 import {useEffect, useState} from "react";
 import {FontAwesome, Foundation} from '@expo/vector-icons';
 import {auth, db} from "../firebase";
-import {doc, setDoc, getDocs, collection} from "firebase/firestore/lite";
+import {doc, getDocs, collection, updateDoc} from "firebase/firestore/lite";
 
 
 export const QuizApp = () => {
@@ -144,8 +144,8 @@ export const QuizApp = () => {
         }
         try {
             if (auth.currentUser?.uid !== undefined) {
-                const docRef = doc(db, "leaderboards", auth.currentUser.uid)
-                await setDoc(docRef, docData)
+                const docRef = doc(db, "users", auth.currentUser.uid)
+                await updateDoc(docRef, docData)
             }
         } catch (error) {
             alert(error.message)
