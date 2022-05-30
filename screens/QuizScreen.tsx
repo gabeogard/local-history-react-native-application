@@ -1,11 +1,13 @@
 import {StyleSheet} from 'react-native';
 import {View} from '../components/Themed';
 import {QuizApp} from "../components/QuizApp";
+import Navigation from "../navigation";
 
-export default function TabTwoScreen() {
+export default function QuizScreen({navigation}:{navigation: any}) {
+
   return (
     <View style={styles.container}>
-      <QuizApp/>
+      <QuizApp navigation={navigation}/>
     </View>
   );
 }

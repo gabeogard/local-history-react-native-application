@@ -21,6 +21,21 @@ export const styles = StyleSheet.create({
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.5,
         shadowRadius: 4,
+    },leaderBoardBox: {
+        width: 350,
+        height: 450,
+        resizeMode: "cover",
+        backgroundColor: "#FFCB2F",
+        borderRadius: 10,
+        borderColor: "#000000",
+        borderWidth: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        shadowColor: "#000000",
+        shadowOffset: {width: 0, height: 4},
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        marginTop: 55
     },
     modal: {
         width: 350,
@@ -73,5 +88,29 @@ export const styles = StyleSheet.create({
     },
     answerBtnText: {
         fontSize: 20
+    },
+    item: {
+        backgroundColor: '#F5BFB6',
+        padding: 20,
+        marginVertical: 2,
+        marginHorizontal: 6,
+        width: 300,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    scoreText:{
+        fontSize: 20
+    },
+    outsideFlexBox:{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        alignItems: "center"
+    },
+    leaderBoardTitle:{
+        fontSize: 30,
+        fontWeight: "bold",
+        marginBottom: 5
     }
 });
