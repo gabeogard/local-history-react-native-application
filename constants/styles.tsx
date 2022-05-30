@@ -104,7 +104,7 @@ export const styles = StyleSheet.create({
     },
     outsideFlexBox:{
         display: "flex",
-        justifyContent: "center",
+        justifyContent: "space-evenly",
         flexDirection: "column",
         alignItems: "center"
     },
@@ -112,5 +112,13 @@ export const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: "bold",
         marginBottom: 5
+    },
+    leaderBoardBoxHeader:{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    refreshBtn: {
+        alignSelf: "flex-end"
     }
 });
