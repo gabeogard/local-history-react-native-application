@@ -12,8 +12,8 @@ export function MapScreen({navigation}:{navigation: any}) {
                      style={ styles.map }
                      customMapStyle={customMap}
                      initialRegion={{
-                latitude: 59.85327892882451,
-                longitude: 11.102734024705288,
+                latitude: 59.853529900471955,
+                longitude: 11.108874047272867,
                 latitudeDelta: 0.0022,
                 longitudeDelta: 0.0231,
 
