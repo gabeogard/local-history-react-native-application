@@ -11,7 +11,7 @@ import {ColorSchemeName, Dimensions, Image, StyleSheet} from 'react-native';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import Home from '../screens/Home';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import QuizScreen from '../screens/QuizScreen';
 import LinkingConfiguration from './LinkingConfiguration';
 import {LoginScreen} from "../screens/LoginScreen";
 import {FactsScreen} from "../screens/Facts";
@@ -22,6 +22,8 @@ import {CustomTabBarHomeButton, TabBarBackground, TabBarIconCustom} from "../fun
 import {UserProfileScreen} from "../screens/UserProfileScreen";
 import {HeaderLoginInfo} from "../functions/headerLoginInfo";
 import {useUserContext} from "../functions/UserContext";
+import {LeaderboardScreen} from "../screens/LeaderboardScreen";
+import {QuizApp} from "../components/QuizApp";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -68,6 +70,15 @@ const HomeStack = () => {
             <Stack.Screen name="userProfile" component={UserProfileScreen} options={{ headerShown: false,}}/>
         </Stack.Navigator>
     )
+}
+
+const QuizStack = () => {
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name="Quiz" component={QuizScreen}/>
+            <Stack.Screen name="Leaderboard" component={LeaderboardScreen}/>
+        </Stack.Navigator>
+    );
 }
 
 function BottomTabNavigator() {
@@ -133,7 +144,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabTwo"
-        component={TabTwoScreen}
+        component={QuizStack}
 
         options={{
             tabBarIcon: ({focused}) => <TabBarIconCustom

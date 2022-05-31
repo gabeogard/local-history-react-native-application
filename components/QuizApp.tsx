@@ -6,9 +6,10 @@ import {useEffect, useState} from "react";
 import {FontAwesome, Foundation} from '@expo/vector-icons';
 import {auth, db} from "../firebase";
 import {doc, getDocs, collection, updateDoc} from "firebase/firestore/lite";
+import Navigation from "../navigation";
 
 
-export const QuizApp = () => {
+export const QuizApp = ({navigation}:{navigation: any}) => {
     //const allQuestions = data;
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [currentSelectedOption, setCurrentSelectedOption] = useState('')
@@ -142,14 +143,14 @@ export const QuizApp = () => {
         const docData = {
             score: score
         }
-        try {
             if (auth.currentUser?.uid !== undefined) {
                 const docRef = doc(db, "users", auth.currentUser.uid)
                 await updateDoc(docRef, docData)
+                alert("Din poengsum ble delt på poengtavlen! :)")
+                restartQuiz()
+            }else{
+                alert("Du må være pålogget for å dele poengene dine.")
             }
-        } catch (error) {
-            alert(error.message)
-        }
         console.log("Points submitted:", score, "points for", auth.currentUser?.email)
 
     }
@@ -178,7 +179,10 @@ export const QuizApp = () => {
                     </View>
 
                     <TouchableOpacity
-                        onPress={submitPoints}
+                        onPress={() => {
+                            submitPoints();
+                            navigation.navigate("Leaderboard")
+                        }}
                         style={styles.submitBtn}>
                         <Text style={{
                             textAlign: 'center', color: 'white', fontSize: 20, padding: 4
