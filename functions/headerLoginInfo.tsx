@@ -22,7 +22,7 @@ export function HeaderLoginInfo() {
 
 const styles = StyleSheet.create({
         button: {
-            backgroundColor: "#C7E6D5",
+            backgroundColor: "#e3eef0",
             borderWidth: 1,
             borderRadius: 6,
             padding: 3,

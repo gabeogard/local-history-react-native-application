@@ -81,19 +81,19 @@ export function FactsScreen({navigation}:{navigation: any}){
 
                 <View style={{width: "100%", height: "20%" ,backgroundColor: "#FFCB2F", justifyContent: "center", alignItems: "center", borderBottomColor: 'black',
                     borderBottomWidth: 2}}>
-                    <Text style={{fontSize: 30}}>{[curFact+1]}</Text>
+                    <Text style={{fontSize: 30, marginTop: 10}}>{[curFact+1]}</Text>
                     <Text style={{fontSize: 50}}>{(username[curFact] as any)?.title}</Text>
                 </View>
 
                 <View style={{flexDirection: "row", height: "80%", width: "100%", justifyContent: "space-between", backgroundColor: "#FFCB2F"}}>
 
                     <View style={{width: "60%", height: "100%", justifyContent: "center" }}>
-                        <Text numberOfLines={20} adjustsFontSizeToFit style={{fontSize: 80, padding: 10}}>{(username[curFact] as any)?.text}</Text>
+                        <Text numberOfLines={20} adjustsFontSizeToFit style={{fontSize: 15, padding: 10}}>{(username[curFact] as any)?.text}</Text>
                     </View>
 
                     <View  style={{backgroundColor: "#FFCB2F", width: "40%", height: "100%", justifyContent: "center", alignItems: "center", zIndex: 1}}>
-                        <View style={{width: "100%", height: "50%", justifyContent: "center"}}>
-                        <Image style={{width: "99%", height: "100%", borderWidth:2, borderRadius:6}} source={{uri: (username[curFact] as any)?.image}}/>
+                        <View style={{width: "90%", height: "50%", justifyContent: "center"}}>
+                        <Image style={{width: undefined, height: undefined, flex: 1, borderWidth:2, borderRadius:6}} resizeMode={"stretch"}  source={{uri: (username[curFact] as any)?.image}}/>
                         </View>
                     </View>
 
@@ -145,7 +145,7 @@ export function FactsScreen({navigation}:{navigation: any}){
 
         <View style={{flex: 1, backgroundColor: "#FBF4E6", justifyContent: "center", alignItems: "center"}}>
 
-            <View style={{width: "100%", height: "80%"}}>
+            <View style={{width: "90%", height: "80%", borderRadius: 6, borderWidth: 1, borderColor: "#000" }}>
 
                 {renderFacts()}
 
@@ -186,7 +186,7 @@ const styleButton = StyleSheet.create({
 
     },
     button: {
-        backgroundColor: "#F5BFB6",
+        backgroundColor: "#e3eef0",
         marginTop: Dimensions.get("window").width >= 400 ? 10: 5,
         borderWidth:2,
         borderRadius:6,
@@ -200,7 +200,7 @@ const styleButton = StyleSheet.create({
         textAlign: "center",
         height: 40,
         overflow: "hidden",
-        fontSize: 40,
+        fontSize: 20,
 
     }
 })
@@ -236,7 +236,7 @@ const styles = StyleSheet.create({
     factText: {
         paddingLeft: "5%",
         paddingRight: "50%",
-        fontSize:20,
+        fontSize: 20,
         top: "23%"
 
 

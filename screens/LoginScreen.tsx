@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
         width: "100%",
         justifyContent: "space-evenly",
         alignItems: "center",
-        backgroundColor: "#45B4EB",
+        backgroundColor: "#e3eef0",
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10
     },
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     loginIntroText: {
         textAlign: "center",
         fontSize: 40,
-        color: "#FFFFFF"
+        color: "#000"
     },
     registerCtr: {
         height: "30%",
@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
         top: "10%"
     },
     button: {
-        backgroundColor: "#F5BFB6",
+        backgroundColor: "#e3eef0",
         width: "100%",
         height: "15%",
         justifyContent: "center",

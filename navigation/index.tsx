@@ -99,6 +99,9 @@ function BottomTabNavigator() {
 
           tabBarBackground: () => <TabBarBackground />,
           tabBarStyle: styles.tabBarStyle,
+
+
+
       }}>
         <BottomTab.Screen
             name={"Third" as const}
@@ -176,9 +179,10 @@ function BottomTabNavigator() {
 
 const styles = StyleSheet.create({
     tabBarStyle: {
-        backgroundColor: "#FBF4E6",
+        backgroundColor: "#7a7a7a",
         height: Dimensions.get("window").width >= 375 ? 90 : 55,
-        borderTopWidth:0,
+        borderTopWidth:0.5,
+
     },
      headerRightContainerStyle: {
          justifyContent: "flex-end",

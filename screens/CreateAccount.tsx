@@ -155,13 +155,15 @@ const styles = StyleSheet.create({
 
 
     button: {
-        backgroundColor: "#F5BFB6",
+        backgroundColor: "#e3eef0",
         width: "100%",
         height: "15%",
         justifyContent: "center",
         alignItems: "center",
         borderRadius: 3,
-        top: "3%"
+        top: "3%",
+        borderColor: "#000",
+        borderWidth: 1
     },
     shadow: {
         shadowColor: "#000000",

@@ -66,35 +66,38 @@ export const styles = StyleSheet.create({
         width: '80%',
     },
     answerBtn: {
-        backgroundColor: "#F5BFB6",
+        backgroundColor: "#e3eef0",
         marginTop: Platform.OS === "web" ? 5 : 4,
         borderWidth:1,
         borderRadius:6,
         margin: 5,
     },
     nextBtn: {
-        backgroundColor: "#9d6d65",
+        backgroundColor: "#e3eef0",
         marginTop: Platform.OS === "web" ? 5 : 4,
         borderWidth:1,
         borderRadius:6,
         margin: 5,
+        padding: 3
     },
     submitBtn: {
-        backgroundColor: "#54a400",
+        backgroundColor: "#e3eef0",
         marginTop: Platform.OS === "web" ? 5 : 4,
         borderWidth:1,
         borderRadius:6,
         margin: 5,
     },
     answerBtnText: {
-        fontSize: 20
+        fontSize: 18,
+        color: "#000"
     },
     item: {
-        backgroundColor: '#F5BFB6',
+        backgroundColor: '#F2F0DF',
         padding: 20,
-        marginVertical: 2,
+        marginVertical: 6,
         marginHorizontal: 6,
         width: 300,
+        borderRadius: 6,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between"
@@ -111,7 +114,8 @@ export const styles = StyleSheet.create({
     leaderBoardTitle:{
         fontSize: 30,
         fontWeight: "bold",
-        marginBottom: 5
+        marginBottom: 10,
+        marginTop: 10
     },
     leaderBoardBoxHeader:{
         display: "flex",
@@ -120,6 +124,8 @@ export const styles = StyleSheet.create({
     },
     refreshBtn: {
         alignSelf: "flex-end",
-        marginLeft: 100
+        marginLeft: 100,
+        marginBottom: 10,
+        marginTop: 10
     }
 });

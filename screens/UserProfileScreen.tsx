@@ -40,7 +40,7 @@ export function UserProfileScreen() {
 
     if (isLoading){
         return (
-            <View style={styles.loadingScreen}><Text>Lasting...</Text></View>
+            <View style={styles.loadingScreen}><Text>Laster...</Text></View>
         )
     }
 
@@ -74,13 +74,13 @@ export function UserProfileScreen() {
 
             <View style={{flex: 1, alignItems:"center", justifyContent: "space-evenly"}}>
 
-                <View style={{backgroundColor: "#8DC6C2", width: "92%", height: "15%", justifyContent: "center", alignItems: "center"}}>
+                <View style={{backgroundColor: "#e3eef0", width: "92%", height: "15%", justifyContent: "center", alignItems: "center"}}>
                     <Text>Status:</Text>
                 </View>
-                <View style={{backgroundColor: "#8DC6C2", width: "92%", height: "15%", justifyContent: "center", alignItems: "center"}}>
+                <View style={{backgroundColor: "#e3eef0", width: "92%", height: "15%", justifyContent: "center", alignItems: "center"}}>
                     <Text>Bio:</Text>
                 </View>
-                <View style={{backgroundColor: "#8DC6C2", width: "92%", height: "15%", justifyContent: "center", alignItems: "center"}}>
+                <View style={{backgroundColor: "#e3eef0", width: "92%", height: "15%", justifyContent: "center", alignItems: "center"}}>
                     <Text>Quiz resultat:</Text>
                 </View>
 
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     profileHeader: {
-        backgroundColor: "#8DC6C2",
+        backgroundColor: "#e3eef0",
         flexDirection: "row",
         width: "100%",
         height: "40%",

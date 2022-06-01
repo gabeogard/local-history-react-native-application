@@ -46,11 +46,11 @@ export const QuizApp = ({navigation}:{navigation: any}) => {
         return (
             <>
                 <SafeAreaView style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-                    <Text style={{fontSize: 20, opacity: 0.6}}>{currentQuestionIndex + 1}</Text>
-                    <Text style={{fontSize: 18, opacity: 0.6}}>/{allQuestions.length}</Text>
+                    <Text style={{fontSize: 20, opacity: 0.6, color: "#000"}}>{currentQuestionIndex + 1}</Text>
+                    <Text style={{fontSize: 18, opacity: 0.6, color: "#000"}}>/{allQuestions.length}</Text>
                 </SafeAreaView>
 
-                <Text style={{fontSize: 25}}>{allQuestions[currentQuestionIndex]?.question}</Text>
+                <Text style={{fontSize: 25, color: "#000"}}>{allQuestions[currentQuestionIndex]?.question}</Text>
             </>
         )
     }
@@ -71,7 +71,7 @@ export const QuizApp = ({navigation}:{navigation: any}) => {
                                     : option == currentSelectedOption
                                         ? 'red'
                                         : 'black',
-                                backgroundColor: '#F5BFB6',
+                                backgroundColor: '#e3eef0',
                                 height: 40,
                                 borderRadius: 20,
                                 flexDirection: 'row',
@@ -83,15 +83,15 @@ export const QuizApp = ({navigation}:{navigation: any}) => {
                                 marginVertical: 10
                             }}
                         >
-                            <Text style={{fontSize: 20, color: 'white'}}>{option}</Text>
+                            <Text style={{fontSize: 20, color: '#000'}}>{option}</Text>
 
                             {
                                 option == correctOption ? (
-                                    <View style={{backgroundColor: "#F5BFB6"}}>
+                                    <View style={{backgroundColor: "#e3eef0"}}>
                                         <FontAwesome name="check" size={24} color="green"/>
                                     </View>
                                 ) : option == currentSelectedOption ? (
-                                    <View style={{backgroundColor: "#F5BFB6"}}>
+                                    <View style={{backgroundColor: "#e3eef0"}}>
                                         <Foundation name="x" size={24} color="red"/>
                                     </View>
                                 ) : null
@@ -165,8 +165,9 @@ export const QuizApp = ({navigation}:{navigation: any}) => {
                 <View style={styles.modal}>
                     <Text style={{
                         fontSize: 30,
-                        fontWeight: 'bold'
-                    }}>{score > (allQuestions.length / 2) ? 'Gratulerer' : 'Oops!'}
+                        fontWeight: 'bold',
+                        color: "#000"
+                    }}>{score > (allQuestions.length / 2) ? 'Gratulerer!' : 'Oops!'}
                     </Text>
                     <View>
                         <Text style={{
@@ -185,7 +186,7 @@ export const QuizApp = ({navigation}:{navigation: any}) => {
                         }}
                         style={styles.submitBtn}>
                         <Text style={{
-                            textAlign: 'center', color: 'white', fontSize: 20, padding: 4
+                            textAlign: 'center', color: '#000', fontSize: 20, padding: 4
                         }}>Fullfør og del
                         </Text>
                     </TouchableOpacity>
@@ -193,7 +194,7 @@ export const QuizApp = ({navigation}:{navigation: any}) => {
                         onPress={restartQuiz}
                         style={styles.nextBtn}>
                         <Text style={{
-                            textAlign: 'center', color: 'white', fontSize: 20, padding: 4
+                            textAlign: 'center', color: '#000', fontSize: 20, padding: 4
                         }}>Prøv igjen
                         </Text>
                     </TouchableOpacity>

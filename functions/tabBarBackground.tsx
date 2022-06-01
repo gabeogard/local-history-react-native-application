@@ -3,7 +3,9 @@ import * as React from "react";
 
 export function TabBarBackground() {
     return (
-        <View style={stylesTab.TabBarBackground}></View>
+        <View  style={stylesTab.TabBarBackground}>
+            <Image style={{flex: 1, height: undefined, width: undefined}} source={require("../res/images/backgroundtabbar.png")} resizeMode={"stretch"}/>
+        </View>
     )
 }
 
@@ -45,14 +47,14 @@ const stylesTab = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.5,
-        //for andriod
+        //for android
         elevation: 5
     },
     TabBarBackground: {
         flex: 1,
         width: "100%",
-        backgroundColor: "#F5BFB6",
         borderTopWidth: 1.3,
+
     }
   }
 )
