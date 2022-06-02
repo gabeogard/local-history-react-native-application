@@ -15,7 +15,8 @@ export function LoginScreen({navigation}:{navigation: any}) {
                 Alert.alert("Ugyldig", "Skriv inn e-postadresse og password")
                 return
             }
-            signInUser(email, password, navigation)
+            signInUser(email, password)
+            navigation.navigate("Home")
         }
 
         const onPressResetPassword = () => {
