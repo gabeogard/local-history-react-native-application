@@ -53,13 +53,13 @@ export function FactsScreen({navigation}:{navigation: any}){
         return (
             <View style={{flex: 1}}>
 
-                <View style={{width: "100%", height: "20%" ,backgroundColor: "#FFCB2F", justifyContent: "center", alignItems: "center", borderBottomColor: 'black',
+                <View style={{width: "100%", height: "30%" ,backgroundColor: "#FFCB2F", justifyContent: "space-evenly", alignItems: "center", borderBottomColor: 'black',
                     borderBottomWidth: 2}}>
                     <Text style={{fontSize: 30, marginTop: 10}}>{[curFact+1]}</Text>
-                    <Text style={{fontSize: 50}}>{(username[curFact] as any)?.title}</Text>
+                    <Text numberOfLines={1} adjustsFontSizeToFit style={{fontSize: 50}}>{(username[curFact] as any)?.title}</Text>
                 </View>
 
-                <View style={{flexDirection: "row", height: "80%", width: "100%", justifyContent: "space-between", backgroundColor: "#FFCB2F"}}>
+                <View style={{flexDirection: "row", height: "70%", width: "100%", justifyContent: "space-between", backgroundColor: "#FFCB2F"}}>
 
                     <View style={{width: "60%", height: "100%", justifyContent: "center" }}>
                         <Text numberOfLines={20} adjustsFontSizeToFit style={{fontSize: 15, padding: 10}}>{(username[curFact] as any)?.text}</Text>
@@ -115,7 +115,7 @@ export function FactsScreen({navigation}:{navigation: any}){
 
                 {renderFacts()}
 
-                <View style={{width: "100%", height: "20%", backgroundColor: "#FFCB2F", alignItems: "center"}}>
+                <View style={{width: "100%", height: "19%", backgroundColor: "#FFCB2F", alignItems: "center"}}>
 
                     <View style={{width: "70%", height: "100%", flexDirection: "row", justifyContent:"space-evenly"}}>
                     <View>
