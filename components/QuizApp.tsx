@@ -1,37 +1,149 @@
-import {Text, View} from "./Themed";
-import {SafeAreaView, TouchableOpacity, Modal} from "react-native";
-import {styles} from "../constants/styles";
-import * as React from 'react';
-import {useEffect, useState} from "react";
-import {FontAwesome, Foundation} from '@expo/vector-icons';
-import {auth, db} from "../firebase";
-import {doc, getDocs, collection, updateDoc} from "firebase/firestore/lite";
-import Navigation from "../navigation";
-import {CustomModal} from "./CustomModal";
+import { Text, View } from './Themed'
+import { SafeAreaView, TouchableOpacity, Modal } from 'react-native'
+import { styles } from '../constants/styles'
+import * as React from 'react'
+import { useEffect, useState } from 'react'
+import { FontAwesome, Foundation } from '@expo/vector-icons'
+import { auth, db } from '../firebase'
+import { doc, getDocs, collection, updateDoc } from 'firebase/firestore/lite'
+import Navigation from '../navigation'
+import { CustomModal } from './CustomModal'
 
+// TODO: typ opp questions
+const Questions = ({
+    currentQuestionIndex,
+    allQuestions,
+}: {
+    currentQuestionIndex: number
+    allQuestions: any[]
+}) => (
+    <>
+        <SafeAreaView style={{ flexDirection: 'row', alignItems: 'flex-end' }}>
+            <Text style={{ fontSize: 20, opacity: 0.6, color: '#000' }}>
+                {currentQuestionIndex + 1}
+            </Text>
+            <Text style={{ fontSize: 18, opacity: 0.6, color: '#000' }}>
+                /{allQuestions.length}
+            </Text>
+        </SafeAreaView>
 
-export const QuizApp = ({navigation}:{navigation: any}) => {
-    //const allQuestions = data;
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [currentSelectedOption, setCurrentSelectedOption] = useState('');
-    const [correctOption, setCorrectOption] = useState('');
-    const [isOptionsDisabled, setIsOptionsDisabled] = useState(false);
-    const [score, setScore] = useState(0);
-    const [showNextButton, setShowNextButton] = useState(false);
-    const [showScoreModal, setShowScoreModal] = useState(false);
-    const [allQuestions, setAllQuestions] = useState <any[]>([]);
+        <Text style={{ fontSize: 25, color: '#000' }}>
+            {allQuestions[currentQuestionIndex]?.question}
+        </Text>
+    </>
+)
 
+const Options = ({
+    allQuestions,
+    currentQuestionIndex,
+    validateAnswer,
+    isOptionsDisabled,
+    correctOption,
+    currentSelectedOption,
+}: {
+    allQuestions: any[]
+    currentQuestionIndex: number
+    validateAnswer: (answer: string) => void
+    isOptionsDisabled: boolean
+    correctOption: string
+    currentSelectedOption?: string
+}) => (
+    <SafeAreaView>
+        {allQuestions[currentQuestionIndex]?.answers.map((option: string) => (
+            <TouchableOpacity
+                onPress={() => validateAnswer(option)}
+                disabled={isOptionsDisabled}
+                key={option}
+                style={{
+                    borderWidth: 2,
+                    borderColor:
+                        option == correctOption
+                            ? 'green'
+                            : option == currentSelectedOption
+                            ? 'red'
+                            : 'black',
+                    backgroundColor: '#e3eef0',
+                    height: 40,
+                    borderRadius: 20,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    width: 325,
+                    alignSelf: 'center',
+                    paddingHorizontal: 20,
+                    marginVertical: 10,
+                }}
+            >
+                <Text style={{ fontSize: 20, color: '#000' }}>{option}</Text>
+
+                {option == correctOption ? (
+                    <View style={{ backgroundColor: '#e3eef0' }}>
+                        <FontAwesome name="check" size={24} color="green" />
+                    </View>
+                ) : option == currentSelectedOption ? (
+                    <View style={{ backgroundColor: '#e3eef0' }}>
+                        <Foundation name="x" size={24} color="red" />
+                    </View>
+                ) : null}
+            </TouchableOpacity>
+        ))}
+    </SafeAreaView>
+)
+const NextButton = ({ handleNext }: { handleNext: () => void }) => (
+    <TouchableOpacity onPress={handleNext} style={styles.nextBtn}>
+        <Text style={styles.answerBtnText}>Next</Text>
+    </TouchableOpacity>
+)
+
+const QuizModal = ({
+    showScoreModal,
+    score,
+    submitPoints,
+    navigation,
+}: {
+    showScoreModal: boolean
+    score: number
+    submitPoints: () => void
+    navigation: any
+}) => (
+    <CustomModal
+        isVisible={showScoreModal}
+        title={'Gratulerer'}
+        info={`Du fikk ${score} poeng! Del på poengtavlen og sammenlign med dine venner. Eller prøv quizen igjen`}
+        child={
+            <TouchableOpacity
+                style={styles.submitBtn}
+                onPress={() => {
+                    submitPoints()
+                    navigation.navigate('Leaderboard')
+                }}
+            >
+                <Text style={styles.answerBtnText}>Fullfør og del</Text>
+            </TouchableOpacity>
+        }
+    />
+)
+
+export const QuizApp = ({ navigation }: { navigation: any }) => {
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+    const [currentSelectedOption, setCurrentSelectedOption] = useState('')
+    const [correctOption, setCorrectOption] = useState('')
+    const [isOptionsDisabled, setIsOptionsDisabled] = useState(false)
+    const [score, setScore] = useState(0)
+    const [showNextButton, setShowNextButton] = useState(false)
+    const [showScoreModal, setShowScoreModal] = useState(false)
+    const [allQuestions, setAllQuestions] = useState<any[]>([])
 
     const fetchQuestions = async () =>
-        (await getDocs(collection(db, "quiz"))).docs.map(value => value.data())
+        (await getDocs(collection(db, 'quiz'))).docs.map((value) =>
+            value.data()
+        )
 
     useEffect(() => {
-        (async () => {
+        ;(async () => {
             setAllQuestions(await fetchQuestions())
-        })();
-    },[])
-
-    console.log(allQuestions)
+        })()
+    }, [])
 
     const validateAnswer = (selectedOption: string) => {
         let correct_option = allQuestions[currentQuestionIndex].correctOption
@@ -44,152 +156,78 @@ export const QuizApp = ({navigation}:{navigation: any}) => {
         setShowNextButton(true)
     }
 
-    const renderQuestion = () => {
-        return (
-            <>
-                <SafeAreaView style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-                    <Text style={{fontSize: 20, opacity: 0.6, color: "#000"}}>{currentQuestionIndex + 1}</Text>
-                    <Text style={{fontSize: 18, opacity: 0.6, color: "#000"}}>/{allQuestions.length}</Text>
-                </SafeAreaView>
-
-                <Text style={{fontSize: 25, color: "#000"}}>{allQuestions[currentQuestionIndex]?.question}</Text>
-            </>
-        )
-    }
-
-    const renderOptions = () => {
-        return (
-            <SafeAreaView>
-                {
-                    allQuestions[currentQuestionIndex]?.answers.map((option: string) => (
-                        <TouchableOpacity
-                            onPress={() => validateAnswer(option)}
-                            disabled={isOptionsDisabled}
-                            key={option}
-                            style={{
-                                borderWidth: 2,
-                                borderColor: option == correctOption
-                                    ? 'green'
-                                    : option == currentSelectedOption
-                                        ? 'red'
-                                        : 'black',
-                                backgroundColor: '#e3eef0',
-                                height: 40,
-                                borderRadius: 20,
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'space-between',
-                                width: 325,
-                                alignSelf: "center",
-                                paddingHorizontal: 20,
-                                marginVertical: 10
-                            }}
-                        >
-                            <Text style={{fontSize: 20, color: '#000'}}>{option}</Text>
-
-                            {
-                                option == correctOption ? (
-                                    <View style={{backgroundColor: "#e3eef0"}}>
-                                        <FontAwesome name="check" size={24} color="green"/>
-                                    </View>
-                                ) : option == currentSelectedOption ? (
-                                    <View style={{backgroundColor: "#e3eef0"}}>
-                                        <Foundation name="x" size={24} color="red"/>
-                                    </View>
-                                ) : null
-                            }
-
-                        </TouchableOpacity>
-                    ))
-                }
-            </SafeAreaView>
-        )
-    }
-
-
     const handleNext = () => {
         if (currentQuestionIndex == allQuestions.length - 1) {
             // Last Question
             setShowNextButton(false)
             setShowScoreModal(true)
         } else {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
-            setCurrentSelectedOption('');
-            setCorrectOption('');
-            setIsOptionsDisabled(false);
-            setShowNextButton(false);
-        }
-    }
-
-    const renderNextButton = () => {
-        if (showNextButton) {
-            return (
-                <TouchableOpacity onPress={handleNext} style={styles.nextBtn}>
-                    <Text style={styles.answerBtnText}>Next</Text>
-                </TouchableOpacity>
-            )
+            setCurrentQuestionIndex(currentQuestionIndex + 1)
+            setCurrentSelectedOption('')
+            setCorrectOption('')
+            setIsOptionsDisabled(false)
+            setShowNextButton(false)
         }
     }
 
     const restartQuiz = () => {
-        setShowScoreModal(false);
-        setCurrentQuestionIndex(0);
-        setScore(0);
-        setCurrentSelectedOption('');
-        setCorrectOption('');
-        setIsOptionsDisabled(false);
-        setShowNextButton(false);
+        setShowScoreModal(false)
+        setCurrentQuestionIndex(0)
+        setScore(0)
+        setCurrentSelectedOption('')
+        setCorrectOption('')
+        setIsOptionsDisabled(false)
+        setShowNextButton(false)
     }
-
 
     const submitPoints = async () => {
         const docData = {
-            score: score
+            score: score,
         }
-            if (auth.currentUser?.uid !== undefined) {
-                const docRef = doc(db, "users", auth.currentUser.uid)
-                await updateDoc(docRef, docData)
-                alert("Din poengsum ble delt på poengtavlen! :)")
-                restartQuiz()
-            }else{
-                alert("Du må være pålogget for å dele poengene dine.")
-            }
-        console.log("Points submitted:", score, "points for", auth.currentUser?.email)
-
+        if (auth.currentUser?.uid !== undefined) {
+            const docRef = doc(db, 'users', auth.currentUser.uid)
+            await updateDoc(docRef, docData)
+            alert('Din poengsum ble delt på poengtavlen! :)')
+            restartQuiz()
+        } else {
+            alert('Du må være pålogget for å dele poengene dine.')
+        }
+        console.log(
+            'Points submitted:',
+            score,
+            'points for',
+            auth.currentUser?.email
+        )
     }
-
-    const renderModal = () => (
-            <CustomModal
-                isVisible={showScoreModal}
-                title={'Gratulerer'}
-                info={`Du fikk ${score} poeng! Del på poengtavlen og sammenlign med dine venner. Eller prøv quizen igjen`}
-                child={
-                <TouchableOpacity
-                    style={styles.submitBtn}
-                onPress={() => {
-                    submitPoints()
-                    navigation.navigate("Leaderboard")
-                }}>
-                    <Text style={styles.answerBtnText}>Fullfør og del</Text>
-                </TouchableOpacity>}
-            />
-        );
-
 
     return (
         <SafeAreaView>
             <View style={styles.container}>
                 <View style={styles.textBox}>
+                    <Questions
+                        currentQuestionIndex={currentQuestionIndex}
+                        allQuestions={allQuestions}
+                    />
 
-                    {renderQuestion()}
+                    <Options
+                        currentQuestionIndex={currentQuestionIndex}
+                        allQuestions={allQuestions}
+                        validateAnswer={validateAnswer}
+                        isOptionsDisabled={isOptionsDisabled}
+                        correctOption={correctOption}
+                        currentSelectedOption={currentSelectedOption}
+                    />
 
-                    {renderOptions()}
+                    {showNextButton && <NextButton handleNext={handleNext} />}
 
-                    {renderNextButton()}
-
-                    {renderModal()}
+                    <QuizModal
+                        showScoreModal={showScoreModal}
+                        score={score}
+                        submitPoints={submitPoints}
+                        navigation={navigation}
+                    />
                 </View>
             </View>
         </SafeAreaView>
-    );
+    )
 }
