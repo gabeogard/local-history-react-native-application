@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     },
     viewContainer: {
         width: "90%",
-        height: "80%",
+        height: "81%",
         justifyContent: "space-evenly",
         alignItems: "center",
     },
@@ -138,9 +138,10 @@ const styles = StyleSheet.create({
         padding: 12
     },
     buttonContainer: {
-        height: "30%",
+        height: "31%",
         justifyContent: "space-evenly",
-        alignItems: "center"
+        alignItems: "center",
+        marginTop: "1%"
     },
     Pressable: {
         width: "100%",
