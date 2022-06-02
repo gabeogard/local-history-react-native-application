@@ -2,17 +2,17 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import { auth, db } from '../firebase'
 import { collection, getDocs, query } from 'firebase/firestore/lite'
 import { useEffect, useState } from 'react'
+import { useLoading } from '../hooks/useLoading'
 
 export const UserProfileScreen = () => {
     const [username, setUsername] = useState({})
 
-    const [isLoading, setLoading] = useState(false)
+    const [isLoading, withLoading] = useLoading()
 
     const q = query(collection(db, 'users'))
 
     useEffect(() => {
-        setLoading(true)
-        const getUsers = async () => {
+        withLoading(async () => {
             try {
                 const querySnapshot = await getDocs(q)
                 querySnapshot.forEach((doc) => {
@@ -22,14 +22,10 @@ export const UserProfileScreen = () => {
                         console.log(doc.id, ' => ', doc.data())
                     }
                 })
-
-                setLoading(false)
             } catch (error) {
                 console.log(error)
             }
-        }
-
-        getUsers()
+        })
     }, [])
 
     if (isLoading) {

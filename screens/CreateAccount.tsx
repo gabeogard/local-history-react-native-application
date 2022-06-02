@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { TextInputCustom } from '../library/TextInputCustom'

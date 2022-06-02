@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { db } from '../firebase'
 import { collection, getDocs, query } from 'firebase/firestore/lite'
 import { styleButton, styles } from '../res/styling/factsStyling'
+import { useLoading } from '../hooks/useLoading'
 
 const NextButton = ({ handleNext }: { handleNext: () => void }) => (
     <TouchableOpacity onPress={handleNext}>
@@ -17,12 +18,10 @@ const NextButton = ({ handleNext }: { handleNext: () => void }) => (
 export const FactsScreen = ({ navigation }: { navigation: any }) => {
     const [curFact, setFact] = useState(0)
     const [username, setUsername] = useState([])
-    const [isLoading, setLoading] = useState(false)
+    const [isLoading, withLoading] = useLoading()
 
     useEffect(() => {
-        setLoading(true)
-
-        const getUsers = async () => {
+        withLoading(async () => {
             try {
                 const q = query(collection(db, 'facts'))
                 const querySnapshot = await getDocs(q)
@@ -31,14 +30,10 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
                     item.push(doc.data())
                     setUsername(item)
                 })
-
-                setLoading(false)
             } catch (error) {
                 console.log(error)
             }
-        }
-
-        getUsers()
+        })
     }, [])
 
     if (isLoading) {

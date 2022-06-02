@@ -11,6 +11,7 @@ import { auth, db } from '../firebase'
 import { doc, setDoc } from 'firebase/firestore/lite'
 import { Alert } from 'react-native'
 import { ErrorHandler } from './ErrorHandler'
+import { useLoading } from '../hooks/useLoading'
 
 const UserContext = createContext({})
 
@@ -34,15 +35,13 @@ export const UserContextProvider = ({
     children: React.ReactNode
 }) => {
     const [user, setUser] = useState<User | null>(null)
-    const [isLoading, setLoading] = useState(false)
+    const [isLoading, withLoading] = useLoading()
     const [error, setError] = useState('')
 
     useEffect(() => {
-        setLoading(true)
         const unsubscribe = onAuthStateChanged(auth, (res) => {
             res ? setUser(res) : setUser(null)
             setError('')
-            setLoading(false)
         })
         return unsubscribe
     }, [])
@@ -52,30 +51,31 @@ export const UserContextProvider = ({
         username: string,
         password: string
     ) => {
-        setLoading(true)
-
-        try {
-            await createUserWithEmailAndPassword(auth, email, password).then(
-                ({ user: { uid } }) => {
+        withLoading(async () => {
+            try {
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                ).then(({ user: { uid } }) => {
                     const docRef = doc(db, 'users', uid)
                     setDoc(docRef, { username: username })
                     console.log('user and username have been added')
-                }
-            )
-        } catch (error: any) {
-            alert(error.message)
-        }
-        setLoading(false)
+                })
+            } catch (error: any) {
+                alert(error.message)
+            }
+        })
     }
 
     const signInUser = async (email: string, password: string) => {
-        setLoading(true)
-        try {
-            await signInWithEmailAndPassword(auth, email, password)
-        } catch (error) {
-            ErrorHandler(error)
-        }
-        setLoading(false)
+        withLoading(async () => {
+            try {
+                await signInWithEmailAndPassword(auth, email, password)
+            } catch (error) {
+                ErrorHandler(error)
+            }
+        })
     }
 
     const logoutUser = () => {
@@ -89,16 +89,17 @@ export const UserContextProvider = ({
     }
 
     const forgotPassword = async (email: string) => {
-        try {
-            await sendPasswordResetEmail(auth, email)
-            Alert.alert(
-                'Vellykket',
-                'Du har fått en melding på din e-postadresse'
-            )
-        } catch (error: any) {
-            alert(error.message)
-        }
-        setLoading(false)
+        withLoading(async () => {
+            try {
+                await sendPasswordResetEmail(auth, email)
+                Alert.alert(
+                    'Vellykket',
+                    'Du har fått en melding på din e-postadresse'
+                )
+            } catch (error: any) {
+                alert(error.message)
+            }
+        })
     }
 
     const contextValue = {
