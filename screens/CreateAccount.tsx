@@ -26,7 +26,8 @@ export function CreateAccount({navigation}:{navigation: any}) {
             return
         }
 
-        registerUser(email, userName, password, navigation)
+        registerUser(email, userName, password)
+        navigation.navigate("Home")
     }
 
     if (isLoading) {

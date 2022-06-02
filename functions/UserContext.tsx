@@ -17,6 +17,8 @@ export const useUserContext = () => {
     return useContext(UserContext)
 }
 
+
+
 export const UserContextProvider = ({children}: any) => {
 
     const [user, setUser] = useState(null)
@@ -33,7 +35,7 @@ export const UserContextProvider = ({children}: any) => {
         return unsubscribe
     }, [])
 
-    const registerUser = async (email: string, username: string, password: string, navigation: any) => {
+    const registerUser = async (email: string, username: string, password: string) => {
         setLoading(true)
 
         try {
@@ -45,7 +47,6 @@ export const UserContextProvider = ({children}: any) => {
                     })
                     console.log("user and username have been added")
                 })
-            navigation.navigate("Home")
         }
         catch (error) {
 
@@ -56,11 +57,10 @@ export const UserContextProvider = ({children}: any) => {
         }
     }
 
-    const signInUser = async (email: string, password: string, navigation: any) => {
+    const signInUser = async (email: string, password: string) => {
         setLoading(true)
         try {
             await signInWithEmailAndPassword(auth, email, password)
-            navigation.navigate("Home")
         }
         catch (error) {
             ErrorHandler(error);
