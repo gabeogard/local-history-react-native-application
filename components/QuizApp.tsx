@@ -161,7 +161,7 @@ export const QuizApp = ({navigation}:{navigation: any}) => {
     const renderModal = () => (
             <CustomModal
                 isVisible={showScoreModal}
-                title={score > (allQuestions.length / 2) ? 'Gratulerer!' : 'Oops!'}
+                title={'Gratulerer'}
                 info={`Du fikk ${score} poeng! Del på poengtavlen og sammenlign med dine venner. Eller prøv quizen igjen`}
             />
         );
