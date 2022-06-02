@@ -163,6 +163,15 @@ export const QuizApp = ({navigation}:{navigation: any}) => {
                 isVisible={showScoreModal}
                 title={'Gratulerer'}
                 info={`Du fikk ${score} poeng! Del på poengtavlen og sammenlign med dine venner. Eller prøv quizen igjen`}
+                child={
+                <TouchableOpacity
+                    style={styles.submitBtn}
+                onPress={() => {
+                    submitPoints()
+                    navigation.navigate("Leaderboard")
+                }}>
+                    <Text style={styles.answerBtnText}>Fullfør og del</Text>
+                </TouchableOpacity>}
             />
         );
 

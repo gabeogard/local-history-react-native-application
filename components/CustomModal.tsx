@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {ReactElement, useState} from "react";
 import {Modal, Text, TouchableOpacity, View} from "react-native";
 import {styles} from "../constants/styles";
 
@@ -6,9 +6,10 @@ interface infoDialogProps {
     isVisible: boolean
     title: string;
     info: string;
+    child: ReactElement
 }
 
-export const CustomModal = ({ isVisible, info, title}: infoDialogProps) => {
+export const CustomModal = ({ isVisible, info, title, child}: infoDialogProps) => {
     return (
         <Modal
             animationType="slide"
@@ -29,6 +30,8 @@ export const CustomModal = ({ isVisible, info, title}: infoDialogProps) => {
                     }}> {info}
                     </Text>
                 </View>
+
+                {child}
             </View>
         </Modal>
     );
