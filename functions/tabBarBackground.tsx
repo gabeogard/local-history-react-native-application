@@ -14,7 +14,7 @@ export function TabBarIconCustom(props: any) {
         <View style={stylesTabIcons(props).TabBarIconCustomContainer}>
             <Image source={props.image} resizeMode="contain"
                    style={stylesTabIcons(props).tabBarIcons}/>
-            <Text style={stylesTabIcons(props).tabBarText}>{props.text}</Text>
+            <Text adjustsFontSizeToFit style={stylesTabIcons(props).tabBarText}>{props.text}</Text>
         </View>
     )
 }
