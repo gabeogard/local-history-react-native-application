@@ -7,18 +7,20 @@ import {FontAwesome, Foundation} from '@expo/vector-icons';
 import {auth, db} from "../firebase";
 import {doc, getDocs, collection, updateDoc} from "firebase/firestore/lite";
 import Navigation from "../navigation";
+import {CustomModal} from "./CustomModal";
 
 
 export const QuizApp = ({navigation}:{navigation: any}) => {
     //const allQuestions = data;
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-    const [currentSelectedOption, setCurrentSelectedOption] = useState('')
-    const [correctOption, setCorrectOption] = useState('')
-    const [isOptionsDisabled, setIsOptionsDisabled] = useState(false)
-    const [score, setScore] = useState(0)
-    const [showNextButton, setShowNextButton] = useState(false)
-    const [showScoreModal, setShowScoreModal] = useState(false)
-    const [allQuestions, setAllQuestions] = useState <any[]>([])
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [currentSelectedOption, setCurrentSelectedOption] = useState('');
+    const [correctOption, setCorrectOption] = useState('');
+    const [isOptionsDisabled, setIsOptionsDisabled] = useState(false);
+    const [score, setScore] = useState(0);
+    const [showNextButton, setShowNextButton] = useState(false);
+    const [showScoreModal, setShowScoreModal] = useState(false);
+    const [allQuestions, setAllQuestions] = useState <any[]>([]);
+
 
     const fetchQuestions = async () =>
         (await getDocs(collection(db, "quiz"))).docs.map(value => value.data())
@@ -104,6 +106,7 @@ export const QuizApp = ({navigation}:{navigation: any}) => {
         )
     }
 
+
     const handleNext = () => {
         if (currentQuestionIndex == allQuestions.length - 1) {
             // Last Question
@@ -155,54 +158,14 @@ export const QuizApp = ({navigation}:{navigation: any}) => {
 
     }
 
-    const renderModal = () => {
-        return (
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={showScoreModal}
-            >
-                <View style={styles.modal}>
-                    <Text style={{
-                        fontSize: 30,
-                        fontWeight: 'bold',
-                        color: "#000"
-                    }}>{score > (allQuestions.length / 2) ? 'Gratulerer!' : 'Oops!'}
-                    </Text>
-                    <View>
-                        <Text style={{
-                            backgroundColor: "#FFCB2F",
-                            fontSize: 30,
-                            color: score > (allQuestions.length / 2) ? 'green' : 'red'
-                        }}> Du fikk {score} poeng! Del på poengtavlen og sammenlign med dine venner. Eller prøv quizen
-                            igjen
-                        </Text>
-                    </View>
-
-                    <TouchableOpacity
-                        onPress={() => {
-                            submitPoints();
-                            navigation.navigate("Leaderboard")
-                        }}
-                        style={styles.submitBtn}>
-                        <Text style={{
-                            textAlign: 'center', color: '#000', fontSize: 20, padding: 4
-                        }}>Fullfør og del
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={restartQuiz}
-                        style={styles.nextBtn}>
-                        <Text style={{
-                            textAlign: 'center', color: '#000', fontSize: 20, padding: 4
-                        }}>Prøv igjen
-                        </Text>
-                    </TouchableOpacity>
-
-                </View>
-            </Modal>
+    const renderModal = () => (
+            <CustomModal
+                isVisible={showScoreModal}
+                title={score > (allQuestions.length / 2) ? 'Gratulerer!' : 'Oops!'}
+                info={`Du fikk ${score} poeng! Del på poengtavlen og sammenlign med dine venner. Eller prøv quizen igjen`}
+            />
         );
-    }
+
 
     return (
         <SafeAreaView>
