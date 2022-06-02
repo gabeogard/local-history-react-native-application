@@ -111,11 +111,11 @@ export function FactsScreen({navigation}:{navigation: any}){
 
         <View style={{flex: 1, backgroundColor: "#FBF4E6", justifyContent: "center", alignItems: "center"}}>
 
-            <View style={{width: "90%", height: "80%", borderRadius: 6, borderWidth: 1, borderColor: "#000" }}>
+            <View style={{width: "90%", height: "81%", borderRadius: 6, borderWidth: 1, borderColor: "#000" }}>
 
                 {renderFacts()}
 
-                <View style={{width: "100%", height: "19%", backgroundColor: "#FFCB2F", alignItems: "center"}}>
+                <View style={{width: "100%", height: "20%", backgroundColor: "#FFCB2F", alignItems: "center"}}>
 
                     <View style={{width: "70%", height: "100%", flexDirection: "row", justifyContent:"space-evenly"}}>
                     <View>
