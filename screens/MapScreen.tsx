@@ -2,25 +2,14 @@ import * as React from 'react';
 import MapView, { Marker} from 'react-native-maps';
 import {StyleSheet, View, Dimensions, Image} from 'react-native';
 import {markers} from "../res/markers/markerPosition"
-export function MapScreen(this: any, {navigation}:{navigation: any}) {
+import {useRef} from "react";
 
 
-    const mapView = React.createRef();
-    const animateMap = () => {
-        // @ts-ignore
-        mapView.current.getCamera().then((camera) => {
-            {markers.map((marker) => {
-            camera.zoom += 0.2;
-            camera.center = {
-                latitude: marker.lat ,
-                longitude: marker.lng
-            }
-            })}
-            // @ts-ignore
-            mapView.current.animateCamera(camera)
 
-            });
-        }
+export function MapScreen( {navigation}:{navigation: any}) {
+
+
+    const mapView = useRef(null);
 
 
     return (
@@ -29,7 +18,19 @@ export function MapScreen(this: any, {navigation}:{navigation: any}) {
                      style={ styles.map }
                      ref={mapView}
                      showsUserLocation
+                     minZoomLevel={14.5}
+                     maxZoomLevel={17.5}
                      customMapStyle={customMap}
+                     onPress={ (e) =>{
+                         // @ts-ignore
+                         mapView.current.animateCamera({
+                             zoom : 15,
+                             center: { latitude: 59.853529900471955 ,
+                                 longitude: 11.108874047272867
+                             }
+                         })
+                     }}
+
                      initialRegion={{
                 latitude: 59.853529900471955,
                 longitude: 11.108874047272867,
@@ -40,14 +41,23 @@ export function MapScreen(this: any, {navigation}:{navigation: any}) {
 
             >
 
-                {markers.map(( marker ) => {
+                {markers.map(( marker, key ) => {
                     return (
-                        <Marker key={marker.id}
-
-                                coordinate={{latitude: marker.lat, longitude: marker.lng, }}
+                        <Marker key={marker?.id || key}
+                                coordinate={marker.coordinate}
                                 title={marker.Title}
                                 description={marker.Text}
-                                onPress={animateMap}
+                                stopPropagation={true}
+                                onPress={ (e) =>{
+                                   // @ts-ignore
+                                    mapView.current.animateCamera({
+                                        zoom : 17,
+                                        center: { latitude: e.nativeEvent.coordinate.latitude,
+                                            longitude: e.nativeEvent.coordinate.longitude
+                                        }
+                                    })
+                                }}
+
                                 >
                         <Image source={marker.mapImg}
                                style={styles.marker}
