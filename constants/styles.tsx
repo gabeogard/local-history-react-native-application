@@ -22,20 +22,18 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 4,
     },leaderBoardBox: {
-        width: 350,
-        height: 450,
-        resizeMode: "cover",
+        width: "90%",
+        height: "80%",
+        justifyContent: "space-evenly",
+        alignItems: "center",
         backgroundColor: "#FFCB2F",
         borderRadius: 10,
         borderColor: "#000000",
         borderWidth: 1,
-        justifyContent: "center",
-        alignItems: "center",
         shadowColor: "#000000",
         shadowOffset: {width: 0, height: 4},
         shadowOpacity: 0.5,
         shadowRadius: 4,
-        marginTop: 55
     },
     modal: {
         width: 350,
@@ -92,11 +90,11 @@ export const styles = StyleSheet.create({
         color: "#000"
     },
     item: {
+        flex: 1,
         backgroundColor: '#F2F0DF',
-        padding: 20,
+        padding: 6,
         marginVertical: 6,
         marginHorizontal: 6,
-        width: 300,
         borderRadius: 6,
         display: "flex",
         flexDirection: "row",
@@ -106,16 +104,14 @@ export const styles = StyleSheet.create({
         fontSize: 20
     },
     outsideFlexBox:{
-        display: "flex",
-        justifyContent: "space-evenly",
-        flexDirection: "column",
-        alignItems: "center"
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#FBF4E6"
     },
     leaderBoardTitle:{
         fontSize: 30,
         fontWeight: "bold",
-        marginBottom: 10,
-        marginTop: 10
     },
     leaderBoardBoxHeader:{
         display: "flex",
@@ -123,9 +119,9 @@ export const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     refreshBtn: {
-        alignSelf: "flex-end",
-        marginLeft: 100,
-        marginBottom: 10,
-        marginTop: 10
+        height: "35%",
+        width: "100%",
+        alignItems: "flex-end"
+
     }
 });

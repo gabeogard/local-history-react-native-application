@@ -75,8 +75,8 @@ const HomeStack = () => {
 const QuizStack = () => {
     return(
         <Stack.Navigator>
-            <Stack.Screen name="Quiz" component={QuizScreen}/>
-            <Stack.Screen name="Leaderboard" component={LeaderboardScreen}/>
+            <Stack.Screen name="Quiz" component={QuizScreen} options={{ headerShown: false}}/>
+            <Stack.Screen name="Leaderboard" component={LeaderboardScreen} options={{ headerShown: false}}/>
         </Stack.Navigator>
     );
 }

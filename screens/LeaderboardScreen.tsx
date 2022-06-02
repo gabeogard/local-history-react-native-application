@@ -1,8 +1,7 @@
-import {FlatList, SafeAreaView, Text, TouchableOpacity, View} from "react-native";
+import {FlatList, Text, TouchableOpacity, View} from "react-native";
 import {styles} from "../constants/styles";
 import {useEffect, useState} from "react";
 import {collection, getDocs, query, where, orderBy} from "firebase/firestore/lite";
-import {onSnapshot} from "firebase/firestore";
 import {db} from "../firebase";
 import {FontAwesome} from "@expo/vector-icons";
 
@@ -25,30 +24,61 @@ export const LeaderboardScreen = () => {
     console.log(allPoints)
 
     const Item = ({title, score}: {title: string, score: any}) => (
+
         <View style={styles.item}>
-            <Text style={styles.scoreText}>{title}</Text>
-            <Text style={styles.scoreText}>Score: {score}</Text>
-        </View>
+                 <Text style={styles.scoreText}>{title}</Text>
+                 <Text style={styles.scoreText}>Score: {score}</Text>
+             </View>
+
+
+        // <View style={styles.item}>
+        //     <Text style={styles.scoreText}>{title}</Text>
+        //     <Text style={styles.scoreText}>Score: {score}</Text>
+        // </View>
     )
 
     const renderPointItem = ({item}: {item: any }) => (
         <Item title={item.username} score={item.score}/>
         )
     return(
-        <SafeAreaView style={styles.outsideFlexBox}>
+        <View style={styles.outsideFlexBox}>
             <View style={styles.leaderBoardBox}>
-                <View style={styles.leaderBoardBoxHeader}>
-                    <Text style={styles.leaderBoardTitle}>Poengtavle</Text>
-                    <TouchableOpacity style={styles.refreshBtn} onPress={() => newRefresh(refresh + 1)}>
-                        <FontAwesome name="refresh" size={24} color="#28A5D9FF" />
-                    </TouchableOpacity>
-                </View>
-                <FlatList
+
+                {/*bredde container*/}
+                <View style={{height: "100%", width: "80%"}}>
+
+                    {/*header container*/}
+                    <View style={{height: "20%", width: "100%", justifyContent: "center", alignItems: "center"}}>
+                        <View style={{width: "50%", height: "40%", alignItems: "center"}}>
+                        <Text numberOfLines={1} adjustsFontSizeToFit style={styles.leaderBoardTitle}>Poengtavle</Text>
+                        </View>
+
+                        <TouchableOpacity style={styles.refreshBtn} onPress={() => newRefresh(refresh + 1)}>
+                            <FontAwesome name="refresh" size={24} color="#28A5D9FF" />
+                        </TouchableOpacity>
+                    </View>
+
+
+
+
+
+                {/*<View style={styles.leaderBoardBoxHeader}>*/}
+                {/*    <Text style={styles.leaderBoardTitle}>Poengtavle</Text>*/}
+                {/*    <TouchableOpacity style={styles.refreshBtn} onPress={() => newRefresh(refresh + 1)}>*/}
+                {/*        <FontAwesome name="refresh" size={24} color="#28A5D9FF" />*/}
+                {/*    </TouchableOpacity>*/}
+                {/*</View>*/}
+
+                    {/*navn og score container*/}
+                    <View style={{height: "80%", width: "100%", borderTopRightRadius: 10, borderTopLeftRadius: 10, borderWidth: 1, borderBottomWidth: 0, backgroundColor: "white"}}>
+                <FlatList style={{flex: 1}}
                     data={allPoints}
                     renderItem={renderPointItem}
                     keyExtractor={item => item.username}
                             />
+                    </View>
             </View>
-        </SafeAreaView>
+            </View>
+        </View>
     );
 }
