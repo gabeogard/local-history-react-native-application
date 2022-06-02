@@ -32,6 +32,7 @@ import { HeaderLoginInfo } from '../functions/headerLoginInfo'
 import { useUserContext } from '../functions/UserContext'
 import { LeaderboardScreen } from '../screens/LeaderboardScreen'
 import { QuizApp } from '../components/QuizApp'
+import { RootStackParamList } from './screens.types'
 
 const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => (
     <NavigationContainer
@@ -46,7 +47,7 @@ const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => (
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
-const Stack = createNativeStackNavigator()
+const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
 
 const RootNavigator = () => (

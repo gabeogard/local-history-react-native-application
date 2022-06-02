@@ -9,6 +9,11 @@ import { doc, getDocs, collection, updateDoc } from 'firebase/firestore/lite'
 import Navigation from '../navigation'
 import { CustomModal } from './CustomModal'
 
+interface Question {
+    answers: string[]
+    correctOption: string
+    question: string
+}
 // TODO: typ opp questions
 const Questions = ({
     currentQuestionIndex,
@@ -34,14 +39,14 @@ const Questions = ({
 )
 
 const Options = ({
-    allQuestions,
+    questions,
     currentQuestionIndex,
     validateAnswer,
     isOptionsDisabled,
     correctOption,
     currentSelectedOption,
 }: {
-    allQuestions: any[]
+    questions: any[]
     currentQuestionIndex: number
     validateAnswer: (answer: string) => void
     isOptionsDisabled: boolean
@@ -49,7 +54,7 @@ const Options = ({
     currentSelectedOption?: string
 }) => (
     <SafeAreaView>
-        {allQuestions[currentQuestionIndex]?.answers.map((option: string) => (
+        {questions[currentQuestionIndex]?.answers.map((option: string) => (
             <TouchableOpacity
                 onPress={() => validateAnswer(option)}
                 disabled={isOptionsDisabled}
@@ -124,14 +129,8 @@ const QuizModal = ({
     />
 )
 
-export const QuizApp = ({ navigation }: { navigation: any }) => {
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-    const [currentSelectedOption, setCurrentSelectedOption] = useState('')
-    const [correctOption, setCorrectOption] = useState('')
-    const [isOptionsDisabled, setIsOptionsDisabled] = useState(false)
-    const [score, setScore] = useState(0)
-    const [showNextButton, setShowNextButton] = useState(false)
-    const [showScoreModal, setShowScoreModal] = useState(false)
+const useQuestions = () => {
+    // TODO: Fix any
     const [allQuestions, setAllQuestions] = useState<any[]>([])
 
     const fetchQuestions = async () =>
@@ -145,19 +144,32 @@ export const QuizApp = ({ navigation }: { navigation: any }) => {
         })()
     }, [])
 
+    return [allQuestions]
+}
+
+const useQuiz = () => {
+    const [questions] = useQuestions()
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+    const [currentSelectedOption, setCurrentSelectedOption] = useState('')
+    const [correctOption, setCorrectOption] = useState('')
+    const [isOptionsDisabled, setIsOptionsDisabled] = useState(false)
+    const [score, setScore] = useState(0)
+    const [showNextButton, setShowNextButton] = useState(false)
+    const [showScoreModal, setShowScoreModal] = useState(false)
+
     const validateAnswer = (selectedOption: string) => {
-        let correct_option = allQuestions[currentQuestionIndex].correctOption
+        const correctOption = questions[currentQuestionIndex].correctOption
         setCurrentSelectedOption(selectedOption)
-        setCorrectOption(correct_option)
+        setCorrectOption(correctOption)
         setIsOptionsDisabled(true)
-        if (selectedOption == correct_option) {
+        if (selectedOption === correctOption) {
             setScore(score + 50)
         }
         setShowNextButton(true)
     }
 
     const handleNext = () => {
-        if (currentQuestionIndex == allQuestions.length - 1) {
+        if (currentQuestionIndex == questions.length - 1) {
             // Last Question
             setShowNextButton(false)
             setShowScoreModal(true)
@@ -200,18 +212,48 @@ export const QuizApp = ({ navigation }: { navigation: any }) => {
         )
     }
 
+    return {
+        validateAnswer,
+        handleNext,
+        currentQuestionIndex,
+        questions,
+        correctOption,
+        isOptionsDisabled,
+        submitPoints,
+        currentSelectedOption,
+        showNextButton,
+        score,
+        showScoreModal,
+    }
+}
+
+export const QuizApp = ({ navigation }: { navigation: any }) => {
+    const {
+        validateAnswer,
+        handleNext,
+        currentQuestionIndex,
+        questions,
+        correctOption,
+        isOptionsDisabled,
+        submitPoints,
+        currentSelectedOption,
+        showNextButton,
+        score,
+        showScoreModal,
+    } = useQuiz()
+
     return (
         <SafeAreaView>
             <View style={styles.container}>
                 <View style={styles.textBox}>
                     <Questions
                         currentQuestionIndex={currentQuestionIndex}
-                        allQuestions={allQuestions}
+                        allQuestions={questions}
                     />
 
                     <Options
                         currentQuestionIndex={currentQuestionIndex}
-                        allQuestions={allQuestions}
+                        questions={questions}
                         validateAnswer={validateAnswer}
                         isOptionsDisabled={isOptionsDisabled}
                         correctOption={correctOption}

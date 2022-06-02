@@ -14,7 +14,6 @@ const Logout = ({ logoutUser }: Pick<UserContextType, 'logoutUser'>) => (
 )
 
 export const HeaderLoginInfo = () => {
-    // TODO: type userContext
     const { user, logoutUser } = useUserContext()
     return (
         <View>
