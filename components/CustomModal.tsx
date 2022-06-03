@@ -7,6 +7,7 @@ interface infoDialogProps {
     title: string
     info: string
     child: ReactElement
+    restartButton: ReactElement
 }
 
 export const CustomModal = ({
@@ -14,6 +15,7 @@ export const CustomModal = ({
     info,
     title,
     child,
+    restartButton
 }: infoDialogProps) => {
     return (
         <Modal animationType="slide" transparent={true} visible={isVisible}>
@@ -68,6 +70,7 @@ export const CustomModal = ({
                         }}
                     >
                         {child}
+                        {restartButton}
                     </View>
                 </View>
             </View>

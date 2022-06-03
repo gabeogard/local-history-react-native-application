@@ -122,11 +122,13 @@ const QuizModal = ({
                        score,
                        submitPoints,
                        navigation,
+    restartQuiz
                    }: {
     showScoreModal: boolean
     score: number
     submitPoints: () => void
     navigation: any
+    restartQuiz: () => void
 }) => (
     <CustomModal
         isVisible={showScoreModal}
@@ -137,6 +139,16 @@ const QuizModal = ({
             navigation={navigation}
             submitPoints={submitPoints}
             />
+        }
+        restartButton={
+            <TouchableOpacity
+                style={styles.submitBtn}
+                onPress={() => {
+                    restartQuiz()
+                }}
+            >
+                <Text style={styles.answerBtnText}>Prøv igjen</Text>
+            </TouchableOpacity>
         }
     />
 )
@@ -236,6 +248,7 @@ const useQuiz = () => {
         showNextButton,
         score,
         showScoreModal,
+        restartQuiz
     }
 }
 
@@ -252,6 +265,7 @@ export const QuizApp = ({ navigation }: { navigation: any }) => {
         showNextButton,
         score,
         showScoreModal,
+        restartQuiz
     } = useQuiz()
 
     return (
@@ -279,6 +293,7 @@ export const QuizApp = ({ navigation }: { navigation: any }) => {
                         score={score}
                         submitPoints={submitPoints}
                         navigation={navigation}
+                        restartQuiz={restartQuiz}
                     />
                 </View>
             </View>
