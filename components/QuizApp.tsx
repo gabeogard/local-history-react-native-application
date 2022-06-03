@@ -15,6 +15,7 @@ interface Question {
     correctOption: string
     question: string
 }
+
 // TODO: typ opp questions
 const Questions = ({
                        currentQuestionIndex,
@@ -86,11 +87,11 @@ const Options = ({
 
                 {option == correctOption ? (
                     <View style={{ backgroundColor: '#e3eef0' }}>
-                        <FontAwesome name="check" size={24} color="green" />
+                        <FontAwesome name='check' size={24} color='green' />
                     </View>
                 ) : option == currentSelectedOption ? (
                     <View style={{ backgroundColor: '#e3eef0' }}>
-                        <Foundation name="x" size={24} color="red" />
+                        <Foundation name='x' size={24} color='red' />
                     </View>
                 ) : null}
             </TouchableOpacity>
@@ -103,8 +104,8 @@ const NextButton = ({ handleNext }: { handleNext: () => void }) => (
     </TouchableOpacity>
 )
 
-const ShareButton = ({submitPoints, navigation}: {submitPoints: () => void, navigation: any }) => {
-  const {user} = useUserContext()
+const ShareButton = ({ submitPoints, navigation }: { submitPoints: () => void, navigation: any }) => {
+    const { user } = useUserContext()
     const btn = (<TouchableOpacity
         style={styles.submitBtn}
         onPress={() => {
@@ -114,7 +115,7 @@ const ShareButton = ({submitPoints, navigation}: {submitPoints: () => void, navi
     >
         <Text style={styles.answerBtnText}>Fullfør og del</Text>
     </TouchableOpacity>)
-    return(
+    return (
         (user !== null) ? btn : null
     )
 }
@@ -124,7 +125,7 @@ const QuizModal = ({
                        score,
                        submitPoints,
                        navigation,
-    restartQuiz
+                       restartQuiz,
                    }: {
     showScoreModal: boolean
     score: number
@@ -138,8 +139,8 @@ const QuizModal = ({
         info={`Du fikk ${score} poeng! Del på poengtavlen og sammenlign med dine venner. Eller prøv quizen igjen`}
         child={
             <ShareButton
-            navigation={navigation}
-            submitPoints={submitPoints}
+                navigation={navigation}
+                submitPoints={submitPoints}
             />
         }
         restartButton={
@@ -161,7 +162,7 @@ const useQuestions = () => {
 
     const fetchQuestions = async () =>
         (await getDocs(collection(db, 'quiz'))).docs.map((value) =>
-            value.data()
+            value.data(),
         )
 
     useEffect(() => {
@@ -234,7 +235,7 @@ const useQuiz = () => {
             'Points submitted:',
             score,
             'points for',
-            auth.currentUser?.email
+            auth.currentUser?.email,
         )
     }
 
@@ -250,7 +251,7 @@ const useQuiz = () => {
         showNextButton,
         score,
         showScoreModal,
-        restartQuiz
+        restartQuiz,
     }
 }
 
@@ -267,7 +268,7 @@ export const QuizApp = ({ navigation }: { navigation: any }) => {
         showNextButton,
         score,
         showScoreModal,
-        restartQuiz
+        restartQuiz,
     } = useQuiz()
 
     return (

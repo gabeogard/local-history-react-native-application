@@ -37,9 +37,10 @@ export const LoginScreen = ({ navigation }: { navigation: any }) => {
                 },
                 {
                     text: 'Send',
-                    onPress: (email) => forgotPassword(email!).then(() => {}),
+                    onPress: (email) => forgotPassword(email!).then(() => {
+                    }),
                 },
-            ]
+            ],
         )
     }
 
@@ -108,7 +109,7 @@ export const LoginScreen = ({ navigation }: { navigation: any }) => {
                     <View style={styles.loginFunctionCtr}>
                         <View style={styles.input}>
                             <TextInputCustom
-                                label="Epost"
+                                label='Epost'
                                 value={email}
                                 onChange={setEmail}
                                 secureTextEntry={false}
@@ -117,7 +118,7 @@ export const LoginScreen = ({ navigation }: { navigation: any }) => {
 
                         <View style={styles.input}>
                             <TextInputCustom
-                                label="Password"
+                                label='Password'
                                 value={password}
                                 onChange={setPassword}
                                 secureTextEntry={true}

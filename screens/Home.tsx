@@ -9,12 +9,12 @@ import {
 import { useUserContext } from '../functions/UserContext'
 
 const NavigationAuth = ({
-    navigation,
-    route,
-    routeTwo,
-    text,
-    textTwo,
-}: any) => (
+                            navigation,
+                            route,
+                            routeTwo,
+                            text,
+                            textTwo,
+                        }: any) => (
     <>
         <Pressable
             style={[styles.Pressable, styles.shadow]}

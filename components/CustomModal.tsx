@@ -11,14 +11,14 @@ interface infoDialogProps {
 }
 
 export const CustomModal = ({
-    isVisible,
-    info,
-    title,
-    child,
-    restartButton
-}: infoDialogProps) => {
+                                isVisible,
+                                info,
+                                title,
+                                child,
+                                restartButton,
+                            }: infoDialogProps) => {
     return (
-        <Modal animationType="slide" transparent={true} visible={isVisible}>
+        <Modal animationType='slide' transparent={true} visible={isVisible}>
             <View style={styles.modalContainer}>
                 <View style={styles.modal}>
                     <View

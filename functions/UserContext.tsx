@@ -19,7 +19,7 @@ export interface UserContextType {
     registerUser: (
         email: string,
         username: string,
-        password: string
+        password: string,
     ) => Promise<void>
     signInUser: (email: string, username: string) => Promise<void>
     logoutUser: () => Promise<void>
@@ -27,11 +27,12 @@ export interface UserContextType {
     user: User | null
     isLoading: boolean
 }
+
 export const useUserContext = () => useContext(UserContext) as UserContextType
 
 export const UserContextProvider = ({
-    children,
-}: {
+                                        children,
+                                    }: {
     children: React.ReactNode
 }) => {
     const [user, setUser] = useState<User | null>(null)
@@ -49,14 +50,14 @@ export const UserContextProvider = ({
     const registerUser = async (
         email: string,
         username: string,
-        password: string
+        password: string,
     ) => {
         withLoading(async () => {
             try {
                 await createUserWithEmailAndPassword(
                     auth,
                     email,
-                    password
+                    password,
                 ).then(({ user: { uid } }) => {
                     const docRef = doc(db, 'users', uid)
                     setDoc(docRef, { username: username })
@@ -94,7 +95,7 @@ export const UserContextProvider = ({
                 await sendPasswordResetEmail(auth, email)
                 Alert.alert(
                     'Vellykket',
-                    'Du har fått en melding på din e-postadresse'
+                    'Du har fått en melding på din e-postadresse',
                 )
             } catch (error: any) {
                 alert(error.message)

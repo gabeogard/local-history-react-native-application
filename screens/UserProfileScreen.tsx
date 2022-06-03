@@ -7,7 +7,7 @@ import { useUserContext } from '../functions/UserContext'
 
 export const UserProfileScreen = () => {
     const [username, setUsername] = useState({})
-const {user} = useUserContext()
+    const { user } = useUserContext()
     const [isLoading, withLoading] = useLoading()
 
     const q = query(collection(db, 'users'))

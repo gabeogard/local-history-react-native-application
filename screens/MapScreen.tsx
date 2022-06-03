@@ -48,7 +48,7 @@ export const MapScreen = () => {
                                 center: {
                                     latitude: e.nativeEvent.coordinate.latitude,
                                     longitude:
-                                        e.nativeEvent.coordinate.longitude,
+                                    e.nativeEvent.coordinate.longitude,
                                 },
                             })
                         }}

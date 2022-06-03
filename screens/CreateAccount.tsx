@@ -80,7 +80,7 @@ export const CreateAccount = ({ navigation }: { navigation: any }) => {
                             }}
                         >
                             <TextInputCustom
-                                label="Brukernavn"
+                                label='Brukernavn'
                                 value={userName}
                                 onChange={setUserName}
                                 secureTextEntry={false}
@@ -95,7 +95,7 @@ export const CreateAccount = ({ navigation }: { navigation: any }) => {
                             }}
                         >
                             <TextInputCustom
-                                label="Epost"
+                                label='Epost'
                                 value={email}
                                 onChange={setEmail}
                                 secureTextEntry={false}
@@ -110,7 +110,7 @@ export const CreateAccount = ({ navigation }: { navigation: any }) => {
                             }}
                         >
                             <TextInputCustom
-                                label="Passord"
+                                label='Passord'
                                 value={password}
                                 onChange={setPassword}
                                 secureTextEntry={true}
@@ -126,7 +126,7 @@ export const CreateAccount = ({ navigation }: { navigation: any }) => {
                         >
                             <View style={{ flex: 1 }}>
                                 <TextInputCustom
-                                    label="Bekreft passord"
+                                    label='Bekreft passord'
                                     value={confirmPassword}
                                     onChange={setConfirmPassword}
                                     secureTextEntry={true}
