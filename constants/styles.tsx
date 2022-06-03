@@ -103,6 +103,7 @@ export const styles = StyleSheet.create({
     },
     scoreText: {
         fontSize: 20,
+        width: '50%',
     },
     outsideFlexBox: {
         flex: 1,

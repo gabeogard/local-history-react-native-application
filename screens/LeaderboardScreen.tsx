@@ -29,8 +29,20 @@ export const LeaderboardScreen = () => {
 
     const Item = ({ title, score }: { title: string; score: any }) => (
         <View style={styles.item}>
-            <Text style={styles.scoreText}>{title}</Text>
-            <Text style={styles.scoreText}>Score: {score}</Text>
+            <Text
+                adjustsFontSizeToFit
+                numberOfLines={1}
+                style={styles.scoreText}
+            >
+                {title}
+            </Text>
+            <Text
+                adjustsFontSizeToFit
+                numberOfLines={1}
+                style={styles.scoreText}
+            >
+                Score: {score}
+            </Text>
         </View>
     )
 
