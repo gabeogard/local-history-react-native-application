@@ -8,6 +8,7 @@ import { auth, db } from '../firebase'
 import { doc, getDocs, collection, updateDoc } from 'firebase/firestore/lite'
 import Navigation from '../navigation'
 import { CustomModal } from './CustomModal'
+import { useUserContext } from '../functions/UserContext'
 
 interface Question {
     answers: string[]
@@ -100,6 +101,22 @@ const NextButton = ({ handleNext }: { handleNext: () => void }) => (
     </TouchableOpacity>
 )
 
+const ShareButton = ({submitPoints, navigation}: {submitPoints: () => void, navigation: any }) => {
+  const {user} = useUserContext()
+    const btn = (<TouchableOpacity
+        style={styles.submitBtn}
+        onPress={() => {
+            submitPoints()
+            navigation.navigate('Leaderboard')
+        }}
+    >
+        <Text style={styles.answerBtnText}>Fullfør og del</Text>
+    </TouchableOpacity>)
+    return(
+        (user !== null) ? btn : null
+    )
+}
+
 const QuizModal = ({
                        showScoreModal,
                        score,
@@ -116,15 +133,10 @@ const QuizModal = ({
         title={'Gratulerer'}
         info={`Du fikk ${score} poeng! Del på poengtavlen og sammenlign med dine venner. Eller prøv quizen igjen`}
         child={
-            <TouchableOpacity
-                style={styles.submitBtn}
-                onPress={() => {
-                    submitPoints()
-                    navigation.navigate('Leaderboard')
-                }}
-            >
-                <Text style={styles.answerBtnText}>Fullfør og del</Text>
-            </TouchableOpacity>
+            <ShareButton
+            navigation={navigation}
+            submitPoints={submitPoints}
+            />
         }
     />
 )
