@@ -69,6 +69,7 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 6,
         margin: 5,
+
     },
     nextBtn: {
         backgroundColor: '#e3eef0',
@@ -99,6 +100,7 @@ export const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+
     },
     scoreText: {
         fontSize: 20,
