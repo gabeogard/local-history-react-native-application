@@ -40,6 +40,7 @@ export const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.8)',
     },
     modal: {
         backgroundColor: '#FFCB2F',
@@ -69,7 +70,6 @@ export const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 6,
         margin: 5,
-
     },
     nextBtn: {
         backgroundColor: '#e3eef0',
@@ -100,7 +100,6 @@ export const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-
     },
     scoreText: {
         fontSize: 20,
