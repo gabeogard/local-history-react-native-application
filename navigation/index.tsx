@@ -31,7 +31,6 @@ import { UserProfileScreen } from '../screens/UserProfileScreen'
 import { HeaderLoginInfo } from '../functions/headerLoginInfo'
 import { useUserContext } from '../functions/UserContext'
 import { LeaderboardScreen } from '../screens/LeaderboardScreen'
-import { QuizApp } from '../components/QuizApp'
 import { RootStackParamList } from './screens.types'
 
 const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => (
@@ -106,7 +105,15 @@ const QuizStack = () => (
         <Stack.Screen
             name="Leaderboard"
             component={LeaderboardScreen}
-            options={{ headerShown: false }}
+            options={{
+                headerTitle: () => false,
+                headerStyle: {
+                    backgroundColor: 'transparent',
+                },
+                headerTransparent: true,
+                headerShadowVisible: false,
+                headerBackTitle: 'Tilbake',
+            }}
         />
     </Stack.Navigator>
 )
