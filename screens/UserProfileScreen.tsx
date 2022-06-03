@@ -3,10 +3,11 @@ import { auth, db } from '../firebase'
 import { collection, getDocs, query } from 'firebase/firestore/lite'
 import { useEffect, useState } from 'react'
 import { useLoading } from '../hooks/useLoading'
+import { useUserContext } from '../functions/UserContext'
 
 export const UserProfileScreen = () => {
     const [username, setUsername] = useState({})
-
+const {user} = useUserContext()
     const [isLoading, withLoading] = useLoading()
 
     const q = query(collection(db, 'users'))
@@ -28,6 +29,7 @@ export const UserProfileScreen = () => {
         })
     }, [])
 
+    console.log(username.score)
     if (isLoading) {
         return (
             <View style={styles.loadingScreen}>
@@ -87,7 +89,7 @@ export const UserProfileScreen = () => {
                         >
                             Bruker:{' '}
                             <Text style={styles.textUsername}>
-                                {Object.values(username)}
+                                {username.username}
                             </Text>
                         </Text>
                     </View>
@@ -229,7 +231,7 @@ export const UserProfileScreen = () => {
                                     alignItems: 'center',
                                 }}
                             >
-                                <Text style={styles.textFlex}>30</Text>
+                                <Text style={styles.textFlex}>{username.score}</Text>
                             </View>
                         </View>
                     </View>
