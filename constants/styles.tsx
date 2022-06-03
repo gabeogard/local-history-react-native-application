@@ -1,58 +1,58 @@
-import {Platform, StyleSheet} from "react-native";
+import { Platform, StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: "#FBF4E6",
+        backgroundColor: '#FBF4E6',
     },
     textBox: {
         width: 350,
         height: 450,
-        resizeMode: "cover",
-        backgroundColor: "#FFCB2F",
+        resizeMode: 'cover',
+        backgroundColor: '#FFCB2F',
         borderRadius: 10,
-        borderColor: "#000000",
+        borderColor: '#000000',
         borderWidth: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        shadowColor: "#000000",
-        shadowOffset: {width: 0, height: 4},
-        shadowOpacity: 0.5,
-        shadowRadius: 4,
-    },leaderBoardBox: {
-        width: "90%",
-        height: "80%",
-        justifyContent: "space-evenly",
-        alignItems: "center",
-        backgroundColor: "#FFCB2F",
-        borderRadius: 10,
-        borderColor: "#000000",
-        borderWidth: 1,
-        shadowColor: "#000000",
-        shadowOffset: {width: 0, height: 4},
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.5,
         shadowRadius: 4,
     },
-    modal: {
-        width: 350,
-        height: 600,
-        marginTop: 100,
-        resizeMode: "cover",
-        backgroundColor: "#FFCB2F",
+    leaderBoardBox: {
+        width: '90%',
+        height: '80%',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        backgroundColor: '#FFCB2F',
         borderRadius: 10,
-        borderColor: "#000000",
+        borderColor: '#000000',
         borderWidth: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        alignSelf: "center",
-        alignContent: "center",
-        shadowColor: "#000000",
-        shadowOffset: {width: 0, height: 4},
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.5,
         shadowRadius: 4,
-        flexDirection: "column"
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modal: {
+        backgroundColor: '#FFCB2F',
+        width: '85%',
+        height: '55%',
+        borderRadius: 10,
+        borderColor: '#000000',
+        borderWidth: 1,
+        shadowColor: '#000000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        flexDirection: 'column',
     },
     title: {
         fontSize: 20,
@@ -64,30 +64,30 @@ export const styles = StyleSheet.create({
         width: '80%',
     },
     answerBtn: {
-        backgroundColor: "#e3eef0",
-        marginTop: Platform.OS === "web" ? 5 : 4,
-        borderWidth:1,
-        borderRadius:6,
+        backgroundColor: '#e3eef0',
+        marginTop: Platform.OS === 'web' ? 5 : 4,
+        borderWidth: 1,
+        borderRadius: 6,
         margin: 5,
     },
     nextBtn: {
-        backgroundColor: "#e3eef0",
-        marginTop: Platform.OS === "web" ? 5 : 4,
-        borderWidth:1,
-        borderRadius:6,
+        backgroundColor: '#e3eef0',
+        marginTop: Platform.OS === 'web' ? 5 : 4,
+        borderWidth: 1,
+        borderRadius: 6,
         margin: 5,
-        padding: 3
+        padding: 3,
     },
     submitBtn: {
-        backgroundColor: "#e3eef0",
-        marginTop: Platform.OS === "web" ? 5 : 4,
-        borderWidth:1,
-        borderRadius:6,
+        backgroundColor: '#e3eef0',
+        marginTop: Platform.OS === 'web' ? 5 : 4,
+        borderWidth: 1,
+        borderRadius: 6,
         margin: 5,
     },
     answerBtnText: {
         fontSize: 18,
-        color: "#000"
+        color: '#000',
     },
     item: {
         flex: 1,
@@ -96,32 +96,31 @@ export const styles = StyleSheet.create({
         marginVertical: 6,
         marginHorizontal: 6,
         borderRadius: 6,
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between"
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
-    scoreText:{
-        fontSize: 20
+    scoreText: {
+        fontSize: 20,
     },
-    outsideFlexBox:{
+    outsideFlexBox: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#FBF4E6"
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#FBF4E6',
     },
-    leaderBoardTitle:{
+    leaderBoardTitle: {
         fontSize: 30,
-        fontWeight: "bold",
+        fontWeight: 'bold',
     },
-    leaderBoardBoxHeader:{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between"
+    leaderBoardBoxHeader: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     refreshBtn: {
-        height: "35%",
-        width: "100%",
-        alignItems: "flex-end"
-
-    }
-});
+        height: '35%',
+        width: '100%',
+        alignItems: 'flex-end',
+    },
+})
