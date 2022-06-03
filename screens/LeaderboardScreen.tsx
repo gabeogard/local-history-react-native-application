@@ -10,6 +10,7 @@ import {
 } from 'firebase/firestore/lite'
 import { db } from '../firebase'
 import { FontAwesome } from '@expo/vector-icons'
+import React from 'react'
 
 export const LeaderboardScreen = () => {
     const [allPoints, setAllPoints] = useState<any[]>([])
@@ -78,12 +79,10 @@ export const LeaderboardScreen = () => {
 
                     <View
                         style={{
-                            height: '80%',
+                            height: '70%',
                             width: '100%',
-                            borderTopRightRadius: 10,
-                            borderTopLeftRadius: 10,
+                            borderRadius: 6,
                             borderWidth: 1,
-                            borderBottomWidth: 0,
                             backgroundColor: 'white',
                         }}
                     >

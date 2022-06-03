@@ -62,6 +62,7 @@ const Options = ({
                 key={option}
                 style={{
                     borderWidth: 2,
+
                     borderColor:
                         option == correctOption
                             ? 'green'
@@ -78,9 +79,10 @@ const Options = ({
                     alignSelf: 'center',
                     paddingHorizontal: 20,
                     marginVertical: 10,
+
                 }}
             >
-                <Text style={{ fontSize: 20, color: '#000' }}>{option}</Text>
+                <Text numberOfLines={2} adjustsFontSizeToFit style={{ fontSize: 20, color: '#000' }}>{option}</Text>
 
                 {option == correctOption ? (
                     <View style={{ backgroundColor: '#e3eef0' }}>
