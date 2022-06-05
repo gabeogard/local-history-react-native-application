@@ -37,10 +37,9 @@ export const LoginScreen = ({ navigation }: { navigation: any }) => {
                 },
                 {
                     text: 'Send',
-                    onPress: (email) => forgotPassword(email!).then(() => {
-                    }),
+                    onPress: (email) => forgotPassword(email!).then(() => {}),
                 },
-            ],
+            ]
         )
     }
 
@@ -56,6 +55,7 @@ export const LoginScreen = ({ navigation }: { navigation: any }) => {
         <KeyboardAwareScrollView
             extraHeight={120}
             contentContainerStyle={styles.container}
+            style={{ backgroundColor: '#FBF4E6' }}
         >
             <View style={styles.viewContainer}>
                 <View style={[styles.imageContainer, styles.shadow]}>
@@ -101,7 +101,7 @@ export const LoginScreen = ({ navigation }: { navigation: any }) => {
                                 adjustsFontSizeToFit
                                 style={styles.registerText}
                             >
-                                Har du ikke en konto?? Trykk her
+                                Har du ikke en konto? Trykk her
                             </Text>
                         </Pressable>
                     </View>
@@ -109,7 +109,7 @@ export const LoginScreen = ({ navigation }: { navigation: any }) => {
                     <View style={styles.loginFunctionCtr}>
                         <View style={styles.input}>
                             <TextInputCustom
-                                label='Epost'
+                                label="Epost"
                                 value={email}
                                 onChange={setEmail}
                                 secureTextEntry={false}
@@ -118,7 +118,7 @@ export const LoginScreen = ({ navigation }: { navigation: any }) => {
 
                         <View style={styles.input}>
                             <TextInputCustom
-                                label='Password'
+                                label="Password"
                                 value={password}
                                 onChange={setPassword}
                                 secureTextEntry={true}
