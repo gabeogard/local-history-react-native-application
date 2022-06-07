@@ -14,6 +14,8 @@ import React, { useState } from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { TextInputCustom } from '../library/TextInputCustom'
 import { useUserContext } from '../functions/UserContext'
+import { db } from '../firebase'
+import { collection, getDocs, query, where } from 'firebase/firestore/lite'
 // ignoring warnings that start in a string that matchs asyncStorage. issue have to be fixed on firebase side(next update)
 LogBox.ignoreLogs(['AsyncStorage has'])
 
@@ -24,13 +26,25 @@ export const CreateAccount = ({ navigation }: { navigation: any }) => {
     const [confirmPassword, setConfirmPassword] = useState('')
     const { registerUser, isLoading } = useUserContext()
 
-    const onRegisterPress = () => {
+    const onRegisterPress = async () => {
         if (password !== confirmPassword) {
             alert('Passordet stemmer ikke')
             return
         }
 
-        registerUser(email, userName, password)
+        const usernameExist = collection(db, 'users')
+
+        const q = query(usernameExist, where('username', '==', userName))
+
+        const querySnapshot = await getDocs(q)
+
+        if (querySnapshot.size) {
+            alert('brukenavn ekisterer')
+        } else {
+            registerUser(email, userName, password).then(() => {
+                navigation.navigate('Home')
+            })
+        }
     }
 
     if (isLoading) {
@@ -134,11 +148,6 @@ const styles = StyleSheet.create({
         width: '90%',
         height: '80%',
         justifyContent: 'center',
-        alignItems: 'center',
-    },
-    registerContainer: {
-        width: '100%',
-        height: '100%',
         alignItems: 'center',
     },
     inputContainer: {
