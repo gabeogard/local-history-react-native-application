@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import {
     createUserWithEmailAndPassword,
     onAuthStateChanged,
@@ -11,7 +11,6 @@ import { auth, db } from '../firebase'
 import { doc, setDoc } from 'firebase/firestore/lite'
 import { Alert } from 'react-native'
 import { ErrorHandler } from './ErrorHandler'
-import { useLoading } from '../hooks/useLoading'
 
 const UserContext = createContext({})
 
@@ -19,7 +18,7 @@ export interface UserContextType {
     registerUser: (
         email: string,
         username: string,
-        password: string,
+        password: string
     ) => Promise<void>
     signInUser: (email: string, username: string) => Promise<void>
     logoutUser: () => Promise<void>
@@ -31,18 +30,20 @@ export interface UserContextType {
 export const useUserContext = () => useContext(UserContext) as UserContextType
 
 export const UserContextProvider = ({
-                                        children,
-                                    }: {
+    children,
+}: {
     children: React.ReactNode
 }) => {
     const [user, setUser] = useState<User | null>(null)
-    const [isLoading, withLoading] = useLoading()
     const [error, setError] = useState('')
+    const [isLoading, setLoading] = useState(false)
 
     useEffect(() => {
+        setLoading(true)
         const unsubscribe = onAuthStateChanged(auth, (res) => {
             res ? setUser(res) : setUser(null)
             setError('')
+            setLoading(false)
         })
         return unsubscribe
     }, [])
@@ -50,33 +51,36 @@ export const UserContextProvider = ({
     const registerUser = async (
         email: string,
         username: string,
-        password: string,
+        password: string
     ) => {
-        withLoading(async () => {
-            try {
-                await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password,
-                ).then(({ user: { uid } }) => {
-                    const docRef = doc(db, 'users', uid)
-                    setDoc(docRef, { username: username })
+        setLoading(true)
+        try {
+            await createUserWithEmailAndPassword(auth, email, password).then(
+                (userData) => {
+                    const docRef = doc(db, 'users', userData.user.uid)
+                    setDoc(docRef, {
+                        username: username,
+                        createdAt: new Date(),
+                    })
                     console.log('user and username have been added')
-                })
-            } catch (error: any) {
-                alert(error.message)
-            }
-        })
+                }
+            )
+        } catch (error) {
+            alert(error.message)
+        } finally {
+            setLoading(false)
+        }
     }
 
     const signInUser = async (email: string, password: string) => {
-        withLoading(async () => {
-            try {
-                await signInWithEmailAndPassword(auth, email, password)
-            } catch (error) {
-                ErrorHandler(error)
-            }
-        })
+        setLoading(true)
+        try {
+            await signInWithEmailAndPassword(auth, email, password)
+        } catch (error) {
+            ErrorHandler(error)
+        } finally {
+            setLoading(false)
+        }
     }
 
     const logoutUser = () => {
@@ -90,17 +94,17 @@ export const UserContextProvider = ({
     }
 
     const forgotPassword = async (email: string) => {
-        withLoading(async () => {
-            try {
-                await sendPasswordResetEmail(auth, email)
-                Alert.alert(
-                    'Vellykket',
-                    'Du har fått en melding på din e-postadresse',
-                )
-            } catch (error: any) {
-                alert(error.message)
-            }
-        })
+        try {
+            await sendPasswordResetEmail(auth, email)
+            Alert.alert(
+                'Vellykket',
+                'Du har fått en melding på din e-postadresse'
+            )
+        } catch (error) {
+            alert(error.message)
+        } finally {
+            setLoading(false)
+        }
     }
 
     const contextValue = {
