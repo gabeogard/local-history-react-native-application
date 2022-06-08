@@ -1,5 +1,5 @@
 import { Text, View } from './Themed'
-import { SafeAreaView, TouchableOpacity, Modal } from 'react-native'
+import {SafeAreaView, TouchableOpacity, Modal, Alert} from 'react-native'
 import { styles } from '../constants/styles'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
@@ -226,7 +226,7 @@ const useQuiz = () => {
         if (auth.currentUser?.uid !== undefined) {
             const docRef = doc(db, 'users', auth.currentUser.uid)
             await updateDoc(docRef, docData)
-            alert('Din poengsum ble delt på poengtavlen! :)')
+            Alert.alert("Gratulerer", 'Din poengsum ble delt på poengtavlen! :)')
             restartQuiz()
         } else {
             alert('Du må være pålogget for å dele poengene dine.')
