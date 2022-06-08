@@ -53,6 +53,15 @@ export const UserContextProvider = ({
         username: string,
         password: string
     ) => {
+        const currentDate = new Date()
+        const currentDayOfMonth = currentDate.getDate()
+        const currentMonth = currentDate.getMonth() // Be careful! January is 0, not 1
+        const currentYear = currentDate.getFullYear()
+
+        const dateString =
+            currentDayOfMonth + '-' + (currentMonth + 1) + '-' + currentYear
+        // "27-11-2020"
+
         setLoading(true)
         try {
             await createUserWithEmailAndPassword(auth, email, password).then(
@@ -60,7 +69,7 @@ export const UserContextProvider = ({
                     const docRef = doc(db, 'users', userData.user.uid)
                     setDoc(docRef, {
                         username: username,
-                        createdAt: new Date(),
+                        createdAt: dateString,
                     })
                     console.log('user and username have been added')
                 }

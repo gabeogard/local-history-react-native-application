@@ -4,6 +4,7 @@ import { collection, getDocs, query } from 'firebase/firestore/lite'
 import { useEffect, useState } from 'react'
 import { useLoading } from '../hooks/useLoading'
 import { useUserContext } from '../functions/UserContext'
+import React from 'react'
 
 export const UserProfileScreen = () => {
     const [username, setUsername] = useState({})
@@ -80,7 +81,7 @@ export const UserProfileScreen = () => {
                             adjustsFontSizeToFit
                             style={styles.text}
                         >
-                            {auth.currentUser?.email}
+                            {user?.email}
                         </Text>
                         <Text
                             numberOfLines={1}
@@ -182,8 +183,12 @@ export const UserProfileScreen = () => {
                                     alignItems: 'center',
                                 }}
                             >
-                                <Text style={styles.textFlex}>
-                                    Date/opprettet
+                                <Text
+                                    numberOfLines={1}
+                                    adjustsFontSizeToFit
+                                    style={styles.textFlex}
+                                >
+                                    opprettet {username?.createdAt}
                                 </Text>
                             </View>
                         </View>
@@ -231,7 +236,9 @@ export const UserProfileScreen = () => {
                                     alignItems: 'center',
                                 }}
                             >
-                                <Text style={styles.textFlex}>{username.score}</Text>
+                                <Text style={styles.textFlex}>
+                                    {username.score}
+                                </Text>
                             </View>
                         </View>
                     </View>
