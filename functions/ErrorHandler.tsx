@@ -7,7 +7,10 @@ export const ErrorHandler = (error: any) => {
     Alert.alert("Ugyldig password", "Prøv igjen");
   }else if (error.message === "Firebase: Error (auth/user-not-found).") {
     Alert.alert("Finner ikke bruker.", " Vennligst registrer deg.")
-  } else {
+  } else if (error.message === "Firebase: Error (auth/missing-email).") {
+    Alert.alert("Du mangler Epost.", "Skriv inn Epost")
+  }
+  else {
     alert(error.message);
   }
 };
