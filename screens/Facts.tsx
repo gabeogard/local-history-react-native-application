@@ -28,10 +28,8 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
     const [factData, setFactData] = useState([])
     const [isLoading, withLoading] = useLoading()
 
-    console.log("isLoading=", isLoading);
     useEffect(() => {
         withLoading(async () => {
-            console.log("startWithLoading")
             try {
                 const q = query(collection(db, 'facts'))
                 const querySnapshot = await getDocs(q)
@@ -43,14 +41,14 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
             } catch (error) {
                 console.log(error)
             }
-            console.log("loading done")
         })
     }, [])
 
     if (isLoading) {
         return (
-            //MUJIB HER ER fungerende isloading.
-            <Text>LASTER</Text>
+            <View style={styles.loadingScreen}>
+                <Text>Logger inn...</Text>
+            </View>
         )
     }
 
