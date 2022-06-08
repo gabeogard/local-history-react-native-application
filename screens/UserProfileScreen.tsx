@@ -188,7 +188,7 @@ export const UserProfileScreen = () => {
                                     adjustsFontSizeToFit
                                     style={styles.textFlex}
                                 >
-                                    opprettet {username?.createdAt}
+                                    Opprettet {username?.createdAt}
                                 </Text>
                             </View>
                         </View>
@@ -236,9 +236,13 @@ export const UserProfileScreen = () => {
                                     alignItems: 'center',
                                 }}
                             >
-                                <Text style={styles.textFlex}>
-                                    {username.score}
-                                </Text>
+                                {username.score ? (
+                                    <Text style={styles.textFlex}>
+                                        {username.score}
+                                    </Text>
+                                ) : (
+                                    <Text style={styles.textFlex}>0</Text>
+                                )}
                             </View>
                         </View>
                     </View>
