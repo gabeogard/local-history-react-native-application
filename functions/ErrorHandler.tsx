@@ -6,7 +6,7 @@ export const ErrorHandler = (error: any) => {
   } else if (error.message === "Firebase: Error (auth/wrong-password).") {
     Alert.alert("Ugyldig password", "Prøv igjen");
   }else if (error.message === "Firebase: Error (auth/user-not-found).") {
-    Alert.alert("Finner ikke bruker.", "Registrer bruker.")
+    Alert.alert("Finner ikke bruker.", " Vennligst registrer deg.")
   } else {
     alert(error.message);
   }
