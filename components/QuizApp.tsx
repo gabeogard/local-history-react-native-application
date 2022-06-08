@@ -140,7 +140,7 @@ const NextButton = ({ handleNext }: { handleNext: () => void }) => (
             adjustsFontSizeToFit
             style={styles.answerBtnText}
         >
-            Next
+            Neste
         </Text>
     </TouchableOpacity>
 )
@@ -161,7 +161,10 @@ const ShareButton = ({
                 navigation.navigate('Leaderboard')
             }}
         >
-            <Text style={styles.answerBtnText}>Fullfør og del</Text>
+            <Text
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                style={styles.answerBtnText}>Fullfør og del</Text>
         </TouchableOpacity>
     )
     return user !== null ? btn : null
