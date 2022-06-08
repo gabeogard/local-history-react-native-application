@@ -86,6 +86,7 @@ export const styles = StyleSheet.create({
         padding: 3,
         backgroundColor: '#e3eef0',
         overflow: 'hidden',
+        color: "#000000",
     },
     item: {
         flex: 1,
