@@ -55,7 +55,6 @@ export const CustomModal = ({
                                 margin: 10,
                             }}
                         >
-                            {' '}
                             {info}
                         </Text>
                     </View>
