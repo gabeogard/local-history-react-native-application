@@ -4,13 +4,21 @@ import { facts } from '../res/quiz/facts.json'
 import { useState } from 'react'
 import { db } from '../firebase'
 import { collection, getDocs, query } from 'firebase/firestore/lite'
-import { styleButton, styles } from '../res/styling/factsStyling'
+import { styleButton, styles } from '../constants/factsStyling'
 import { useLoading } from '../hooks/useLoading'
 
 const NextButton = ({ handleNext }: { handleNext: () => void }) => (
     <TouchableOpacity onPress={handleNext}>
         <Text numberOfLines={1} adjustsFontSizeToFit style={styleButton.button}>
             Neste
+        </Text>
+    </TouchableOpacity>
+)
+
+const BackButton = ({ handlePrev }: { handlePrev: () => void }) => (
+    <TouchableOpacity onPress={handlePrev}>
+        <Text numberOfLines={1} adjustsFontSizeToFit style={styleButton.button}>
+            Tilbake
         </Text>
     </TouchableOpacity>
 )
@@ -179,7 +187,7 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
                         }}
                     >
                         <View>
-                            <NextButton handleNext={handleNext} />
+                            <BackButton handlePrev={handlePrev} />
                         </View>
 
                         <View>
