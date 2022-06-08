@@ -25,7 +25,7 @@ const BackButton = ({ handlePrev }: { handlePrev: () => void }) => (
 
 export const FactsScreen = ({ navigation }: { navigation: any }) => {
     const [curFact, setFact] = useState(0)
-    const [username, setUsername] = useState([])
+    const [factData, setFactData] = useState([])
     const [isLoading, withLoading] = useLoading()
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
                 const item: any = []
                 querySnapshot.forEach((doc) => {
                     item.push(doc.data())
-                    setUsername(item)
+                    setFactData(item)
                 })
             } catch (error) {
                 console.log(error)
@@ -73,7 +73,7 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
                     adjustsFontSizeToFit
                     style={{ fontSize: 50 }}
                 >
-                    {(username[curFact] as any)?.title}
+                    {(factData[curFact] as any)?.title}
                 </Text>
             </View>
 
@@ -98,7 +98,7 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
                         adjustsFontSizeToFit
                         style={{ fontSize: 15, padding: 10 }}
                     >
-                        {(username[curFact] as any)?.text}
+                        {(factData[curFact] as any)?.text}
                     </Text>
                 </View>
 
@@ -129,7 +129,7 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
                             }}
                             resizeMode={'stretch'}
                             source={{
-                                uri: (username[curFact] as any)?.image,
+                                uri: (factData[curFact] as any)?.image,
                             }}
                         />
                     </View>
