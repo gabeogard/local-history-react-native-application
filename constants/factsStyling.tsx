@@ -34,7 +34,15 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         top: '25%',
     },
-
+    titleContainer: {
+        width: '100%',
+        height: '30%',
+        backgroundColor: '#FFCB2F',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        borderBottomColor: 'black',
+        borderBottomWidth: 2,
+    },
     title: {
         fontWeight: 'bold',
         fontSize: 30,
@@ -54,6 +62,38 @@ export const styles = StyleSheet.create({
         paddingRight: '50%',
         fontSize: 20,
         top: '23%',
+    },
+    textAndImageCtr: {
+        flexDirection: 'row',
+        height: '70%',
+        width: '100%',
+        justifyContent: 'space-between',
+        backgroundColor: '#FFCB2F',
+    },
+    textCtr: {
+        width: '60%',
+        height: '100%',
+        justifyContent: 'center',
+    },
+    imageCtr: {
+        backgroundColor: '#FFCB2F',
+        width: '40%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1,
+    },
+    imageViewCtr: {
+        width: '90%',
+        height: '50%',
+        justifyContent: 'center',
+    },
+    imageBox: {
+        width: undefined,
+        height: undefined,
+        flex: 1,
+        borderWidth: 2,
+        borderRadius: 6,
     },
     buttonsNext: {
         backgroundColor: '#F5BFB6',

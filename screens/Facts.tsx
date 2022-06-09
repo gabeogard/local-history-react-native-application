@@ -54,17 +54,7 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
 
     const Facts = () => (
         <View style={{ flex: 1 }}>
-            <View
-                style={{
-                    width: '100%',
-                    height: '30%',
-                    backgroundColor: '#FFCB2F',
-                    justifyContent: 'space-evenly',
-                    alignItems: 'center',
-                    borderBottomColor: 'black',
-                    borderBottomWidth: 2,
-                }}
-            >
+            <View style={styles.titleContainer}>
                 <Text style={{ fontSize: 30, marginTop: 10 }}>
                     {[curFact + 1]}
                 </Text>
@@ -77,22 +67,8 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
                 </Text>
             </View>
 
-            <View
-                style={{
-                    flexDirection: 'row',
-                    height: '70%',
-                    width: '100%',
-                    justifyContent: 'space-between',
-                    backgroundColor: '#FFCB2F',
-                }}
-            >
-                <View
-                    style={{
-                        width: '60%',
-                        height: '100%',
-                        justifyContent: 'center',
-                    }}
-                >
+            <View style={styles.textAndImageCtr}>
+                <View style={styles.textCtr}>
                     <Text
                         numberOfLines={20}
                         adjustsFontSizeToFit
@@ -102,31 +78,10 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
                     </Text>
                 </View>
 
-                <View
-                    style={{
-                        backgroundColor: '#FFCB2F',
-                        width: '40%',
-                        height: '100%',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        zIndex: 1,
-                    }}
-                >
-                    <View
-                        style={{
-                            width: '90%',
-                            height: '50%',
-                            justifyContent: 'center',
-                        }}
-                    >
+                <View style={styles.imageCtr}>
+                    <View style={styles.imageViewCtr}>
                         <Image
-                            style={{
-                                width: undefined,
-                                height: undefined,
-                                flex: 1,
-                                borderWidth: 2,
-                                borderRadius: 6,
-                            }}
+                            style={styles.imageBox}
                             resizeMode={'stretch'}
                             source={{
                                 uri: (factData[curFact] as any)?.image,
