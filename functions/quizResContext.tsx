@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import React from 'react'
 import { db } from '../firebase'
 import { collection, getDocs } from 'firebase/firestore/lite'
 import { useLoading } from '../hooks/useLoading'
@@ -13,7 +14,6 @@ export const QuizResContextProvider = ({ children }: any) => {
     const [questions, setQuestions] = useState<DocumentData[]>([])
     const [facts, setFacts] = useState<DocumentData[]>([])
     const [isLoading, withLoading] = useLoading()
-    const [error, setError] = useState('')
 
     const fetchQuestions = async () =>
         withLoading(async () =>

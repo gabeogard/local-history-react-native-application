@@ -2,9 +2,9 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import {
     createUserWithEmailAndPassword,
     onAuthStateChanged,
+    sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signOut,
-    sendPasswordResetEmail,
     User,
 } from 'firebase/auth/'
 import { auth, db } from '../firebase'
@@ -40,12 +40,11 @@ export const UserContextProvider = ({
 
     useEffect(() => {
         setLoading(true)
-        const unsubscribe = onAuthStateChanged(auth, (res) => {
+        return onAuthStateChanged(auth, (res) => {
             res ? setUser(res) : setUser(null)
             setError('')
             setLoading(false)
         })
-        return unsubscribe
     }, [])
 
     const registerUser = async (
@@ -71,7 +70,6 @@ export const UserContextProvider = ({
                         username: username,
                         createdAt: dateString,
                     })
-                    console.log('user and username have been added')
                 }
             )
         } catch (error) {

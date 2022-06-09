@@ -1,13 +1,16 @@
 import { Alert, Image, StyleSheet, Text, View } from 'react-native'
 import { auth, db } from '../firebase'
 import { collection, getDocs, query } from 'firebase/firestore/lite'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUserContext } from '../functions/UserContext'
-import React from 'react'
 import { FontAwesome } from '@expo/vector-icons'
 
 export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
-    const [username, setUsername] = useState({})
+    const [username, setUsername] = useState({
+        score: '',
+        username: '',
+        createdAt: ''
+    })
     const { user } = useUserContext()
     const [isLoading, setLoading] = useState(false)
 
@@ -17,7 +20,7 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
 
     useEffect(() => {
         //refresh for getting updated score
-        const unsubscribe = navigation.addListener('focus', async () => {
+        return navigation.addListener('focus', async () => {
             setLoading(true)
             try {
                 const querySnapshot = await getDocs(q)
@@ -25,7 +28,6 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
                     // doc.data() is never undefined for query doc snapshots
                     if (doc.id == auth.currentUser?.uid) {
                         setUsername(doc.data() as any)
-                        console.log(doc.id, ' => ', doc.data())
                     }
                 })
                 setLoading(false)
@@ -33,10 +35,9 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
                 console.log(error)
             }
         })
-        return unsubscribe
     }, [navigation])
 
-    console.log(username.score)
+
     if (isLoading) {
         return (
             <View style={styles.loadingScreen}>
@@ -53,7 +54,7 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
             },
             {
                 text: 'Lagre',
-                onPress: (text) => setText(text),
+                onPress: (text) => setText(text!),
             },
         ])
     }
@@ -107,7 +108,7 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
                             adjustsFontSizeToFit
                             style={styles.text}
                         >
-                            Bruker:{' '}
+                            Broker:{' '}
                             <Text style={styles.textUsername}>
                                 {username.username}
                             </Text>

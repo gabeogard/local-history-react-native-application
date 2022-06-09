@@ -1,3 +1,4 @@
+import React from 'react'
 import { Text, TextProps } from './Themed'
 
 const MonoText = (props: TextProps) =>

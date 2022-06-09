@@ -1,11 +1,11 @@
-import * as WebBrowser from 'expo-web-browser'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import React from 'react'
+import { StyleSheet } from 'react-native'
 
 import Colors from '../constants/Colors'
-import { MonoText } from './StyledText'
+import MonoText  from './StyledText'
 import { Text, View } from './Themed'
 
-const EditScreenInfo = ({ path }: { path: string }) =>
+const EditScreenInfo = () =>
     (
         <View>
             <View style={styles.getStartedContainer}>

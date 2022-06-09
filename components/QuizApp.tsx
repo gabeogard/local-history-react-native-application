@@ -9,12 +9,6 @@ import { doc, getDocs, collection, updateDoc } from 'firebase/firestore/lite'
 import { CustomModal } from './CustomModal'
 import { useUserContext } from '../functions/UserContext'
 
-interface Question {
-    answers: string[]
-    correctOption: string
-    question: string
-}
-
 // TODO: typ opp questions
 const Questions = ({
     currentQuestionIndex,
@@ -278,12 +272,6 @@ const useQuiz = () => {
         } else {
             alert('Du må være pålogget for å dele poengene dine.')
         }
-        console.log(
-            'Points submitted:',
-            score,
-            'points for',
-            auth.currentUser?.email
-        )
     }
 
     return {

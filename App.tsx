@@ -4,6 +4,7 @@ import useCachedResources from './hooks/useCachedResources'
 import useColorScheme from './hooks/useColorScheme'
 import Navigation from './navigation'
 import { UserContextProvider } from './functions/UserContext'
+import React from 'react'
 
 const App = () => {
     const isLoadingComplete = useCachedResources()

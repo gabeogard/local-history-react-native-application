@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { View } from '../components/Themed'
 import { QuizApp } from '../components/QuizApp'
-import Navigation from '../navigation'
+import React from 'react'
 
 const QuizScreen = ({ navigation }: { navigation: any }) => (
     <View style={styles.container}>
