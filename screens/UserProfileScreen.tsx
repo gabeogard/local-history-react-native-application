@@ -65,7 +65,7 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
                         await updateDoc(animalRef, {
                             animal: text,
                         })
-                        props.navigation.push('userProfile')
+                        props.navigation.navigate('userProfile')
                     },
                 },
             ])

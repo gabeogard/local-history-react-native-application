@@ -8,6 +8,7 @@ import {
     Text,
 } from 'react-native'
 import { useUserContext } from '../functions/UserContext'
+import { auth } from '../firebase'
 
 const NavigationAuth = ({
     navigation,
@@ -19,7 +20,11 @@ const NavigationAuth = ({
     <>
         <Pressable
             style={[styles.Pressable, styles.shadow]}
-            onPress={() => navigation.navigate(route)}
+            onPress={() =>
+                auth.currentUser
+                    ? navigation.navigate(route, { screen: 'Leaderboard' })
+                    : navigation.navigate(route)
+            }
         >
             <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button}>
                 {text}
@@ -93,7 +98,9 @@ const Home = ({ navigation }: { navigation: any }) => {
                 <View style={styles.buttonContainer}>
                     <Pressable
                         style={[styles.Pressable, styles.shadow]}
-                        onPress={() => navigation.navigate('TabTwo')}
+                        onPress={() =>
+                            navigation.navigate('TabTwo', { screen: 'Quiz' })
+                        }
                     >
                         <Text
                             numberOfLines={1}
@@ -107,10 +114,10 @@ const Home = ({ navigation }: { navigation: any }) => {
                     {(user as any)?.email ? (
                         <NavigationAuth
                             navigation={navigation}
-                            route={'fakta'}
-                            text={'Gå til fakta'}
-                            routeTwo={'userProfile'}
-                            textTwo={'Profile'}
+                            route={'TabTwo'}
+                            text={'Leaderboard'}
+                            routeTwo={'fakta'}
+                            textTwo={'Gå til fakta'}
                         />
                     ) : (
                         <NavigationAuth
