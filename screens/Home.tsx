@@ -20,11 +20,7 @@ const NavigationAuth = ({
     <>
         <Pressable
             style={[styles.Pressable, styles.shadow]}
-            onPress={() =>
-                auth.currentUser
-                    ? navigation.navigate(route, { screen: 'Leaderboard' })
-                    : navigation.navigate(route)
-            }
+            onPress={() => navigation.navigate(route)}
         >
             <Text numberOfLines={1} adjustsFontSizeToFit style={styles.button}>
                 {text}
@@ -98,9 +94,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                 <View style={styles.buttonContainer}>
                     <Pressable
                         style={[styles.Pressable, styles.shadow]}
-                        onPress={() =>
-                            navigation.navigate('TabTwo', { screen: 'Quiz' })
-                        }
+                        onPress={() => navigation.navigate('TabTwo')}
                     >
                         <Text
                             numberOfLines={1}
@@ -114,8 +108,8 @@ const Home = ({ navigation }: { navigation: any }) => {
                     {(user as any)?.email ? (
                         <NavigationAuth
                             navigation={navigation}
-                            route={'TabTwo'}
-                            text={'Leaderboard'}
+                            route={'map'}
+                            text={'Kart over stien'}
                             routeTwo={'fakta'}
                             textTwo={'Gå til fakta'}
                         />

@@ -176,7 +176,6 @@ const BottomTabNavigator = () => {
                 }}
             />
             <BottomTab.Screen
-                navigationKey={'Quiz'}
                 name="TabTwo"
                 component={QuizStack}
                 options={{
