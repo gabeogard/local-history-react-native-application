@@ -53,21 +53,8 @@ export const LeaderboardScreen = () => {
         <View style={styles.outsideFlexBox}>
             <View style={styles.leaderBoardBox}>
                 <View style={{ height: '100%', width: '80%' }}>
-                    <View
-                        style={{
-                            height: '20%',
-                            width: '100%',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <View
-                            style={{
-                                width: '50%',
-                                height: '40%',
-                                alignItems: 'center',
-                            }}
-                        >
+                    <View style={styles.leaderBoardTitleBox}>
+                        <View style={styles.leaderBoard}>
                             <Text
                                 numberOfLines={1}
                                 adjustsFontSizeToFit
@@ -89,15 +76,7 @@ export const LeaderboardScreen = () => {
                         </TouchableOpacity>
                     </View>
 
-                    <View
-                        style={{
-                            height: '70%',
-                            width: '100%',
-                            borderRadius: 6,
-                            borderWidth: 1,
-                            backgroundColor: 'white',
-                        }}
-                    >
+                    <View style={styles.flatListCtr}>
                         <FlatList
                             style={{ flex: 1 }}
                             data={allPoints}

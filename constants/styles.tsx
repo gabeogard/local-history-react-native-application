@@ -61,6 +61,17 @@ export const styles = StyleSheet.create({
         shadowOpacity: 0.5,
         shadowRadius: 4,
     },
+    leaderBoardTitleBox: {
+        height: '20%',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    leaderBoard: {
+        width: '50%',
+        height: '40%',
+        alignItems: 'center',
+    },
     modalContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -143,6 +154,13 @@ export const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+    },
+    flatListCtr: {
+        height: '70%',
+        width: '100%',
+        borderRadius: 6,
+        borderWidth: 1,
+        backgroundColor: 'white',
     },
     refreshBtn: {
         height: '35%',
