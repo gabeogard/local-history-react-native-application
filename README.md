@@ -19,4 +19,4 @@ for the full experience. The application is currently optimized for iOS devices 
 
 Technology used:
 =====================================
-[![Tech Used](https://skillicons.dev/icons?i=react,ts,firebase&perline=3)](https://skillicons.dev)
+[![Tech Used](https://skillicons.dev/icons?i=react,ts,firebase,figma&perline=4)](https://skillicons.dev)
