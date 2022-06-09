@@ -16,3 +16,4 @@ for the full experience. The application is currently optimized for iOS devices 
 (If you find issues following the instructions, the terimal will also display tips on you to run the app after using the ```npm run start``` command)
 - Final step: Enjoy :)
 
+[![Tech Used](https://skillicons.dev/icons?i=react,ts,firebase&perline=3)](https://skillicons.dev)
