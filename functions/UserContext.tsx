@@ -11,6 +11,7 @@ import { auth, db } from '../firebase'
 import { doc, setDoc } from 'firebase/firestore/lite'
 import { Alert } from 'react-native'
 import { ErrorHandler } from './ErrorHandler'
+import { useLoading } from '../hooks/useLoading'
 
 const UserContext = createContext({})
 
@@ -36,14 +37,12 @@ export const UserContextProvider = ({
 }) => {
     const [user, setUser] = useState<User | null>(null)
     const [error, setError] = useState('')
-    const [isLoading, setLoading] = useState(false)
+    const [isLoading, withLoading] = useLoading()
 
     useEffect(() => {
-        setLoading(true)
         return onAuthStateChanged(auth, (res) => {
             res ? setUser(res) : setUser(null)
             setError('')
-            setLoading(false)
         })
     }, [])
 
@@ -52,42 +51,31 @@ export const UserContextProvider = ({
         username: string,
         password: string
     ) => {
-        const currentDate = new Date()
-        const currentDayOfMonth = currentDate.getDate()
-        const currentMonth = currentDate.getMonth() // Be careful! January is 0, not 1
-        const currentYear = currentDate.getFullYear()
-
-        const dateString =
-            currentDayOfMonth + '-' + (currentMonth + 1) + '-' + currentYear
-        // "27-11-2020"
-
-        setLoading(true)
-        try {
-            await createUserWithEmailAndPassword(auth, email, password).then(
-                (userData) => {
-                    const docRef = doc(db, 'users', userData.user.uid)
-                    setDoc(docRef, {
-                        username: username,
-                        createdAt: dateString,
-                    })
-                }
-            )
-        } catch (error) {
-            ErrorHandler(error)
-        } finally {
-            setLoading(false)
-        }
+        await withLoading(async () => {
+            try {
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                ).then(({ user: { uid } }) => {
+                    const docRef = doc(db, 'users', uid)
+                    setDoc(docRef, { username: username })
+                    console.log('user and username have been added')
+                })
+            } catch (error: any) {
+                alert(error.message)
+            }
+        })
     }
 
     const signInUser = async (email: string, password: string) => {
-        setLoading(true)
-        try {
-            await signInWithEmailAndPassword(auth, email, password)
-        } catch (error) {
-            ErrorHandler(error)
-        } finally {
-            setLoading(false)
-        }
+        await withLoading(async () => {
+            try {
+                await signInWithEmailAndPassword(auth, email, password)
+            } catch (error) {
+                ErrorHandler(error)
+            }
+        })
     }
 
     const logoutUser = () => {
@@ -101,17 +89,17 @@ export const UserContextProvider = ({
     }
 
     const forgotPassword = async (email: string) => {
-        try {
-            await sendPasswordResetEmail(auth, email)
-            Alert.alert(
-                'Vellykket',
-                'Du har fått en melding på din e-postadresse'
-            )
-        } catch (error) {
-            ErrorHandler(error)
-        } finally {
-            setLoading(false)
-        }
+        await withLoading(async () => {
+            try {
+                await sendPasswordResetEmail(auth, email)
+                Alert.alert(
+                    'Vellykket',
+                    'Du har fått en melding på din e-postadresse'
+                )
+            } catch (error: any) {
+                alert(error.message)
+            }
+        })
     }
 
     const contextValue = {

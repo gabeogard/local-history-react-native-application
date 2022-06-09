@@ -41,13 +41,13 @@ export const FactsScreen = ({ navigation }: { navigation: any }) => {
             } catch (error) {
                 console.log(error)
             }
-        })
+        }).then(() => {})
     }, [])
 
     if (isLoading) {
         return (
             <View style={styles.loadingScreen}>
-                <Text>Logger inn...</Text>
+                <Text>Laster...</Text>
             </View>
         )
     }
