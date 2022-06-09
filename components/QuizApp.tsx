@@ -1,5 +1,5 @@
 import { Text, View } from './Themed'
-import {Alert, TouchableOpacity} from 'react-native'
+import { Alert, TouchableOpacity } from 'react-native'
 import { styles } from '../constants/styles'
 import * as React from 'react'
 import { useEffect, useState } from 'react'
@@ -68,15 +68,7 @@ const Options = ({
     correctOption: string
     currentSelectedOption?: string
 }) => (
-    <View
-        style={{
-            width: '100%',
-            height: '100%',
-            backgroundColor: '#FFCB2F',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-        }}
-    >
+    <View style={styles.optionCtr}>
         {questions[currentQuestionIndex]?.answers.map((option: string) => (
             <TouchableOpacity
                 onPress={() => validateAnswer(option)}
@@ -158,7 +150,10 @@ const ShareButton = ({
             <Text
                 numberOfLines={1}
                 adjustsFontSizeToFit
-                style={styles.answerBtnText}>Fullfør og del</Text>
+                style={styles.answerBtnText}
+            >
+                Fullfør og del
+            </Text>
         </TouchableOpacity>
     )
     return user !== null ? btn : null
@@ -267,7 +262,10 @@ const useQuiz = () => {
         if (auth.currentUser?.uid !== undefined) {
             const docRef = doc(db, 'users', auth.currentUser.uid)
             await updateDoc(docRef, docData)
-            Alert.alert("Gratulerer",'Din poengsum ble delt på poengtavlen! :)')
+            Alert.alert(
+                'Gratulerer',
+                'Din poengsum ble delt på poengtavlen! :)'
+            )
             restartQuiz()
         } else {
             alert('Du må være pålogget for å dele poengene dine.')
@@ -307,15 +305,7 @@ export const QuizApp = ({ navigation }: { navigation: any }) => {
     } = useQuiz()
 
     return (
-        <View
-            style={{
-                height: '100%',
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#FBF4E6',
-            }}
-        >
+        <View style={styles.showQuizCtr}>
             <View style={styles.textBox}>
                 <View
                     style={{
@@ -331,14 +321,7 @@ export const QuizApp = ({ navigation }: { navigation: any }) => {
                     />
                 </View>
 
-                <View
-                    style={{
-                        height: '40%',
-                        width: '95%',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
+                <View style={styles.showOptionCtr}>
                     <Options
                         currentQuestionIndex={currentQuestionIndex}
                         questions={questions}
@@ -349,14 +332,7 @@ export const QuizApp = ({ navigation }: { navigation: any }) => {
                     />
                 </View>
 
-                <View
-                    style={{
-                        height: '15%',
-                        width: '95%',
-                        alignItems: 'center',
-                        backgroundColor: '#FFCB2F',
-                    }}
-                >
+                <View style={styles.showButtonCtr}>
                     {showNextButton && <NextButton handleNext={handleNext} />}
 
                     <QuizModal

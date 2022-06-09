@@ -7,6 +7,32 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#FBF4E6',
     },
+    optionCtr: {
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#FFCB2F',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+    },
+    showQuizCtr: {
+        height: '100%',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#FBF4E6',
+    },
+    showOptionCtr: {
+        height: '40%',
+        width: '95%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    showButtonCtr: {
+        height: '15%',
+        width: '95%',
+        alignItems: 'center',
+        backgroundColor: '#FFCB2F',
+    },
     textBox: {
         width: '85%',
         height: '70%',
@@ -86,7 +112,7 @@ export const styles = StyleSheet.create({
         padding: 3,
         backgroundColor: '#e3eef0',
         overflow: 'hidden',
-        color: "#000000",
+        color: '#000000',
     },
     item: {
         flex: 1,
