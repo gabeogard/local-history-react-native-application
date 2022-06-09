@@ -93,9 +93,7 @@ export const LoginScreen = ({ navigation }: { navigation: any }) => {
                         </View>
                         <Pressable
                             style={styles.registerCtr}
-                            onPress={() =>
-                                navigation.navigate('CreateAccrount')
-                            }
+                            onPress={() => navigation.navigate('createAccount')}
                         >
                             <Text
                                 numberOfLines={1}

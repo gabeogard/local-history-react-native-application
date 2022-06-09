@@ -1,4 +1,3 @@
-
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import {
     DarkTheme,
@@ -37,7 +36,6 @@ const Navigation = ({ colorScheme }: { colorScheme: ColorSchemeName }) => (
     </NavigationContainer>
 )
 
-
 const Stack = createNativeStackNavigator<RootStackParamList>()
 const BottomTab = createBottomTabNavigator()
 
@@ -64,7 +62,7 @@ const HomeStack = () => (
             options={{ headerShown: false }}
         />
         <Stack.Screen
-            name="CreateAccrount"
+            name="createAccount"
             component={CreateAccount}
             options={{
                 headerTitle: () => false,

@@ -10,12 +10,12 @@ import {
 import { useUserContext } from '../functions/UserContext'
 
 const NavigationAuth = ({
-                            navigation,
-                            route,
-                            routeTwo,
-                            text,
-                            textTwo,
-                        }: any) => (
+    navigation,
+    route,
+    routeTwo,
+    text,
+    textTwo,
+}: any) => (
     <>
         <Pressable
             style={[styles.Pressable, styles.shadow]}
@@ -93,7 +93,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                 <View style={styles.buttonContainer}>
                     <Pressable
                         style={[styles.Pressable, styles.shadow]}
-                        onPress={() => alert('Spill som gjest')}
+                        onPress={() => navigation.navigate('TabTwo')}
                     >
                         <Text
                             numberOfLines={1}
@@ -117,7 +117,7 @@ const Home = ({ navigation }: { navigation: any }) => {
                             navigation={navigation}
                             route={'Third'}
                             text={'Logg inn'}
-                            routeTwo={'CreateAccrount'}
+                            routeTwo={'createAccount'}
                             textTwo={'Registrer'}
                         />
                     )}
