@@ -77,38 +77,19 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
             <View style={[styles.profileHeader, styles.shadow]}>
                 <View style={{ justifyContent: 'flex-end' }}>
                     <Image
-                        style={{
-                            width: 150,
-                            height: 150,
-                            tintColor: '#3F474C',
-                        }}
+                        style={styles.profileIcon}
                         source={require('../res/images/profile/icon-account.png')}
                     />
                 </View>
 
-                <View style={{ flex: 1, justifyContent: 'center' }}>
+                <View style={styles.profile}>
                     <View style={{ alignItems: 'center' }}>
-                        <Text
-                            style={{
-                                justifyContent: 'center',
-                                fontWeight: 'bold',
-                                color: '#3F474C',
-                            }}
-                        >
-                            Info:{' '}
-                        </Text>
+                        <Text style={styles.info}>Info: </Text>
                     </View>
 
-                    <View
-                        style={{
-                            borderTopWidth: 1,
-                            marginTop: 5,
-                            marginBottom: 5,
-                            borderColor: '#3F474C',
-                        }}
-                    ></View>
+                    <View style={styles.empty}></View>
 
-                    <View style={{ width: '97%' }}>
+                    <View style={styles.email}>
                         <Text
                             numberOfLines={1}
                             adjustsFontSizeToFit
@@ -130,92 +111,26 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
                 </View>
             </View>
 
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    width: '100%',
-                    marginTop: '10%',
-                    marginBottom: '15%',
-                }}
-            >
-                <View
-                    style={{
-                        flex: 1,
-                        alignItems: 'center',
-                        justifyContent: 'space-evenly',
-                    }}
-                >
-                    <View
-                        style={{
-                            backgroundColor: '#e3eef0',
-                            width: '92%',
-                            height: '15%',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
+            <View style={styles.fieldContainer}>
+                <View style={styles.leftFieldCtr}>
+                    <View style={styles.status}>
                         <Text>Status:</Text>
                     </View>
-                    <View
-                        style={{
-                            backgroundColor: '#e3eef0',
-                            width: '92%',
-                            height: '15%',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
+                    <View style={styles.animal}>
                         <Text>Favoritt dyr:</Text>
                     </View>
-                    <View
-                        style={{
-                            backgroundColor: '#e3eef0',
-                            width: '92%',
-                            height: '15%',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
+                    <View style={styles.quiz}>
                         <Text>Quiz resultat:</Text>
                     </View>
                 </View>
 
-                <View
-                    style={{
-                        flex: 2,
-                        alignItems: 'center',
-                        justifyContent: 'space-evenly',
-                    }}
-                >
-                    <View style={{ width: '95%', height: '15%' }}>
-                        <View
-                            style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                            }}
-                        >
-                            <View
-                                style={{
-                                    backgroundColor: '#3F474C',
-                                    width: '30%',
-                                    height: '100%',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
+                <View style={styles.rightFieldCtr}>
+                    <View style={styles.RightFieldView}>
+                        <View style={styles.rightFieldRow}>
+                            <View style={styles.online}>
                                 <Text style={styles.textFlex}>Online</Text>
                             </View>
-                            <View
-                                style={{
-                                    backgroundColor: '#3F474C',
-                                    width: '68%',
-                                    height: '100%',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
+                            <View style={styles.date}>
                                 <Text
                                     numberOfLines={1}
                                     adjustsFontSizeToFit
@@ -227,18 +142,7 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
                         </View>
                     </View>
 
-                    <View
-                        style={{
-                            backgroundColor: '#3F474C',
-                            width: '95%',
-                            height: '15%',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            paddingLeft: '6%',
-                            paddingRight: '3%',
-                        }}
-                    >
+                    <View style={styles.animalText}>
                         <Text
                             numberOfLines={1}
                             adjustsFontSizeToFit
@@ -258,36 +162,14 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
                         />
                     </View>
 
-                    <View style={{ width: '95%', height: '15%' }}>
-                        <View
-                            style={{
-                                flex: 1,
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                            }}
-                        >
-                            <View
-                                style={{
-                                    backgroundColor: '#3F474C',
-                                    width: '70%',
-                                    height: '100%',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
+                    <View style={styles.quizScoreCtr}>
+                        <View style={styles.quizRow}>
+                            <View style={styles.scoreText}>
                                 <Text style={styles.textFlex}>
                                     Din score er
                                 </Text>
                             </View>
-                            <View
-                                style={{
-                                    backgroundColor: '#3F474C',
-                                    width: '28%',
-                                    height: '100%',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
+                            <View style={styles.score}>
                                 {/*må fixes med refresh*/}
                                 {username.score ? (
                                     <Text style={styles.textFlex}>
@@ -324,6 +206,123 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '40%',
         borderBottomEndRadius: 100,
+    },
+    profileIcon: {
+        width: 150,
+        height: 150,
+        tintColor: '#3F474C',
+    },
+    profile: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    info: {
+        justifyContent: 'center',
+        fontWeight: 'bold',
+        color: '#3F474C',
+    },
+    empty: {
+        borderTopWidth: 1,
+        marginTop: 5,
+        marginBottom: 5,
+        borderColor: '#3F474C',
+    },
+    email: {
+        width: '97%',
+    },
+    fieldContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        width: '100%',
+        marginTop: '10%',
+        marginBottom: '15%',
+    },
+    leftFieldCtr: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+    },
+    status: {
+        backgroundColor: '#e3eef0',
+        width: '92%',
+        height: '15%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    animal: {
+        backgroundColor: '#e3eef0',
+        width: '92%',
+        height: '15%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    quiz: {
+        backgroundColor: '#e3eef0',
+        width: '92%',
+        height: '15%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    rightFieldCtr: {
+        flex: 2,
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+    },
+    RightFieldView: {
+        width: '95%',
+        height: '15%',
+    },
+    rightFieldRow: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    online: {
+        backgroundColor: '#3F474C',
+        width: '30%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    date: {
+        backgroundColor: '#3F474C',
+        width: '68%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    animalText: {
+        backgroundColor: '#3F474C',
+        width: '95%',
+        height: '15%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingLeft: '6%',
+        paddingRight: '3%',
+    },
+    quizScoreCtr: {
+        width: '95%',
+        height: '15%',
+    },
+    quizRow: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    scoreText: {
+        backgroundColor: '#3F474C',
+        width: '70%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    score: {
+        backgroundColor: '#3F474C',
+        width: '28%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     text: {
         marginBottom: 2,
