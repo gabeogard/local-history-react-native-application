@@ -47,7 +47,7 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
     }
 
     const getInfo = () => {
-        Alert.prompt('Mat', 'Hva liker du å spise?', [
+        Alert.prompt('Dyr', 'Hva er ditt favoritt dyr?', [
             {
                 text: 'Avbryt',
                 style: 'cancel',
@@ -108,7 +108,7 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
                             adjustsFontSizeToFit
                             style={styles.text}
                         >
-                            Broker:{' '}
+                            Bruker:{' '}
                             <Text style={styles.textUsername}>
                                 {username.username}
                             </Text>
@@ -153,7 +153,7 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
                             alignItems: 'center',
                         }}
                     >
-                        <Text>Bio:</Text>
+                        <Text>Favoritt dyr:</Text>
                     </View>
                     <View
                         style={{
