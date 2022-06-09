@@ -8,7 +8,6 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import * as React from 'react'
 import { ColorSchemeName, Dimensions, Image, StyleSheet } from 'react-native'
-import ModalScreen from '../screens/ModalScreen'
 import NotFoundScreen from '../screens/NotFoundScreen'
 import Home from '../screens/Home'
 import QuizScreen from '../screens/QuizScreen'
@@ -54,9 +53,6 @@ const RootNavigator = () => (
             component={NotFoundScreen}
             options={{ title: 'Oops!' }}
         />
-        <Stack.Group screenOptions={{ presentation: 'modal' }}>
-            <Stack.Screen name="Modal" component={ModalScreen} />
-        </Stack.Group>
     </Stack.Navigator>
 )
 
