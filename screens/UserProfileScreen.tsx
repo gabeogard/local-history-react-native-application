@@ -2,19 +2,20 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import { auth, db } from '../firebase'
 import { collection, getDocs, query } from 'firebase/firestore/lite'
 import { useEffect, useState } from 'react'
-import { useLoading } from '../hooks/useLoading'
 import { useUserContext } from '../functions/UserContext'
 import React from 'react'
 
-export const UserProfileScreen = () => {
+export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
     const [username, setUsername] = useState({})
     const { user } = useUserContext()
-    const [isLoading, withLoading] = useLoading()
+    const [isLoading, setLoading] = useState(false)
 
     const q = query(collection(db, 'users'))
 
     useEffect(() => {
-        withLoading(async () => {
+        //refresh for getting updated score
+        const unsubscribe = navigation.addListener('focus', async () => {
+            setLoading(true)
             try {
                 const querySnapshot = await getDocs(q)
                 querySnapshot.forEach((doc) => {
@@ -24,11 +25,13 @@ export const UserProfileScreen = () => {
                         console.log(doc.id, ' => ', doc.data())
                     }
                 })
+                setLoading(false)
             } catch (error) {
                 console.log(error)
             }
         })
-    }, [])
+        return unsubscribe
+    }, [navigation])
 
     console.log(username.score)
     if (isLoading) {
@@ -188,7 +191,7 @@ export const UserProfileScreen = () => {
                                     adjustsFontSizeToFit
                                     style={styles.textFlex}
                                 >
-                                    Opprettet {username?.createdAt}
+                                    Opprettet: {username?.createdAt}
                                 </Text>
                             </View>
                         </View>
@@ -236,6 +239,7 @@ export const UserProfileScreen = () => {
                                     alignItems: 'center',
                                 }}
                             >
+                                {/*må fixes med refresh*/}
                                 {username.score ? (
                                     <Text style={styles.textFlex}>
                                         {username.score}
