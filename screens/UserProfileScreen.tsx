@@ -1,19 +1,24 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Alert, Image, StyleSheet, Text, View } from 'react-native'
 import { auth, db } from '../firebase'
 import { collection, getDocs, query } from 'firebase/firestore/lite'
 import { useEffect, useState } from 'react'
-import { useLoading } from '../hooks/useLoading'
 import { useUserContext } from '../functions/UserContext'
+import React from 'react'
+import { FontAwesome } from '@expo/vector-icons'
 
-export const UserProfileScreen = () => {
+export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
     const [username, setUsername] = useState({})
     const { user } = useUserContext()
-    const [isLoading, withLoading] = useLoading()
+    const [isLoading, setLoading] = useState(false)
+
+    const [text, setText] = useState('')
 
     const q = query(collection(db, 'users'))
 
     useEffect(() => {
-        withLoading(async () => {
+        //refresh for getting updated score
+        const unsubscribe = navigation.addListener('focus', async () => {
+            setLoading(true)
             try {
                 const querySnapshot = await getDocs(q)
                 querySnapshot.forEach((doc) => {
@@ -23,11 +28,13 @@ export const UserProfileScreen = () => {
                         console.log(doc.id, ' => ', doc.data())
                     }
                 })
+                setLoading(false)
             } catch (error) {
                 console.log(error)
             }
         })
-    }, [])
+        return unsubscribe
+    }, [navigation])
 
     console.log(username.score)
     if (isLoading) {
@@ -36,6 +43,19 @@ export const UserProfileScreen = () => {
                 <Text>Laster...</Text>
             </View>
         )
+    }
+
+    const getInfo = () => {
+        Alert.prompt('Mat', 'Hva liker du å spise?', [
+            {
+                text: 'Avbryt',
+                style: 'cancel',
+            },
+            {
+                text: 'Lagre',
+                onPress: (text) => setText(text),
+            },
+        ])
     }
 
     return (
@@ -80,7 +100,7 @@ export const UserProfileScreen = () => {
                             adjustsFontSizeToFit
                             style={styles.text}
                         >
-                            {auth.currentUser?.email}
+                            {user?.email}
                         </Text>
                         <Text
                             numberOfLines={1}
@@ -182,8 +202,12 @@ export const UserProfileScreen = () => {
                                     alignItems: 'center',
                                 }}
                             >
-                                <Text style={styles.textFlex}>
-                                    Date/opprettet
+                                <Text
+                                    numberOfLines={1}
+                                    adjustsFontSizeToFit
+                                    style={styles.textFlex}
+                                >
+                                    Opprettet: {username?.createdAt}
                                 </Text>
                             </View>
                         </View>
@@ -194,11 +218,28 @@ export const UserProfileScreen = () => {
                             backgroundColor: '#3F474C',
                             width: '95%',
                             height: '15%',
-                            justifyContent: 'center',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
                             alignItems: 'center',
+                            paddingLeft: '6%',
+                            paddingRight: '3%',
                         }}
                     >
-                        <Text style={styles.textFlex}>Her kan vi bestemme</Text>
+                        <Text
+                            numberOfLines={1}
+                            adjustsFontSizeToFit
+                            style={styles.textFlex}
+                        >
+                            {text ? text : 'skriv noe'}
+                        </Text>
+
+                        <FontAwesome
+                            onPress={() => getInfo()}
+                            style={{ fontSize: 30 }}
+                            adjustsFontSizeToFit
+                            name="edit"
+                            color="#e3eef0"
+                        />
                     </View>
 
                     <View style={{ width: '95%', height: '15%' }}>
@@ -231,7 +272,14 @@ export const UserProfileScreen = () => {
                                     alignItems: 'center',
                                 }}
                             >
-                                <Text style={styles.textFlex}>{username.score}</Text>
+                                {/*må fixes med refresh*/}
+                                {username.score ? (
+                                    <Text style={styles.textFlex}>
+                                        {username.score}
+                                    </Text>
+                                ) : (
+                                    <Text style={styles.textFlex}>0</Text>
+                                )}
                             </View>
                         </View>
                     </View>

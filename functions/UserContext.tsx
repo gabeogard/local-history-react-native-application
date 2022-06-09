@@ -53,6 +53,15 @@ export const UserContextProvider = ({
         username: string,
         password: string
     ) => {
+        const currentDate = new Date()
+        const currentDayOfMonth = currentDate.getDate()
+        const currentMonth = currentDate.getMonth() // Be careful! January is 0, not 1
+        const currentYear = currentDate.getFullYear()
+
+        const dateString =
+            currentDayOfMonth + '-' + (currentMonth + 1) + '-' + currentYear
+        // "27-11-2020"
+
         setLoading(true)
         try {
             await createUserWithEmailAndPassword(auth, email, password).then(
@@ -60,26 +69,13 @@ export const UserContextProvider = ({
                     const docRef = doc(db, 'users', userData.user.uid)
                     setDoc(docRef, {
                         username: username,
-                        createdAt: new Date(),
+                        createdAt: dateString,
                     })
                     console.log('user and username have been added')
                 }
             )
         } catch (error) {
-            if (error.message === "Firebase: Error (auth/invalid-email).") {
-                Alert.alert("Ugyldig epost", "Prøv igjen");
-            } else if (error.message === "Firebase: Error (auth/wrong-password).") {
-                Alert.alert("Ugyldig password", "Prøv igjen");
-            }else if (error.message === "Firebase: Error (auth/user-not-found).") {
-                Alert.alert("Finner ikke bruker.", " Vennligst registrer deg.")
-            } else if (error.message === "Firebase: Error (auth/missing-email).") {
-                Alert.alert("Du mangler Epost.", "Skriv inn Epost")
-            }else if (error.message === "Firebase: Password should be at least 6 characters (auth/weak-password).") {
-                Alert.alert("Du har valgt et svakt passord.", "Du må minimum ha 6 tegn.")
-            }
-            else {
-                alert(error.message);
-            }
+            ErrorHandler(error)
         } finally {
             setLoading(false)
         }
@@ -114,7 +110,7 @@ export const UserContextProvider = ({
                 'Du har fått en melding på din e-postadresse'
             )
         } catch (error) {
-            alert(error.message)
+            ErrorHandler(error)
         } finally {
             setLoading(false)
         }
