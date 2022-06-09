@@ -1,6 +1,12 @@
 import { Alert, Image, StyleSheet, Text, View } from 'react-native'
 import { auth, db } from '../firebase'
-import { collection, getDocs, query } from 'firebase/firestore/lite'
+import {
+    collection,
+    doc,
+    getDocs,
+    query,
+    updateDoc,
+} from 'firebase/firestore/lite'
 import React, { useEffect, useState } from 'react'
 import { useUserContext } from '../functions/UserContext'
 import { FontAwesome } from '@expo/vector-icons'
@@ -9,12 +15,11 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
     const [username, setUsername] = useState({
         score: '',
         username: '',
-        createdAt: ''
+        createdAt: '',
+        animal: '',
     })
     const { user } = useUserContext()
     const [isLoading, setLoading] = useState(false)
-
-    const [text, setText] = useState('')
 
     const q = query(collection(db, 'users'))
 
@@ -37,7 +42,6 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
         })
     }, [navigation])
 
-
     if (isLoading) {
         return (
             <View style={styles.loadingScreen}>
@@ -46,17 +50,26 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
         )
     }
 
-    const getInfo = () => {
-        Alert.prompt('Dyr', 'Hva er ditt favoritt dyr?', [
-            {
-                text: 'Avbryt',
-                style: 'cancel',
-            },
-            {
-                text: 'Lagre',
-                onPress: (text) => setText(text!),
-            },
-        ])
+    const getInfo = (props: any) => {
+        if (user?.uid) {
+            const animalRef = doc(db, 'users', user?.uid)
+
+            Alert.prompt('Dyr', 'Hva er ditt favoritt dyr?', [
+                {
+                    text: 'Avbryt',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Lagre',
+                    onPress: async (text) => {
+                        await updateDoc(animalRef, {
+                            animal: text,
+                        })
+                        props.navigation.push('userProfile')
+                    },
+                },
+            ])
+        }
     }
 
     return (
@@ -231,11 +244,13 @@ export const UserProfileScreen = ({ navigation }: { navigation: any }) => {
                             adjustsFontSizeToFit
                             style={styles.textFlex}
                         >
-                            {text ? text : 'skriv noe'}
+                            {username.animal
+                                ? username.animal
+                                : 'Legg til favoritt dyr'}
                         </Text>
 
                         <FontAwesome
-                            onPress={() => getInfo()}
+                            onPress={() => getInfo({ navigation })}
                             style={{ fontSize: 30 }}
                             adjustsFontSizeToFit
                             name="edit"
